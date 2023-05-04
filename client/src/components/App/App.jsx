@@ -23,6 +23,7 @@ const App = () => {
     <main>
       <h2>Tasks</h2>
       <div className={c.tasks}>
+        {console.log(tasks)}
         {tasks.length > 0 ? (
           tasks.map(({ id, description }) => (
             <div key={id}>
