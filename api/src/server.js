@@ -1,49 +1,71 @@
+/** @format */
+
 import express from "express";
+// import pg from "pg";
 
-import pg from "pg";
-
-const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+// const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 const app = express();
-
 app.use(express.json());
 
-app.get("/api/tasks", async (req, res, next) => {
-  const result = await db.query("SELECT * FROM tasks").catch(next);
-  res.send(result.rows);
-});
+// ATTEMPTS TABLE ROUTES
+import attemptsController from "./routesAttempts.js";
+app.get("/attempts", attemptsController.findAll);
+app.get("/attempt/:id", attemptsController.findOne);
+app.get("/attempts/student/:id", attemptsController.findAllForUser);
+app.get("/attempts/staff/:id", attemptsController.findAllForStaff);
+app.post("/attempt", attemptsController.create);
+app.delete("/attempt/:id", attemptsController.remove);
+app.patch("/attempt/:id", attemptsController.update);
 
-app.get("/api/tasks/:id", async (req, res, next) => {
-  const result = await db
-    .query("SELECT * FROM tasks WHERE id = $1", [req.params.id])
-    .catch(next);
+// COHORTS TABLE ROUTES
+import cohortsController from "./routesCohorts.js";
+app.get("/cohorts", cohortsController.findAll);
+app.get("/cohort/:id", cohortsController.findOne);
+app.post("/cohort", cohortsController.create);
+app.delete("/cohort/:id", cohortsController.remove);
+app.patch("/cohort/:id", cohortsController.update);
 
-  if (result.rows.length === 0) {
-    res.sendStatus(404);
-  } else {
-    res.send(result.rows[0]);
-  }
-});
+// QUESTIONS TABLE ROUTES
+import questionsController from "./routesQuestions.js";
+app.get("/questions", questionsController.findAll);
+app.get("/question/:id", questionsController.findOne);
+app.post("/question", questionsController.create);
+app.delete("/question/:id", questionsController.remove);
+app.patch("/question/:id", questionsController.update);
 
-app.post("/api/tasks", async (req, res, next) => {
-  const { description } = req.body;
+// QUESTION_NOTES TABLE ROUTES
+import questionNotesController from "./routesQuestionNotes.js";
+app.get("/questionNotes", questionNotesController.findAll);
+app.get("/questionNote/:id", questionNotesController.findOne);
+app.get(
+  "/question_notes/question/:id",
+  questionNotesController.findAllForQuestion
+);
+app.post("/questionNote", questionNotesController.create);
+app.delete("/questionNote/:id", questionNotesController.remove);
+app.patch("/questionNote/:id", questionNotesController.update);
 
-  const result = await db
-    .query("INSERT INTO tasks(description) VALUES ($1)", [description])
-    .catch(next);
-  res.send(result.rows[0]);
-});
+// STUDENTS TABLE ROUTES
+import studentsController from "./routesStudents.js";
+app.get("/students", studentsController.findAll);
+app.get("/student/:id", studentsController.findOne);
+app.get("/students/cohort/:id", studentsController.findAllInCohort);
+app.post("/student", studentsController.create);
+app.delete("/student/:id", studentsController.remove);
+app.patch("/student/:id", studentsController.update);
 
-app.delete("/api/tasks/:id", async (req, res, next) => {
-  const { id } = req.params;
-
-  await db.query("DELETE FROM tasks WHERE id = $1", [id]).catch(next);
-  res.sendStatus(204);
-});
+// USERS TABLE ROUTES
+import usersController from "./routesUsers.js";
+app.get("/users", usersController.findAll);
+app.get("/user/:id", usersController.findOne);
+app.post("/user", usersController.create);
+app.delete("/user/:id", usersController.remove);
+app.patch("/user/:id", usersController.update);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Internal Server Error");
+  res.status(500).send("Internal Server Error", err);
 });
 
 export default app;
