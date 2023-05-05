@@ -40,11 +40,44 @@ async function findAllForStaff(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const { question_id, note } = req.body;
-  const keys = "question_id, note";
+  const {
+    date,
+    student_id,
+    staff_id,
+    question1_id,
+    answer1,
+    rating1,
+    question2_id,
+    answer2,
+    rating2,
+    question3_id,
+    answer3,
+    rating3,
+    notes,
+    rating_score,
+    pass,
+  } = req.body;
+  const keys =
+    "date, student_id, staff_id, question1_id, answer1, rating1, question2_id, answer2, rating2, question3_id, answer3, rating3, notes, rating_score, pass";
 
   const result = await db
-    .query(`INSERT INTO attempts(${keys}) VALUES ($1)`, [question_id, note])
+    .query(`INSERT INTO attempts(${keys}) VALUES ($1)`, [
+      date,
+      student_id,
+      staff_id,
+      question1_id,
+      answer1,
+      rating1,
+      question2_id,
+      answer2,
+      rating2,
+      question3_id,
+      answer3,
+      rating3,
+      notes,
+      rating_score,
+      pass,
+    ])
     .catch(next);
   res.send(result.rows[0]);
 }
