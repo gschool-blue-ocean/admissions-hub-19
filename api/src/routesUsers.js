@@ -1,5 +1,3 @@
-/** @format */
-
 import pg from "pg";
 const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -18,8 +16,9 @@ async function findOne(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const { first_name, last_name, email, is_staff, salt, password } = req.body;
-  const keys = "first_name, last_name, email, isStaff, salt, password";
+  const { first_name, last_name, email, is_staff, salt, password_hash } =
+    req.body;
+  const keys = "first_name, last_name, email, isStaff, salt, password_hash";
 
   const result = await db
     .query(`INSERT INTO users(${keys}) VALUES ($1)`, [
@@ -28,7 +27,7 @@ async function create(req, res, next) {
       email,
       is_staff,
       salt,
-      password,
+      password_hash,
     ])
     .catch(next);
   res.send(result.rows[0]);
