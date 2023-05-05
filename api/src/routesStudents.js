@@ -1,12 +1,10 @@
-/** @format */
-
 import pg from "pg";
 const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 async function findAll(_req, res, next) {
   const result = await db
     .query(
-      "SELECT * FROM students INNER JOIN users ON students.user_id=users.id"
+      "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id"
     )
     .catch(next);
   console.log("Result", result.rows);
@@ -16,7 +14,7 @@ async function findAll(_req, res, next) {
 async function findOne(req, res, next) {
   const result = await db
     .query(
-      "SELECT * FROM students INNER JOIN users ON students.user_id=users.id WHERE students.id = $1",
+      "SELECT * FROM students INNER JOIN users ON students.user_id=users.id WHERE students.user_id = $1",
       [req.params.id]
     )
     .catch(next);
