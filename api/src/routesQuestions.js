@@ -3,16 +3,24 @@ const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 
 async function findAll(_req, res, next) {
   const result = await db.query("SELECT * FROM questions").catch(next);
-  console.log("Result", result.rows);
+  //console.log("Result", result.rows);
   res.send(result.rows);
 }
 
 async function findOne(req, res, next) {
-  const result = await db
-    .query("SELECT * FROM questions WHERE id=$1", [req.params.id])
-    .catch(next);
-  console.log("Result", result.rows);
-  res.send(result.rows[0]);
+  if (Number.isNaN(parseInt(req.params.id))) {
+    res.sendStatus(400);
+  } else {
+    const result = await db
+      .query("SELECT * FROM questions WHERE question_id=$1", [req.params.id])
+      .catch(next);
+    if (result.rows.length != 1) {
+      res.sendStatus(404);
+    } else {
+      //console.log("Result", result.rows[0]);
+      res.send(result.rows[0]);
+    }
+  }
 }
 
 async function create(req, res, next) {
@@ -20,7 +28,7 @@ async function create(req, res, next) {
   const keys = "title, question, description";
 
   const result = await db
-    .query(`INSERT INTO questions(${keys}) VALUES ($1)`, [
+    .query(`INSERT INTO questions(${keys}) VALUES ($1, $2, $3) RETURNING *`, [
       title,
       question,
       description,
@@ -30,24 +38,43 @@ async function create(req, res, next) {
 }
 
 async function remove(req, res, next) {
-  await db
-    .query("DELETE FROM questions WHERE id = $1", [req.params.id])
-    .catch(next);
-  res.sendStatus(204);
+  if (Number.isNaN(parseInt(req.params.id))) {
+    res.sendStatus(400);
+  } else {
+    const result = await db
+      .query("SELECT * FROM questions WHERE question_id=$1", [req.params.id])
+      .catch(next);
+    if (result.rows.length != 1) {
+      res.sendStatus(404);
+    } else {
+      await db
+        .query("DELETE FROM questions WHERE question_id = $1", [req.params.id])
+        .catch(next);
+      res.sendStatus(204);
+    }
+  }
 }
 
 async function update(req, res, next) {
-  const request = { id: req.params.id };
-
-  // Perform the update for each key value requested
-  for (let key in req.params.body) {
-    let queryText = `UPDATE questions SET ${key}=$1 WHERE id = $2`;
-    await db
-      .query(queryText, [req.params.body[key], req.params.id])
+  if (Number.isNaN(parseInt(req.params.id))) {
+    res.sendStatus(400);
+  } else {
+    const result = await db
+      .query("SELECT * FROM questions WHERE question_id=$1", [req.params.id])
       .catch(next);
-    request.key = req.params.body[key];
+    if (result.rows.length != 1) {
+      res.sendStatus(404);
+    } else {
+      // Perform the update for each key value requested
+      const request = { id: req.params.id };
+      for (let key in req.body) {
+        let queryText = `UPDATE questions SET ${key}=$1 WHERE question_id = $2`;
+        await db.query(queryText, [req.body[key], req.params.id]).catch(next);
+        request[key] = req.body[key];
+      }
+      res.send(request);
+    }
   }
-  res.send(request);
 }
 
 export default { findAll, findOne, create, remove, update };

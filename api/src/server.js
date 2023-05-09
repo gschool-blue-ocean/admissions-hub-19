@@ -3,11 +3,15 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
+app.get("/test", async (req, res, next) => {
+  res.send("Test Response Good");
+});
+
 // ATTEMPTS TABLE ROUTES
 import attemptsController from "./routesAttempts.js";
 app.get("/attempts", attemptsController.findAll);
 app.get("/attempt/:id", attemptsController.findOne);
-app.get("/attempts/student/:id", attemptsController.findAllForUser);
+app.get("/attempts/student/:id", attemptsController.findAllForStudent);
 app.get("/attempts/staff/:id", attemptsController.findAllForStaff);
 app.post("/attempt", attemptsController.create);
 app.delete("/attempt/:id", attemptsController.remove);
@@ -31,15 +35,15 @@ app.patch("/question/:id", questionsController.update);
 
 // QUESTION_NOTES TABLE ROUTES
 import questionNotesController from "./routesQuestionNotes.js";
-app.get("/questionNotes", questionNotesController.findAll);
-app.get("/questionNote/:id", questionNotesController.findOne);
+app.get("/question_notes", questionNotesController.findAll);
+app.get("/question_note/:id", questionNotesController.findOne);
 app.get(
   "/question_notes/question/:id",
   questionNotesController.findAllForQuestion
 );
-app.post("/questionNote", questionNotesController.create);
-app.delete("/questionNote/:id", questionNotesController.remove);
-app.patch("/questionNote/:id", questionNotesController.update);
+app.post("/question_note", questionNotesController.create);
+app.delete("/question_note/:id", questionNotesController.remove);
+app.patch("/question_note/:id", questionNotesController.update);
 
 // STUDENTS TABLE ROUTES
 import studentsController from "./routesStudents.js";
