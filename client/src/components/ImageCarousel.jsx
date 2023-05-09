@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from 'react-bootstrap/Carousel';
-import CarouselSample1 from '/client/src/Images/CarouselSample1';
+import CarouselSample1 from '../Images/CarouselSample1.png';
 
 const ImageCarousel = () => {
 
@@ -8,8 +8,8 @@ const ImageCarousel = () => {
         <Carousel>
             <Carousel.Item>
                 <image
-                    className='FirstSlide'
-                    src='/CarouselSample1.png'
+                    className='d-block w-100'
+                    src='/client/src/Images/CarouselSample1.png/800x400?text=First slide&bg=373940'
                     alt='FirstSlide'
                 />
                 <Carousel.Caption>
