@@ -7,7 +7,7 @@ const ImageCarousel = () => {
         <Carousel showIndicators showControls>
             <Carousel.Item>
                 <img
-                    className='d-block w-100'
+                    className='d-flex w-100'
                     src={CarouselSample1}
                     alt='FirstSlide'
                 />
@@ -18,7 +18,7 @@ const ImageCarousel = () => {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                   className='d-block w-100'
+                   className='d-flex w-100'
                    src={CarouselSample1}
                    alt='SecondSlide'
                 />
