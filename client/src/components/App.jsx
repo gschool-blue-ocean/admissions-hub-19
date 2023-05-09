@@ -49,6 +49,7 @@ const App = () => {
         <Route path="/interview" element={<Interview/>} />
       </Routes>
     </Router>
+    
   );
 };
 
