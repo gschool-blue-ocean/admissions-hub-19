@@ -1,15 +1,14 @@
 import React from "react";
 import Carousel from 'react-bootstrap/Carousel';
-import CarouselSample1 from '/client/src/Images/CarouselSample1';
+import CarouselSample1 from '../Images/CarouselSample1.png';
 
 const ImageCarousel = () => {
-
     return (
         <Carousel>
             <Carousel.Item>
                 <image
                     className='FirstSlide'
-                    src='/CarouselSample1.png'
+                    src={CarouselSample1}
                     alt='FirstSlide'
                 />
                 <Carousel.Caption>
