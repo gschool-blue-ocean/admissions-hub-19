@@ -7,7 +7,7 @@ const ImageCarousel = () => {
         <Carousel>
             <Carousel.Item>
                 <image
-                    className='FirstSlide'
+                    className='d-block w-100'
                     src={CarouselSample1}
                     alt='FirstSlide'
                 />
