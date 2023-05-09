@@ -1,14 +1,16 @@
 import React from "react";
 import Carousel from 'react-bootstrap/Carousel';
-import CarouselSample1 from '../Images/CarouselSample1.png';
+import CarouselOne from '../images/CarouselSample1.png'
+
 
 const ImageCarousel = () => {
+
     return (
         <Carousel>
             <Carousel.Item>
-                <image
+                <img
                     className='FirstSlide'
-                    src={CarouselSample1}
+                    src={CarouselOne}
                     alt='FirstSlide'
                 />
                 <Carousel.Caption>
@@ -17,8 +19,8 @@ const ImageCarousel = () => {
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>
-    )
-}
+    );
+};
 
 
 
