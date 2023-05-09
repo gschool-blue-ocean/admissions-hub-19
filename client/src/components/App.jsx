@@ -12,6 +12,7 @@ import Login from "../pages/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
+import ImageCarousel from "./ImageCarousel.jsx";
 
 
 
@@ -38,6 +39,9 @@ const App = () => {
           </Nav.Item>
         </Nav>
 
+      </div>
+      <div>
+        <ImageCarousel/>
       </div>
       <Routes>
         <Route path="/" element={<Login />} />
