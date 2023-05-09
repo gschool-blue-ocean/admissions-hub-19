@@ -3,13 +3,12 @@ import Carousel from 'react-bootstrap/Carousel';
 import CarouselSample1 from '../Images/CarouselSample1.png';
 
 const ImageCarousel = () => {
-
     return (
         <Carousel>
             <Carousel.Item>
                 <image
-                    className='d-block w-100'
-                    src='/client/src/Images/CarouselSample1.png/800x400?text=First slide&bg=373940'
+                    className='FirstSlide'
+                    src={CarouselSample1}
                     alt='FirstSlide'
                 />
                 <Carousel.Caption>

@@ -12,7 +12,8 @@ import Login from "../pages/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
-import ImageCarousel from "./ImageCarousel.jsx";
+import Signup from "../pages/SignUp.jsx";
+
 
 
 
@@ -23,6 +24,10 @@ const App = () => {
         <Nav variant="tabs">
           <Nav.Item>
         <Nav.Link as={Link} to="/">Login</Nav.Link>
+          </Nav.Item>
+
+          <Nav.Item>
+        <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
           </Nav.Item>
 
   
@@ -40,11 +45,10 @@ const App = () => {
         </Nav>
 
       </div>
-      <div>
-        <ImageCarousel/>
-      </div>
       <Routes>
         <Route path="/" element={<Login />} />
+
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
 

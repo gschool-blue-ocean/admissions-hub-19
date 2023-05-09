@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
-import LoginCSS from '../css/Login.module.css';
+import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import ImageCarousel from "./ImageCarousel";
 import {
@@ -52,12 +52,12 @@ const LoginUI = () => {
 
       <Container className={LoginCSS.btnwrap}>
       <Button className={LoginCSS.btn} variant="primary" type="submit">
-        Login
+        Login!
       </Button>
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button className={LoginCSS.btn} variant="primary" type="submit">
-        SignUp
+        Sign Up!
       </Button>
       </Container>
     </Form>
