@@ -62,9 +62,6 @@ const LoginUI = () => {
       </Container>
     </Form>
     </div>
-    <div>
-      <ImageCarousel/>
-      </div>
     </div>
     )
 }

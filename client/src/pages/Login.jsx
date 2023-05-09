@@ -5,6 +5,7 @@ const Login = () => {
     return (
       <div>
         <LoginUI />
+        <ImageCarousel/>
       </div>
       
     );
