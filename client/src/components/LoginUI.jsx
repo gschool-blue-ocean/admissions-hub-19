@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
+import ImageCarousel from "./ImageCarousel";
 import {
   BrowserRouter as Router,
   Routes,
