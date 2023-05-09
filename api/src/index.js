@@ -1,5 +1,3 @@
-/** @format */
-
 import app from "./server.js";
 
 const PORT = process.env.PORT;
