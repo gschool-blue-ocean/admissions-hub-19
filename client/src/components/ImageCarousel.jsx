@@ -7,7 +7,7 @@ import Image8 from '../Images/BlueOceanImage8.webp';
 
 const ImageCarousel = () => {
     return (
-        <Carousel showIndicators showControls  style={{'height':"330px", 'width': "630px"}}>
+        <Carousel indicators={false} controls={false} style={{'height':"330px", 'width': "630px"}}>
             <Carousel.Item style={{'height':"330px", 'width': "630px"}}>
                 <img
                     className='d-flex w-100'
