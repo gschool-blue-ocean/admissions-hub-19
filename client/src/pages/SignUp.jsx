@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 const SignUp = () => {
-
-  const routeHTTP = "http://localhost:8000/users";
+  const routeHTTP = "http://localhost:8000/user";
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -38,11 +38,12 @@ const SignUp = () => {
       last_name: lastName,
       email: email,
       is_staff: userType === "staff",
+      salt: "salt",
       password_hash: password,
-      salt: "salt", 
     };
 
     fetch(routeHTTP, {
+      mode: "no-cors",
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -56,54 +57,48 @@ const SignUp = () => {
 
   return (
     <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input type="text" value={firstName} onChange={handleFirstNameChange} />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input type="text" value={lastName} onChange={handleLastNameChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type="email" value={email} onChange={handleEmailChange} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input type="password" value={password} onChange={handlePasswordChange} />
-        </label>
-        <br />
-        <label>
-          Are you a student or staff member?
+      <h2>Sign Up!</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>First Name:</Form.Label>
+          <Form.Control type="text" value={firstName} onChange={handleFirstNameChange}  style={{width: '50%'}} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Last Name:</Form.Label>
+          <Form.Control type="text" value={lastName} onChange={handleLastNameChange} style={{width: '50%'}} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control type="text" value={email} onChange={handleEmailChange} style={{width: '50%'}} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="text" value={password} onChange={handlePasswordChange} style={{width: '50%'}} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Are you a student or staff member?</Form.Label>
           <br />
-          <label>
-            <input
-              type="radio"
-              value="student"
-              checked={userType === "student"}
-              onChange={handleUserTypeChange}
-            />
-            Student
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              value="staff"
-              checked={userType === "staff"}
-              onChange={handleUserTypeChange}
-            />
-            Staff
-          </label>
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+          <Form.Check
+            type="radio"
+            label="Student"
+            name="userType"
+            value="student"
+            checked={userType === "student"}
+            onChange={handleUserTypeChange}
+          />
+          <Form.Check
+            type="radio"
+            label="Staff"
+            name="userType"
+            value="staff"
+            checked={userType === "staff"}
+            onChange={handleUserTypeChange}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };
