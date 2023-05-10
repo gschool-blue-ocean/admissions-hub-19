@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
-import ImageCarousel from "./ImageCarousel";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom"; //to be used for the login button signup
 
 const LoginUI = () => {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
+  navigate.push('/signup');
+};
+
     return (
       <div className = {LoginCSS.formbg}>
         <div>
@@ -56,7 +58,7 @@ const LoginUI = () => {
       </Button>
       </Container>
       <Container className={LoginCSS.btnwrap}>
-      <Button className={LoginCSS.btn} variant="primary" type="submit">
+      <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
         Sign Up!
       </Button>
       </Container>

@@ -5,17 +5,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
-// import Button from 'react-bootstrap/Button';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav } from "react-bootstrap";
 import Login from "../pages/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
 import Signup from "../pages/SignUp.jsx";
-
-
-
 
 const App = () => {
   return (
