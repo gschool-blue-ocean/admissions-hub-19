@@ -66,7 +66,7 @@ describe("POST with duplicated email address /user/", () => {
   it("should deny creation of a pre-existing email", async () => {
     const response = await request(baseURL).post("/user").send(newUser);
     expect(response.statusCode).toBe(400);
-    expect(response.text == "Bad Request").toBe(true);
+    expect(response.text == "Email address already exists").toBe(true);
   });
 });
 

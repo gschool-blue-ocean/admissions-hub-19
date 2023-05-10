@@ -32,7 +32,8 @@ async function create(req, res, next) {
     .query("SELECT * FROM users WHERE email=$1", [email])
     .catch(next);
   if (result.rows.length != 0) {
-    res.sendStatus(400);
+    //res.statusMessage = "Email address already exists";
+    res.status(400).send("Email address already exists");
   } else {
     const result = await db
       .query(
