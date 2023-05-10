@@ -7,16 +7,13 @@ import Image8 from '../Images/BlueOceanImage8.webp';
 
 const ImageCarousel = () => {
     return (
-        <Carousel showIndicators showControls>
+        <Carousel showIndicators showControls  style={{'height':"330px", 'width': "630px"}}>
             <Carousel.Item>
                 <img
                     className='d-flex w-100'
                     src={Image5}
                     alt='FirstSlide'
                 />
-                <Carousel.Caption>
-                    <h3>First slide label</h3>
-                </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -24,9 +21,6 @@ const ImageCarousel = () => {
                     src={Image7}
                     alt='SecondSlide'
                 />
-                <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -34,9 +28,6 @@ const ImageCarousel = () => {
                     src={Image8}
                     alt='ThirdSlide'
                 />
-                <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                </Carousel.Caption>
             </Carousel.Item>
         </Carousel>
     )
