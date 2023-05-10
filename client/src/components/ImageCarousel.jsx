@@ -6,6 +6,7 @@ import Image8 from '../Images/BlueOceanImage8.webp';
 
 
 const ImageCarousel = () => {
+
     return (
         <Carousel showIndicators showControls  style={{'height':"330px", 'width': "630px"}}>
             <Carousel.Item style={{'height':"330px", 'width': "630px"}}>
@@ -30,8 +31,8 @@ const ImageCarousel = () => {
                 />
             </Carousel.Item>
         </Carousel>
-    )
-}
+    );
+};
 
 
 
