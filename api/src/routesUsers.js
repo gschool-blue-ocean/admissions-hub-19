@@ -29,12 +29,19 @@ async function create(req, res, next) {
   const keys = "first_name, last_name, email, is_Staff, salt, password_hash";
 
   const result = await db
-    .query(
-      `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [first_name, last_name, email, is_staff, salt, password_hash]
-    )
+    .query("SELECT * FROM users WHERE email=$1", [email])
     .catch(next);
-  res.send(result.rows[0]);
+  if (result.rows.length != 0) {
+    res.sendStatus(400);
+  } else {
+    const result = await db
+      .query(
+        `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        [first_name, last_name, email, is_staff, salt, password_hash]
+      )
+      .catch(next);
+    res.send(result.rows[0]);
+  }
 }
 
 async function remove(req, res, next) {

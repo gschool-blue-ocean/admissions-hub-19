@@ -62,20 +62,28 @@ async function create(req, res, next) {
     "user_id, cohort_id, numattempts, paid, paperwork1, paperwork2, paperwork3";
 
   const result = await db
-    .query(
-      `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [
-        user_id,
-        cohort_id,
-        numattempts,
-        paid,
-        paperwork1,
-        paperwork2,
-        paperwork3,
-      ]
-    )
+    .query("SELECT * FROM students WHERE user_id=$1", [user_id])
     .catch(next);
-  res.send(result.rows[0]);
+  console.log("STUDENTS RESULT ROWS", result.rows);
+  if (result.rows.length != 0) {
+    res.sendStatus(400);
+  } else {
+    const result = await db
+      .query(
+        `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        [
+          user_id,
+          cohort_id,
+          numattempts,
+          paid,
+          paperwork1,
+          paperwork2,
+          paperwork3,
+        ]
+      )
+      .catch(next);
+    res.send(result.rows[0]);
+  }
 }
 
 async function remove(req, res, next) {

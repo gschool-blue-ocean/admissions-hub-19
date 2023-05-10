@@ -47,6 +47,29 @@ describe("GET non-int /user/:id", () => {
   });
 });
 
+describe("POST with duplicated email address /user/", () => {
+  const id = 1;
+  let newUser;
+  beforeAll(async () => {
+    let response = await request(baseURL).get(`/user/${id}`);
+    response = JSON.parse(response.text);
+    newUser = {
+      first_name: response.first_name,
+      last_name: response.last_name,
+      email: response.email,
+      is_staff: response.is_staff,
+      salt: response.salt,
+      password_hash: response.password_hash,
+    };
+    //console.log("NewUser:", newUser);
+  });
+  it("should deny creation of a pre-existing email", async () => {
+    const response = await request(baseURL).post("/user").send(newUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
 let postID = 0; // holds user_id of newly created user
 describe("POST /user/", () => {
   const newUser = {
