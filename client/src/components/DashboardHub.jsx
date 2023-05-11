@@ -16,7 +16,7 @@ const DashboardHub = () => {
                 />
             </Form>
             <Button className='FilterBtn' variant="primary">Filter</Button>
-            <Table borderedless hover className="Table">
+            <Table bordered hover height='525px' width='1900px' className="Table">
                 <thead>
                     <tr>
                         <th>Student Name</th>
@@ -25,6 +25,8 @@ const DashboardHub = () => {
                         <th>Last Interview</th>
                         <th>Attempt</th>
                         <th>Status</th>
+                        <th>Submitted Pay</th>
+                        <th>Paperwork?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +37,8 @@ const DashboardHub = () => {
                         <td>August 28, 2022</td>
                         <td>1</td>
                         <td>Retired</td>
+                        <td>Y</td>
+                        <td>Y</td>
                     </tr>
                     <tr>
                         <td>Joe Johnson</td>
@@ -43,6 +47,8 @@ const DashboardHub = () => {
                         <td>August 28, 2022</td>
                         <td>1</td>
                         <td>Retired</td>
+                        <td>Y</td>
+                        <td>Y</td>
                     </tr>
                     <tr>
                         <td>Joe Johnson</td>
@@ -51,6 +57,8 @@ const DashboardHub = () => {
                         <td>August 28, 2022</td>
                         <td>1</td>
                         <td>Retired</td>
+                        <td>Y</td>
+                        <td>Y</td>
                     </tr>
                     <tr>
                         <td>Joe Johnson</td>
@@ -59,6 +67,18 @@ const DashboardHub = () => {
                         <td>August 28, 2022</td>
                         <td>1</td>
                         <td>Retired</td>
+                        <td>Y</td>
+                        <td>Y</td>
+                    </tr>
+                    <tr>
+                        {Array.from({ length: 8 }).map((_, index) => (
+                            <td key={index}>Placeholder</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        {Array.from({ length: 8 }).map((_, index) => (
+                            <td key={index}>Placeholder</td>
+                        ))}
                     </tr>
                 </tbody>
             </Table>

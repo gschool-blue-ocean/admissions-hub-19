@@ -1,6 +1,6 @@
 .DashboardHub {
     display: flex;
-    border: 2px solid;
+    /* border: 2px solid; */
     justify-content: center;
     position: absolute;
     top: 50%;
@@ -61,8 +61,8 @@
 
 .Table {
     position: absolute;
-    height: 70%;
-    width: 90%;
+    /* height: 525px;
+    width: 1900px; */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
