@@ -49,7 +49,7 @@ const SignUp = () => {
       salt: "salt",
       password_hash: password,
     };
-    console.log("FORMDATA: ", formData);
+
     fetch(routeHTTP, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
