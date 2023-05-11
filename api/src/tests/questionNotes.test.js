@@ -136,7 +136,7 @@ describe("UPDATE int invalid /question_note/:id", () => {
 describe("UPDATE non-int invalid /question_note/:id", () => {
   const id = "p";
   const updatequestion_note = {
-    email: "I have worked long!",
+    note: "I have worked long!",
   };
   it("should return 400", async () => {
     const response = await request(baseURL)
@@ -144,6 +144,19 @@ describe("UPDATE non-int invalid /question_note/:id", () => {
       .send(updatequestion_note);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
+describe("UPDATE invalid key names /question_note/:id", () => {
+  const updateUser = {
+    notes: "I have worked long!",
+  };
+  it("should return 400", async () => {
+    const response = await request(baseURL)
+      .patch(`/user/${postID}`)
+      .send(updateUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
   });
 });
 
