@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import Login from "../pages/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
@@ -18,27 +13,35 @@ const App = () => {
       <div>
         <Nav variant="tabs">
           <Nav.Item>
-        <Nav.Link as={Link} to="/">Login</Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Login
+            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item>
-        <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
-          </Nav.Item>
-
-  
-          <Nav.Item>
-        <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/signup">
+              Sign Up
+            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item>
-        <Nav.Link as={Link} to="/editprofile">Edit Profile</Nav.Link>
+            <Nav.Link as={Link} to="/dashboard">
+              Dashboard
+            </Nav.Link>
           </Nav.Item>
 
           <Nav.Item>
-        <Nav.Link as={Link} to="/interview">Interview</Nav.Link>
+            <Nav.Link as={Link} to="/editprofile">
+              Edit Profile
+            </Nav.Link>
+          </Nav.Item>
+
+          <Nav.Item>
+            <Nav.Link as={Link} to="/interview">
+              Interview
+            </Nav.Link>
           </Nav.Item>
         </Nav>
-
       </div>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -47,12 +50,11 @@ const App = () => {
 
         <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/editprofile" element={<Edit_Profile/>} />
+        <Route path="/editprofile" element={<Edit_Profile userid={2} />} />
 
-        <Route path="/interview" element={<Interview/>} />
+        <Route path="/interview" element={<Interview />} />
       </Routes>
     </Router>
-    
   );
 };
 
