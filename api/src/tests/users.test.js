@@ -65,8 +65,26 @@ describe("POST with duplicated email address /user/", () => {
   });
   it("should deny creation of a pre-existing email", async () => {
     const response = await request(baseURL).post("/user").send(newUser);
+    //console.log("RESPONSE:", response);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Email address already exists").toBe(true);
+  });
+});
+
+describe("POST with incorrect key names /user/", () => {
+  const newUser = {
+    first_names: "Johny",
+    last_names: "Quest",
+    emails: "Johny.Quest@thefuture.net",
+    is_staff: true,
+    salt: "passwordSalt",
+    password_hash: "passwordHash",
+  };
+  //console.log("NewUser:", newUser);
+  it("should deny creation when recieving bad key names", async () => {
+    const response = await request(baseURL).post("/user").send(newUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
   });
 });
 
@@ -130,6 +148,19 @@ describe("UPDATE non-int invalid /user/:id", () => {
       .send(updateUser);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
+describe("UPDATE invalid key names /user/:id", () => {
+  const updateUser = {
+    emails: "Johny.Quest@thepast.net",
+  };
+  it("should return 400", async () => {
+    const response = await request(baseURL)
+      .patch(`/user/${postID}`)
+      .send(updateUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
   });
 });
 

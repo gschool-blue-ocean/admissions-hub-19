@@ -119,13 +119,13 @@ describe("POST /attempt/", () => {
     staff_id: 2,
     question1_id: 1,
     answer1: "none",
-    ratting1: 0,
+    rating1: 0,
     question2_id: 1,
     answer2: "none",
-    ratting2: 0,
+    rating2: 0,
     question3_id: 1,
     answer3: "none",
-    ratting3: 0,
+    rating3: 0,
     notes: "Student just locked up!",
     rating_score: 0,
     pass: true,
@@ -180,6 +180,19 @@ describe("UPDATE non-int invalid /attempt/:id", () => {
       .send(updateattempt);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
+describe("UPDATE invalid key names /attempt/:id", () => {
+  const updateUser = {
+    passes: false,
+  };
+  it("should return 400", async () => {
+    const response = await request(baseURL)
+      .patch(`/user/${postID}`)
+      .send(updateUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
   });
 });
 

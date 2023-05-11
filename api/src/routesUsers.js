@@ -28,20 +28,31 @@ async function create(req, res, next) {
     req.body;
   const keys = "first_name, last_name, email, is_Staff, salt, password_hash";
 
-  const result = await db
-    .query("SELECT * FROM users WHERE email=$1", [email])
-    .catch(next);
-  if (result.rows.length != 0) {
-    //res.statusMessage = "Email address already exists";
-    res.status(400).send("Email address already exists");
+  if (
+    first_name === undefined ||
+    last_name === undefined ||
+    email === undefined ||
+    is_staff === undefined ||
+    salt === undefined ||
+    password_hash === undefined
+  ) {
+    res.status(400).send("Recieved incorrect info");
   } else {
     const result = await db
-      .query(
-        `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-        [first_name, last_name, email, is_staff, salt, password_hash]
-      )
+      .query("SELECT * FROM users WHERE email=$1", [email])
       .catch(next);
-    res.send(result.rows[0]);
+    if (result.rows.length != 0) {
+      //res.statusMessage = "Email address already exists";
+      res.status(400).send("Email address already exists");
+    } else {
+      const result = await db
+        .query(
+          `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+          [first_name, last_name, email, is_staff, salt, password_hash]
+        )
+        .catch(next);
+      res.send(result.rows[0]);
+    }
   }
 }
 
@@ -64,8 +75,24 @@ async function remove(req, res, next) {
 }
 
 async function update(req, res, next) {
+  let haveKeys = true;
+  const expectedKeys = [
+    "first_name",
+    "last_name",
+    "email",
+    "is_staff",
+    "salt",
+    "password_hash",
+  ];
+  for (let key in req.body) {
+    if (!expectedKeys.includes(key)) {
+      haveKeys = false;
+    }
+  }
   // Check if :id is valid
-  if (Number.isNaN(parseInt(req.params.id))) {
+  if (!haveKeys) {
+    res.status(400).send("Recieved incorrect info");
+  } else if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
   } else {
     const result = await db

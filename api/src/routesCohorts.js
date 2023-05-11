@@ -27,13 +27,17 @@ async function create(req, res, next) {
   const { name, start_date } = req.body;
   const keys = "name, start_date";
 
-  const result = await db
-    .query(`INSERT INTO cohorts (${keys}) VALUES ($1, $2) RETURNING *`, [
-      name,
-      start_date,
-    ])
-    .catch(next);
-  res.send(result.rows[0]);
+  if (name === undefined || start_date === undefined) {
+    res.status(400).send("Recieved incorrect info");
+  } else {
+    const result = await db
+      .query(`INSERT INTO cohorts (${keys}) VALUES ($1, $2) RETURNING *`, [
+        name,
+        start_date,
+      ])
+      .catch(next);
+    res.send(result.rows[0]);
+  }
 }
 
 async function remove(req, res, next) {
@@ -55,7 +59,16 @@ async function remove(req, res, next) {
 }
 
 async function update(req, res, next) {
-  if (Number.isNaN(parseInt(req.params.id))) {
+  let haveKeys = true;
+  const expectedKeys = ["name", "start_date", "email"];
+  for (let key in req.body) {
+    if (!expectedKeys.includes(key)) {
+      haveKeys = false;
+    }
+  }
+  if (!haveKeys) {
+    res.status(400).send("Recieved incorrect info");
+  } else if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
   } else {
     const result = await db
