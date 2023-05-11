@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-
   const navigate = useNavigate();
 
   const handleCancel = () => {
     // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
-  navigate.push('/');
-};
+    navigate.push("/");
+  };
 
   const routeHTTP = "http://localhost:8000/user";
 
@@ -52,12 +51,10 @@ const SignUp = () => {
     };
 
     fetch(routeHTTP, {
-      mode: "no-cors",
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      mode: "cors",
       body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
@@ -70,19 +67,39 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>First Name:</Form.Label>
-          <Form.Control type="text" value={firstName} onChange={handleFirstNameChange} style={{width: '50%'}} />
+          <Form.Control
+            type="text"
+            value={firstName}
+            onChange={handleFirstNameChange}
+            style={{ width: "50%" }}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Last Name:</Form.Label>
-          <Form.Control type="text" value={lastName} onChange={handleLastNameChange} style={{width: '50%'}} />
+          <Form.Control
+            type="text"
+            value={lastName}
+            onChange={handleLastNameChange}
+            style={{ width: "50%" }}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Email:</Form.Label>
-          <Form.Control type="text" value={email} onChange={handleEmailChange} style={{width: '50%'}} />
+          <Form.Control
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+            style={{ width: "50%" }}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Password:</Form.Label>
-          <Form.Control type="text" value={password} onChange={handlePasswordChange} style={{width: '50%'}} />
+          <Form.Control
+            type="text"
+            value={password}
+            onChange={handlePasswordChange}
+            style={{ width: "50%" }}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Are you a student or staff member?</Form.Label>
@@ -108,7 +125,13 @@ const SignUp = () => {
           Submit
         </Button>
       </Form>
-      <Button as={Link} to='/' onClick={handleCancel} variant="primary" type="cancel">
+      <Button
+        as={Link}
+        to="/"
+        onClick={handleCancel}
+        variant="primary"
+        type="cancel"
+      >
         Cancel
       </Button>
     </div>

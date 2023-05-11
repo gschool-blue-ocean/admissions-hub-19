@@ -27,7 +27,7 @@ async function create(req, res, next) {
   const { first_name, last_name, email, is_staff, salt, password_hash } =
     req.body;
   const keys = "first_name, last_name, email, is_Staff, salt, password_hash";
-
+  //console.log("CREATE USER BODY:", req.body);
   if (
     first_name === undefined ||
     last_name === undefined ||
@@ -36,13 +36,14 @@ async function create(req, res, next) {
     salt === undefined ||
     password_hash === undefined
   ) {
+    res.statusMessage = "Recieved incorrect info";
     res.status(400).send("Recieved incorrect info");
   } else {
     const result = await db
       .query("SELECT * FROM users WHERE email=$1", [email])
       .catch(next);
     if (result.rows.length != 0) {
-      //res.statusMessage = "Email address already exists";
+      res.statusMessage = "Email address already exists";
       res.status(400).send("Email address already exists");
     } else {
       const result = await db
