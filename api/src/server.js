@@ -1,10 +1,8 @@
 import express from "express";
-import jwt from "jsonwebtoken";
-
-
-// const jwtSecretKey = 
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get("/test", async (req, res, next) => {
