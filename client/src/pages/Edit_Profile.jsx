@@ -18,7 +18,8 @@ const Edit_Profile = ({ userid }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -36,34 +37,67 @@ const Edit_Profile = ({ userid }) => {
     setUserType(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handlePassword1Change = (event) => {
+    setPassword1(event.target.value);
+  };
+
+  const handlePassword2Change = (event) => {
+    setPassword2(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    let doFetch = false;
 
     const formData = {
       first_name: firstName,
       last_name: lastName,
       email: email,
       is_staff: userType === "staff",
-      salt: "salt",
-      password_hash: password,
     };
+    if (password1.length == 0 && password2.length == 0) {
+      doFetch = true;
+    } else if (password1 != password2) {
+      alert("Passwords do not match!\nPlease try again.\n\nNothing Updated");
+    } else if (password1.length > 0 && password1.length < 8) {
+      alert(
+        "Password is not long enough!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[A-Z]+/.test(password1)) {
+      alert(
+        "Password has no capital letters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[a-z]+/.test(password1)) {
+      alert(
+        "Password has no lowercase letters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[0-9]+/.test(password1)) {
+      alert("Password has no numbers!\nPlease try again.\n\nNothing Updated");
+    } else if (!/[^A-Za-z0-9]+/.test(password1)) {
+      alert(
+        "Password has no special characters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else {
+      doFetch = true;
+      formData.salt = "salt";
+      formData.password_hash = password1;
+    }
 
-    fetch(`${routeHTTP}/user/${userid}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data);
-        alert("Thank you for updating your data!");
+    if (doFetch) {
+      fetch(`${routeHTTP}/user/${userid}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        body: JSON.stringify(formData),
       })
-      .catch((error) => console.error(error));
+        .then((response) => response.json())
+        .then((data) => {
+          //console.log(data);
+          alert("Thank you for updating your data!");
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   const getUserData = () => {
@@ -132,7 +166,7 @@ const Edit_Profile = ({ userid }) => {
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="Enter email"
@@ -146,18 +180,37 @@ const Edit_Profile = ({ userid }) => {
           <Form.Group className="mb-3 text-left" controlId="formBasicPassword">
             <Row>
               <Form.Label column sm={4}>
-                Password:
+                Password
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
-                  type="text"
-                  value={password}
-                  onChange={handlePasswordChange}
+                  type="password"
+                  value={password1}
+                  onChange={handlePassword1Change}
                   placeholder="Enter Password"
                 />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group
+            className="mb-3 text-left"
+            controlId="formBasicConfirmPassword"
+          >
+            <Row>
+              <Form.Label column sm={4}>
+                Confirm Password
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="password"
+                  value={password2}
+                  onChange={handlePassword2Change}
+                  placeholder="Confirm Password"
+                />
                 <Form.Text className="text-muted">
-                  Password must be 8 characters long.<br></br>
-                  Must have a special character eg., @$#! <br></br>
+                  Passwords must be at least 8 characters long.<br></br>
+                  Must have a capital letter, a lowercase letter,<br></br>a
+                  number, and a special character.<br></br>
                 </Form.Text>
               </Col>
             </Row>
