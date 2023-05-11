@@ -8,8 +8,8 @@ import { Row, Col, Container } from "react-bootstrap";
 const Edit_Profile = ({ userid }) => {
   const navigate = useNavigate();
 
-  const handleCancel = () => {
-    navigate.push("/");
+  const handleToDashBoard = () => {
+    navigate.push("/dashboard");
   };
 
   const routeHTTP = "http://localhost:8000";
@@ -249,8 +249,8 @@ const Edit_Profile = ({ userid }) => {
           <Container className={LoginCSS.btnwrap}>
             <Button
               as={Link}
-              to="/"
-              onClick={handleCancel}
+              to="/dashboard"
+              onClick={handleToDashBoard}
               variant="primary"
               type="cancel"
             >
