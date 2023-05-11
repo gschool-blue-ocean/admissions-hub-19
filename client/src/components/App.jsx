@@ -9,12 +9,6 @@ import Signup from "../pages/SignUp.jsx";
 
 const App = () => {
   return (
-    // <AuthProvider
-    // authType={"cookie"} //cookie is safer than localstorage
-    // authName={"_auth"}
-    // cookieDomain={window.location.hostname}
-    // cookieSecure={false}//set to true when using https
-    // >
     <Router>
       <div>
         <Nav variant="tabs">
@@ -29,7 +23,6 @@ const App = () => {
               Sign Up
             </Nav.Link>
           </Nav.Item>
-
 
           <Nav.Item>
             <Nav.Link as={Link} to="/dashboard">
@@ -62,7 +55,6 @@ const App = () => {
         <Route path="/interview" element={<Interview />} />
       </Routes>
     </Router>
-    
   );
 };
 
