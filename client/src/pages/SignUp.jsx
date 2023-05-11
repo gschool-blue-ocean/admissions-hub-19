@@ -63,7 +63,7 @@ const SignUp = () => {
       setEmail("");
       setUserType("");
       setPassword("");
-      alert("Profile submitted successfully!");
+      alert("Welcome to Galvanize!");
     })
     .catch((error) => console.error(error));
 };
