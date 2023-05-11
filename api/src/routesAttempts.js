@@ -74,31 +74,59 @@ async function create(req, res, next) {
   const keys =
     "date, student_id, staff_id, question1_id, answer1, rating1, question2_id, answer2, rating2, question3_id, answer3, rating3, notes, rating_score, pass";
 
-  const result = await db
-    .query(
-      `INSERT INTO attempts(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`,
-      [
-        date,
-        student_id,
-        staff_id,
-        question1_id,
-        answer1,
-        rating1,
-        question2_id,
-        answer2,
-        rating2,
-        question3_id,
-        answer3,
-        rating3,
-        notes,
-        rating_score,
-        pass,
-      ]
-    )
-    .catch(next);
-  res.send(result.rows[0]);
+  if (
+    date === undefined ||
+    student_id === undefined ||
+    staff_id === undefined ||
+    question1_id === undefined ||
+    answer1 === undefined ||
+    rating1 === undefined ||
+    question2_id === undefined ||
+    answer2 === undefined ||
+    rating2 === undefined ||
+    question3_id === undefined ||
+    answer3 === undefined ||
+    rating3 === undefined ||
+    notes === undefined ||
+    rating_score === undefined ||
+    pass === undefined ||
+    isNaN(student_id) ||
+    isNaN(staff_id) ||
+    isNaN(question1_id) ||
+    isNaN(question2_id) ||
+    isNaN(question3_id) ||
+    isNaN(rating1) ||
+    isNaN(rating2) ||
+    isNaN(rating3) ||
+    isNaN(rating_score)
+  ) {
+    res.status(400).send("Recieved incorrect info");
+  } else {
+    const result = await db
+      .query(
+        `INSERT INTO attempts(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`,
+        [
+          date,
+          student_id,
+          staff_id,
+          question1_id,
+          answer1,
+          rating1,
+          question2_id,
+          answer2,
+          rating2,
+          question3_id,
+          answer3,
+          rating3,
+          notes,
+          rating_score,
+          pass,
+        ]
+      )
+      .catch(next);
+    res.send(result.rows[0]);
+  }
 }
-
 async function remove(req, res, next) {
   if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
@@ -118,7 +146,32 @@ async function remove(req, res, next) {
 }
 
 async function update(req, res, next) {
-  if (Number.isNaN(parseInt(req.params.id))) {
+  let haveKeys = true;
+  const expectedKeys = [
+    "date",
+    "student_id",
+    "staff_id",
+    "question1_id",
+    "answer1",
+    "rating1",
+    "question2_id",
+    "answer2",
+    "rating2",
+    "question3_id",
+    "answer3",
+    "rating3",
+    "notes",
+    "rating_score",
+    "pass",
+  ];
+  for (let key in req.body) {
+    if (!expectedKeys.includes(key)) {
+      haveKeys = false;
+    }
+  }
+  if (!haveKeys) {
+    res.status(400).send("Recieved incorrect info");
+  } else if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
   } else {
     const result = await db

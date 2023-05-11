@@ -2,6 +2,48 @@ const request = require("supertest");
 
 const { baseURL } = require("../../testEnv.js");
 
+let testUserID = 1; // holds the test user_id needed for creating a new student
+// beforeAll ( async () => {
+//   const newUser = {
+//     first_name: "Bugs",
+//     last_name: "Bunny",
+//     email: "Bugs.Bunny@LooneyToons.com",
+//     is_staff: false,
+//     salt: "passwordSalt",
+//     password_hash: "passwordHash",
+//   };
+//   const response = await request(baseURL).post("/user").send(newUser);
+//   testUserID = response.body.user_id;
+//   console.log("CREATE USER FOR TESTING:", testUserID);
+//   console.log("CREATE USER FOR TESTING:", response.body);
+// });
+
+// afterAll(async () => {
+//   await request(baseURL).delete(`/user/${testUserID}`);
+//   console.log("DELETED USER FOR TESTING");
+// });
+
+describe("Creating a test /user/", () => {
+  const newUser = {
+    first_name: "Bugs",
+    last_name: "Bunny",
+    email: "Bugs.Bunny@LooneyToons.com",
+    is_staff: false,
+    salt: "passwordSalt",
+    password_hash: "passwordHash",
+  };
+  it("creating a test user", async () => {
+    const response = await request(baseURL).post("/user").send(newUser);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.email == "Bugs.Bunny@LooneyToons.com").toBe(true);
+    testUserID = response.body.user_id;
+    console.log("CREATE USER FOR TESTING:", testUserID);
+    console.log("CREATE USER FOR TESTING:", response.body);
+  });
+});
+
+console.log("testUserID: ", testUserID);
+
 let studentsLength = 0; // holds length of all students
 describe(`GET all /students`, () => {
   it("should return 200", async () => {
@@ -78,8 +120,7 @@ describe("GET non-int /students/cohort/:id", () => {
   });
 });
 
-let postID = 0; // holds student_id of newly created student
-describe("POST /student/", () => {
+describe("POST duplicate /student/", () => {
   const newstudent = {
     user_id: 1,
     cohort_id: 1,
@@ -89,9 +130,28 @@ describe("POST /student/", () => {
     paperwork2: true,
     paperwork3: true,
   };
+  it("should return 400", async () => {
+    const response = await request(baseURL).post("/student").send(newstudent);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Student already exists for user").toBe(true);
+  });
+});
+
+let postID = 0; // holds student_id of newly created student
+describe("POST /student/", () => {
+  const newstudent = {
+    user_id: testUserID,
+    cohort_id: 1,
+    numattempts: 2,
+    paid: true,
+    paperwork1: true,
+    paperwork2: true,
+    paperwork3: true,
+  };
+  console.log("TEST USER INFO:", newstudent);
   it("should create and return 1 student", async () => {
     const response = await request(baseURL).post("/student").send(newstudent);
-    postID = response.body.student_id;
+    postID = response.body.user_id;
     expect(response.statusCode).toBe(200);
     expect(response.body.numattempts == 2).toBe(true);
   });
@@ -102,13 +162,12 @@ describe("POST /student/", () => {
 });
 
 describe("UPDATE valid /student/:id", () => {
-  const updatestudent = {
-    numAttempts: 3,
-  };
+  const updateStudent = { numattempts: 3 };
   it("should update and return updated info", async () => {
     const response = await request(baseURL)
       .patch(`/student/${postID}`)
-      .send(updatestudent);
+      .send(updateStudent);
+    console.log("UPDATE RESPONSE:", response.body);
     expect(response.statusCode).toBe(200);
     expect(response.body.numattempts == 3).toBe(true);
   });
@@ -116,13 +175,11 @@ describe("UPDATE valid /student/:id", () => {
 
 describe("UPDATE int invalid /student/:id", () => {
   const id = 0;
-  const updatestudent = {
-    numAttempts: 3,
-  };
+  const updateStudent = { numattempts: 3 };
   it("should return 404", async () => {
     const response = await request(baseURL)
       .patch(`/student/${id}`)
-      .send(updatestudent);
+      .send(updateStudent);
     expect(response.statusCode).toBe(404);
     expect(response.text == "Not Found").toBe(true);
   });
@@ -130,15 +187,24 @@ describe("UPDATE int invalid /student/:id", () => {
 
 describe("UPDATE non-int invalid /student/:id", () => {
   const id = "p";
-  const updatestudent = {
-    numAttempts: 3,
-  };
+  const updateStudent = { numattempts: 3 };
   it("should return 400", async () => {
     const response = await request(baseURL)
       .patch(`/student/${id}`)
-      .send(updatestudent);
+      .send(updateStudent);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
+describe("UPDATE invalid key names /student/:id", () => {
+  const updateStudent = { numattempt: 3 };
+  it("should return 400", async () => {
+    const response = await request(baseURL)
+      .patch(`/user/${postID}`)
+      .send(updateStudent);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
   });
 });
 
@@ -168,5 +234,17 @@ describe("DELETE non-int invalid /student/:id", () => {
     const response = await request(baseURL).delete(`/student/${id}`);
     expect(response.statusCode).toBe(400);
     expect(response.text == "Bad Request").toBe(true);
+  });
+});
+
+describe("DELETE test /user/:id", () => {
+  it("should return 204", async () => {
+    const response = await request(baseURL).delete(`/user/${testUserID}`);
+    expect(response.statusCode).toBe(204);
+  });
+  it("GET user_id should return 404", async () => {
+    const response = await request(baseURL).get(`/user/${testUserID}`);
+    expect(response.statusCode).toBe(404);
+    expect(response.text == "Not Found").toBe(true);
   });
 });
