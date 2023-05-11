@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { AuthProvider } from "react-auth-kit";
+// import { AuthProvider } from "react-auth-kit";
 import { Nav } from "react-bootstrap";
 import Login from "../pages/Login.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
@@ -15,12 +15,12 @@ import Signup from "../pages/SignUp.jsx";
 
 const App = () => {
   return (
-    <AuthProvider
-    authType={"cookie"} //cookie is safer than localstorage
-    authName={"_auth"}
-    cookieDomain={window.location.hostname}
-    cookieSecure={false}//set to true when using https
-    >
+    // <AuthProvider
+    // authType={"cookie"} //cookie is safer than localstorage
+    // authName={"_auth"}
+    // cookieDomain={window.location.hostname}
+    // cookieSecure={false}//set to true when using https
+    // >
     <Router>
       <div>
         <Nav variant="tabs">
@@ -59,7 +59,7 @@ const App = () => {
         <Route path="/interview" element={<Interview/>} />
       </Routes>
     </Router>
-    </AuthProvider>
+    // </AuthProvider>
     
   );
 };

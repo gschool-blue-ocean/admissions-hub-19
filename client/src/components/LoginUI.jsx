@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
+import Users from "./Users";
 
 const LoginUI = () => {
 
@@ -56,6 +57,7 @@ const LoginUI = () => {
       <Button className={LoginCSS.btn} variant="primary" type="submit">
         Login!
       </Button>
+      <Users /> //this is the refernce for the signup
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
