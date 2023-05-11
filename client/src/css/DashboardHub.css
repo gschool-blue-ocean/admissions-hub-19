@@ -1,0 +1,41 @@
+.DashboardHub {
+    display: flex;
+    border: 2px solid;
+    justify-content: center;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 75%;
+}
+
+.FilterBtn {
+    display: flex;
+    align-self: start;
+}
+
+.AddStudentBtn {
+    display: flex;
+    align-self: end;
+}
+
+.DeleteStudentBtn {
+    display: flex;
+    align-self: end;
+}
+
+.UpdateStudentBtn {
+    display: flex;
+    align-self: end;
+}
+
+.LaunchInterviewBtn {
+    display: flex;
+    align-self: end;
+}
+
+.ExportStudentBtn {
+    display: flex;
+    align-self: end;
+}
