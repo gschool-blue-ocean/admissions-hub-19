@@ -6,7 +6,6 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
     navigate.push("/");
   };
 
@@ -56,10 +55,18 @@ const SignUp = () => {
       mode: "cors",
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-  };
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setUserType("");
+      setPassword("");
+      alert("Welcome to Galvanize!");
+    })
+    .catch((error) => console.error(error));
+};
 
   return (
     <div>
@@ -86,7 +93,7 @@ const SignUp = () => {
         <Form.Group>
           <Form.Label>Email:</Form.Label>
           <Form.Control
-            type="text"
+            type="email"
             value={email}
             onChange={handleEmailChange}
             style={{ width: "50%" }}
@@ -95,7 +102,7 @@ const SignUp = () => {
         <Form.Group>
           <Form.Label>Password:</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             value={password}
             onChange={handlePasswordChange}
             style={{ width: "50%" }}
