@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
+  navigate.push('/');
+};
+
   const routeHTTP = "http://localhost:8000/user";
 
   const [firstName, setFirstName] = useState("");
@@ -61,7 +70,7 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>First Name:</Form.Label>
-          <Form.Control type="text" value={firstName} onChange={handleFirstNameChange}  style={{width: '50%'}} />
+          <Form.Control type="text" value={firstName} onChange={handleFirstNameChange} style={{width: '50%'}} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Last Name:</Form.Label>
@@ -99,6 +108,9 @@ const SignUp = () => {
           Submit
         </Button>
       </Form>
+      <Button as={Link} to='/' onClick={handleCancel} variant="primary" type="cancel">
+        Cancel
+      </Button>
     </div>
   );
 };
