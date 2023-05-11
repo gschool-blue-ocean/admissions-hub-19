@@ -107,6 +107,19 @@ describe("UPDATE non-int invalid /question/:id", () => {
   });
 });
 
+describe("UPDATE invalid key names /question/:id", () => {
+  const updateUser = {
+    titles: "TESTED the Tested Question",
+  };
+  it("should return 400", async () => {
+    const response = await request(baseURL)
+      .patch(`/user/${postID}`)
+      .send(updateUser);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Recieved incorrect info").toBe(true);
+  });
+});
+
 describe("DELETE valid /question/:id", () => {
   it("should return 204", async () => {
     const response = await request(baseURL).delete(`/question/${postID}`);
