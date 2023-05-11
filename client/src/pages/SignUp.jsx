@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LoginCSS from "../css/LoginUI.module.css";
+import { Row, Col, Container } from "react-bootstrap";
 
 const SignUp = () => {
   const navigate = useNavigate();
