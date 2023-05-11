@@ -1,11 +1,20 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 import '../css/DashboardHub.css';
 
 const DashboardHub = () => {
     return (
         <div className="DashboardHub">
+            <Form className="Searchbar">
+                <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    className="me-2 rounded-pill"
+                    aria-label="Search"
+                />
+            </Form>
             <Button className='FilterBtn' variant="primary">Filter</Button>
             <Table borderedless hover className="Table">
                 <thead>

@@ -3,8 +3,8 @@
     border: 2px solid;
     justify-content: center;
     position: absolute;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 95%;
     height: 75%;
@@ -13,40 +13,68 @@
 .FilterBtn {
     display: flex;
     position: absolute;
-    align-self: start;
-    left:90%;
+    left: 86%;
+    margin-top: 50px;
 }
 
 .AddStudentBtn {
     display: flex;
     align-self: end;
+    margin-bottom: 20px;
+    margin-left: 90px;
+    position: absolute;
+    left: 0;
 }
 
 .DeleteStudentBtn {
     display: flex;
     align-self: end;
+    margin-bottom: 20px;
+    margin-left: 220px;
+    position: absolute;
+    left: 0;
 }
 
 .UpdateStudentBtn {
     display: flex;
     align-self: end;
+    margin-bottom: 20px;
+    margin-left: 365px;
+    position: absolute;
+    left: 0;
 }
 
 .LaunchInterviewBtn {
     display: flex;
     align-self: end;
+    margin-bottom: 20px;
 }
 
 .ExportStudentBtn {
     display: flex;
     align-self: end;
+    margin-bottom: 20px;
+    margin-right: 180px;
+    position: absolute;
+    right: 0;
 }
 
 .Table {
-position: absolute;
-height: 70%;
-width: 90%;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+    position: absolute;
+    height: 70%;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Searchbar {
+    display: flex;
+    height: 35px;
+    width: 230px;
+    margin-top: 50px;
+    margin-left: 90px;
+    position: absolute;
+    left: 0;
+
 }
