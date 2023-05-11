@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { baseURL } = require("../testEnv.js");
+const { baseURL } = require("../../testEnv.js");
 
 describe(`Can Connect to API Routes`, () => {
   it("should return 200", async () => {

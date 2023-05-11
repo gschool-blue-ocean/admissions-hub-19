@@ -46,13 +46,17 @@ async function create(req, res, next) {
   const { question_id, note } = req.body;
   const keys = "question_id, note";
 
-  const result = await db
-    .query(`INSERT INTO question_notes(${keys}) VALUES ($1, $2) RETURNING *`, [
-      question_id,
-      note,
-    ])
-    .catch(next);
-  res.send(result.rows[0]);
+  if (question_id === undefined || note === undefined || isNaN(question_id)) {
+    res.status(400).send("Recieved incorrect info");
+  } else {
+    const result = await db
+      .query(
+        `INSERT INTO question_notes(${keys}) VALUES ($1, $2) RETURNING *`,
+        [question_id, note]
+      )
+      .catch(next);
+    res.send(result.rows[0]);
+  }
 }
 
 async function remove(req, res, next) {
@@ -78,7 +82,16 @@ async function remove(req, res, next) {
 }
 
 async function update(req, res, next) {
-  if (Number.isNaN(parseInt(req.params.id))) {
+  let haveKeys = true;
+  const expectedKeys = ["question_id", "note"];
+  for (let key in req.body) {
+    if (!expectedKeys.includes(key)) {
+      haveKeys = false;
+    }
+  }
+  if (!haveKeys) {
+    res.status(400).send("Recieved incorrect info");
+  } else if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
   } else {
     const result = await db
