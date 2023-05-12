@@ -21,6 +21,7 @@
     "full-stack-react": "file:..",
     "link": "^1.5.1",
     "react": "^18.2.0",
+    "react-auth-kit": "^2.12.2",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-router": "^6.11.1",
