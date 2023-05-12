@@ -1,5 +1,10 @@
 import pg from "pg";
-const db = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const db = new pg.Pool({ 
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+      rejectUnauthorized: false
+  }
+});
 
 async function findAll(req, res, next) {
   const result = await db.query("SELECT * FROM question_notes").catch(next);
