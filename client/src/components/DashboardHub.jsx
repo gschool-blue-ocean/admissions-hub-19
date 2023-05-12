@@ -16,68 +16,68 @@ const DashboardHub = () => {
                 />
             </Form>
             <Button className='FilterBtn' variant="primary">Filter</Button>
-            <Table bordered hover height='525px' width='1900px' className="Table">
+            <Table borderedless hover height='525px' width='1900px' className="Table">
                 <thead>
                     <tr>
-                        <th>Student Name</th>
-                        <th>Email Address</th>
-                        <th>Cohort</th>
-                        <th>Last Interview</th>
-                        <th>Attempt</th>
-                        <th>Status</th>
-                        <th>Submitted Pay</th>
-                        <th>Paperwork?</th>
+                        <th height="20px">Student Name</th>
+                        <th height="20px">Email Address</th>
+                        <th height="20px">Cohort</th>
+                        <th height="20px">Last Interview</th>
+                        <th height="20px">Attempt</th>
+                        <th height="20px">Status</th>
+                        <th height="20px">Submitted Pay</th>
+                        <th height="20px">Paperwork?</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Joe Johnson</td>
-                        <td>IsoJoe@hotmail.com</td>
-                        <td>MCSP-19</td>
-                        <td>August 28, 2022</td>
-                        <td>1</td>
-                        <td>Retired</td>
-                        <td>Y</td>
-                        <td>Y</td>
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
-                        <td>Joe Johnson</td>
-                        <td>IsoJoe@hotmail.com</td>
-                        <td>MCSP-19</td>
-                        <td>August 28, 2022</td>
-                        <td>1</td>
-                        <td>Retired</td>
-                        <td>Y</td>
-                        <td>Y</td>
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
-                        <td>Joe Johnson</td>
-                        <td>IsoJoe@hotmail.com</td>
-                        <td>MCSP-19</td>
-                        <td>August 28, 2022</td>
-                        <td>1</td>
-                        <td>Retired</td>
-                        <td>Y</td>
-                        <td>Y</td>
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
-                        <td>Joe Johnson</td>
-                        <td>IsoJoe@hotmail.com</td>
-                        <td>MCSP-19</td>
-                        <td>August 28, 2022</td>
-                        <td>1</td>
-                        <td>Retired</td>
-                        <td>Y</td>
-                        <td>Y</td>
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
                         {Array.from({ length: 8 }).map((_, index) => (
-                            <td key={index}>Placeholder</td>
+                            <td key={index} >Placeholder</td>
                         ))}
                     </tr>
                     <tr>
                         {Array.from({ length: 8 }).map((_, index) => (
-                            <td key={index}>Placeholder</td>
+                            <td key={index} >Placeholder</td>
                         ))}
                     </tr>
                 </tbody>

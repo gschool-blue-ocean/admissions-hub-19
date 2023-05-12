@@ -78,3 +78,17 @@
     left: 0;
 
 }
+
+.Table td {
+    text-align: center;
+    text-justify: center;
+}
+
+.Table th {
+    text-align: center;
+}
+
+
+.Table tr {
+    height: fit-content;
+}
