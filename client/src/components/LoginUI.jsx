@@ -5,16 +5,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
-import Users from "./Users";
+// import Users from "./Users";
+import axios from 'axios';
 
 const LoginUI = () => {
-
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/login', { email, password });
+      localStorage.setItem('token', response.data.token);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleClick = () => {
-    // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
-  navigate.push('/signup');
-};
+    navigate('/signup');
+  };
+
+// const LoginUI = () => {
+
+//   const navigate = useNavigate();
+
+//   const handleClick = () => {
+//     // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
+//   navigate.push('/signup');
+// };
 
     return (
       <div className = {LoginCSS.formbg}>
@@ -57,7 +78,7 @@ const LoginUI = () => {
       <Button className={LoginCSS.btn} variant="primary" type="submit">
         Login!
       </Button>
-      <Users /> //this is the refernce for the signup
+      {/* <Users /> //this is the refernce for the signup */}
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >

@@ -10,7 +10,7 @@ function hash(input) {
 
 //create 2 hashed passwords
 
-let password = 'hells-bells';
+let password = (userinput);
 const hash1 = hash(password);
 console.log(hash1)
 
