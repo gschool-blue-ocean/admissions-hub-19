@@ -9,10 +9,17 @@ function NavBar() {
 
     const navigate = useNavigate();
 
+    const handleEditProfile = () => {
+      // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
+    navigate.push('/editprofile');
+  };
+
     const handleLogout = () => {
         // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
       navigate.push('/');
     };
+
+
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -22,7 +29,9 @@ function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">View/Edit Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/editprofile' onClick={handleEditProfile}>
+                View/Edit Profile
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/' onClick={handleLogout}>
                 Logout
               </NavDropdown.Item>

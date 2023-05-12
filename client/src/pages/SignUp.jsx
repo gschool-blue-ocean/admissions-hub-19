@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginCSS from "../css/LoginUI.module.css";
-import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
     navigate.push("/");
   };
 
@@ -19,7 +18,8 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -37,12 +37,17 @@ const SignUp = () => {
     setUserType(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handlePassword1Change = (event) => {
+    setPassword1(event.target.value);
+  };
+
+  const handlePassword2Change = (event) => {
+    setPassword2(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let doFetch = false;
 
     const formData = {
       first_name: firstName,
@@ -50,18 +55,53 @@ const SignUp = () => {
       email: email,
       is_staff: userType === "staff",
       salt: "salt",
-      password_hash: password,
+      password_hash: password1,
     };
 
-    fetch(routeHTTP, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+    if (password1 != password2) {
+      alert("Passwords do not match!\nPlease try again.\n\nNothing Updated");
+    } else if (password1.length > 0 && password1.length < 8) {
+      alert(
+        "Password is not long enough!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[A-Z]+/.test(password1)) {
+      alert(
+        "Password has no capital letters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[a-z]+/.test(password1)) {
+      alert(
+        "Password has no lowercase letters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else if (!/[0-9]+/.test(password1)) {
+      alert("Password has no numbers!\nPlease try again.\n\nNothing Updated");
+    } else if (!/[^A-Za-z0-9]+/.test(password1)) {
+      alert(
+        "Password has no special characters!\nPlease try again.\n\nNothing Updated"
+      );
+    } else {
+      doFetch = true;
+    }
+
+    if (doFetch) {
+      fetch(routeHTTP, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setUserType("");
+          setPassword1("");
+          setPassword2("");
+          alert("Welcome to Galvanize!");
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
@@ -110,7 +150,7 @@ const SignUp = () => {
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="Enter email"
@@ -124,18 +164,37 @@ const SignUp = () => {
           <Form.Group className="mb-3 text-left" controlId="formBasicPassword">
             <Row>
               <Form.Label column sm={4}>
-                Password:
+                Password
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
-                  type="text"
-                  value={password}
-                  onChange={handlePasswordChange}
+                  type="password"
+                  value={password1}
+                  onChange={handlePassword1Change}
                   placeholder="Enter Password"
                 />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group
+            className="mb-3 text-left"
+            controlId="formBasicConfirmPassword"
+          >
+            <Row>
+              <Form.Label column sm={4}>
+                Confirm Password
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="password"
+                  value={password2}
+                  onChange={handlePassword2Change}
+                  placeholder="Confirm Password"
+                />
                 <Form.Text className="text-muted">
-                  Password must be 8 characters long.<br></br>
-                  Must have a special character eg., @$#! <br></br>
+                  Passwords must be at least 8 characters long.<br></br>
+                  Must have a capital letter, a lowercase letter,<br></br>a
+                  number, and a special character.<br></br>
                 </Form.Text>
               </Col>
             </Row>
