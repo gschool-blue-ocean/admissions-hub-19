@@ -1,7 +1,13 @@
 import React from "react";
+import InputNotes from "../components/InputNotes"
 
 const Interview = () => {
-    return <h2>Interview</h2>;
-  };
+  
+  return (
+  <div>
+    <InputNotes/>
+  </div>
+  );
+}
 
 export default Interview;
