@@ -54,7 +54,7 @@ const CohortButton = () => {
               <Form.Label>Cohort Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="MCSP-No."
+                placeholder="MCSP-00"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
