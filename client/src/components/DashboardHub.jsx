@@ -202,9 +202,6 @@ const DashboardHub = () => {
       >
         Launch Interview
       </Button>
-      <Button className="ExportStudentBtn" variant="primary">
-        Export Student
-      </Button>
     </div>
   );
 };
