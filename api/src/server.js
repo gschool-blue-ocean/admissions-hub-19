@@ -12,7 +12,7 @@ app.get("/test", async (req, res, next) => {
 // ATTEMPTS TABLE ROUTES
 import attemptsController from "./routesAttempts.js";
 app.get("/attempts", attemptsController.findAll);
-app.get("/attempt/:id", attemptsController.findOne);
+app.get("/attempt/:id", attemptsController.findOne); //pk
 app.get("/attempts/student/:id", attemptsController.findAllForStudent);
 app.get("/attempts/staff/:id", attemptsController.findAllForStaff);
 app.post("/attempt", attemptsController.create);
@@ -68,5 +68,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Internal Server Error", err);
 });
+
+//JWT AUTH SECTION...has to match unto student_id, staff_id, cohort_id,
+//question_id,
 
 export default app;
