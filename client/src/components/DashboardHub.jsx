@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
+import CohortButton from "./CohortBtnDashboard";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ const DashboardHub = () => {
         />
       </Form>
       <Button className="FilterBtn" variant="primary">
-        Filter
+        Cohort
       </Button>
       <Table borderedless hover height="525px" width="1900px" className="Table">
         <thead>
@@ -202,9 +203,7 @@ const DashboardHub = () => {
       >
         Launch Interview
       </Button>
-      <Button className="ExportStudentBtn" variant="primary">
-        Export Student
-      </Button>
+      <CohortButton />
     </div>
   );
 };

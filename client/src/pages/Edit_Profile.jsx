@@ -215,7 +215,7 @@ const Edit_Profile = ({ userid }) => {
               </Col>
             </Row>
           </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicUserType">
+          {/* <Form.Group className="mb-3 text-left" controlId="formBasicUserType">
             <Row>
               <Form.Label column sm={4}>
                 Student or Staff member?
@@ -240,7 +240,7 @@ const Edit_Profile = ({ userid }) => {
                 />
               </Col>
             </Row>
-          </Form.Group>
+          </Form.Group> */}
           <Container className={LoginCSS.btnwrap}>
             <Button className={LoginCSS.btn} variant="primary" type="submit">
               Submit
