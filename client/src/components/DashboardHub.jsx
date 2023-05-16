@@ -5,6 +5,11 @@ import Form from 'react-bootstrap/Form';
 import '../css/DashboardHub.css';
 
 const DashboardHub = () => {
+
+
+
+
+
     return (
         <div className="DashboardHub">
             <Form className="Searchbar">
@@ -15,7 +20,7 @@ const DashboardHub = () => {
                     aria-label="Search"
                 />
             </Form>
-            <Button className='FilterBtn' variant="primary">Filter</Button>
+            <Button className='FilterBtn' variant="primary" >Filter</Button>
             <Table borderedless hover height='525px' width='1900px' className="Table">
                 <thead>
                     <tr>
@@ -26,7 +31,9 @@ const DashboardHub = () => {
                         <th height="20px">Attempt</th>
                         <th height="20px">Status</th>
                         <th height="20px">Submitted Pay</th>
-                        <th height="20px">Paperwork?</th>
+                        <th height="20px">Paperwork1</th>
+                        <th height="20px">Paperwork2</th>
+                        <th height="20px">Paperwork3</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,14 +56,6 @@ const DashboardHub = () => {
                         <td >Retired</td>
                         <td >Y</td>
                         <td >Y</td>
-                    </tr>
-                    <tr>
-                        <td >Joe Johnson</td>
-                        <td >IsoJoe@hotmail.com</td>
-                        <td >MCSP-19</td>
-                        <td >August 28, 2022</td>
-                        <td >1</td>
-                        <td >Retired</td>
                         <td >Y</td>
                         <td >Y</td>
                     </tr>
@@ -69,16 +68,44 @@ const DashboardHub = () => {
                         <td >Retired</td>
                         <td >Y</td>
                         <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
-                        {Array.from({ length: 8 }).map((_, index) => (
-                            <td key={index} >Placeholder</td>
-                        ))}
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                     <tr>
-                        {Array.from({ length: 8 }).map((_, index) => (
-                            <td key={index} >Placeholder</td>
-                        ))}
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                    </tr>
+                    <tr>
+                        <td >Joe Johnson</td>
+                        <td >IsoJoe@hotmail.com</td>
+                        <td >MCSP-19</td>
+                        <td >August 28, 2022</td>
+                        <td >1</td>
+                        <td >Retired</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
+                        <td >Y</td>
                     </tr>
                 </tbody>
             </Table>
