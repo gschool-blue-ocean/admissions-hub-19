@@ -92,3 +92,7 @@
 .Table tr {
     height: fit-content;
 }
+
+.SelectedRows {
+    background-color: lightslategray;
+}

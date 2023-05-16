@@ -13,6 +13,7 @@ const DashboardHub = () => {
   const [allStudentsArray, setAllStudentsArray] = useState([]);
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
 
   const getAllStudentsData = () => {
     fetch(`${routeHTTP}/students`, {
@@ -119,6 +120,14 @@ const DashboardHub = () => {
     setAllStudentsCohort([testObject, testObject]);
   }, []);
 
+
+const handleSelectedStudents = (index) => {
+  if (selectedStudents.includes(index)) {
+    setSelectedStudents(selectedStudents.filter((selectedStudents) => selectedStudents !== index));
+  } else {
+    setSelectedStudents([...selectedStudents, index]);
+  }
+}
   return (
     <div className="DashboardHub">
       <Form className="Searchbar">
@@ -140,13 +149,12 @@ const DashboardHub = () => {
             <th height="20px">Cohort</th>
             <th height="20px">Last Interview</th>
             <th height="20px">Attempt</th>
-            <th height="20px">Status</th>
             <th height="20px">Submitted Pay</th>
             <th height="20px">Paperwork?</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr> 
             <td>
               {oneStudentObject.first_name} {oneStudentObject.last_name}
             </td>
@@ -154,21 +162,19 @@ const DashboardHub = () => {
             <td>{oneStudentObject.name}</td>
             <td>{getLastInterViewDate(oneStudentObject)}</td>
             <td>{oneStudentObject.numattempts}</td>
-            <td>???</td>
             <td>{oneStudentObject.paid ? "Y" : "N"}</td>
             <td>{getPaperworkStatus(oneStudentObject)}</td>
           </tr>
           {allStudentsArray.map((student, index) => {
             return (
-              <tr key={index}>
-                <td>
+              <tr key={index} onClick={()=>handleSelectedStudents(index)}  className={selectedStudents.includes(index) ? 'SelectedRows' : ''}>
+                <td >
                   {student.first_name} {student.last_name}
                 </td>
                 <td>{student.email}</td>
                 <td>{student.name}</td>
                 <td>{getLastInterViewDate(student)}</td>
                 <td>{student.numattempts}</td>
-                <td>???</td>
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
               </tr>
@@ -184,7 +190,7 @@ const DashboardHub = () => {
       >
         Add Student
       </Button>
-      <Button className="DeleteStudentBtn" variant="primary">
+      <Button className="DeleteStudentBtn" variant="primary" >
         Delete Student
       </Button>
       <Button
