@@ -174,56 +174,6 @@ const DashboardHub = () => {
               </tr>
             );
           })}
-          <tr>
-            <td>Joe Johnson</td>
-            <td>IsoJoe@hotmail.com</td>
-            <td>MCSP-19</td>
-            <td>August 28, 2022</td>
-            <td>1</td>
-            <td>Retired</td>
-            <td>Y</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            <td>Joe Johnson</td>
-            <td>IsoJoe@hotmail.com</td>
-            <td>MCSP-19</td>
-            <td>August 28, 2022</td>
-            <td>1</td>
-            <td>Retired</td>
-            <td>Y</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            <td>Joe Johnson</td>
-            <td>IsoJoe@hotmail.com</td>
-            <td>MCSP-19</td>
-            <td>August 28, 2022</td>
-            <td>1</td>
-            <td>Retired</td>
-            <td>Y</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            <td>Joe Johnson</td>
-            <td>IsoJoe@hotmail.com</td>
-            <td>MCSP-19</td>
-            <td>August 28, 2022</td>
-            <td>1</td>
-            <td>Retired</td>
-            <td>Y</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Placeholder</td>
-            ))}
-          </tr>
-          <tr>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <td key={index}>Placeholder</td>
-            ))}
-          </tr>
         </tbody>
       </Table>
 
