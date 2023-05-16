@@ -215,32 +215,6 @@ const Edit_Profile = ({ userid }) => {
               </Col>
             </Row>
           </Form.Group>
-          {/* <Form.Group className="mb-3 text-left" controlId="formBasicUserType">
-            <Row>
-              <Form.Label column sm={4}>
-                Student or Staff member?
-              </Form.Label>
-              <br />
-              <Col sm={8}>
-                <Form.Check
-                  type="radio"
-                  label="Student"
-                  name="userType"
-                  value="student"
-                  checked={userType === "student"}
-                  onChange={handleUserTypeChange}
-                />
-                <Form.Check
-                  type="radio"
-                  label="Staff"
-                  name="userType"
-                  value="staff"
-                  checked={userType === "staff"}
-                  onChange={handleUserTypeChange}
-                />
-              </Col>
-            </Row>
-          </Form.Group> */}
           <Container className={LoginCSS.btnwrap}>
             <Button className={LoginCSS.btn} variant="primary" type="submit">
               Submit
