@@ -1,15 +1,15 @@
 import pg from "pg";
-const db = new pg.Pool({ 
+const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-      rejectUnauthorized: false
-  }
+  // ssl: {
+  //     rejectUnauthorized: false
+  // }
 });
 
 async function findAll(_req, res, next) {
   const result = await db
     .query(
-      "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id"
+      "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id  INNER JOIN cohorts ON students.cohort_id=cohorts.cohort_id"
     )
     .catch(next);
   //console.log("Result", result.rows);
@@ -22,7 +22,7 @@ async function findOne(req, res, next) {
   } else {
     const result = await db
       .query(
-        "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id WHERE students.user_id = $1",
+        "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id INNER JOIN cohorts ON students.cohort_id=cohorts.cohort_id WHERE students.user_id = $1",
         [req.params.id]
       )
       .catch(next);
@@ -41,7 +41,7 @@ async function findAllInCohort(req, res, next) {
   } else {
     const result = await db
       .query(
-        "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id WHERE students.cohort_id = $1",
+        "SELECT * FROM students INNER JOIN users ON students.user_id=users.user_id INNER JOIN cohorts ON students.cohort_id=cohorts.cohort_id WHERE students.cohort_id = $1",
         [req.params.id]
       )
       .catch(next);

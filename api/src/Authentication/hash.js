@@ -10,7 +10,8 @@ function hash(input) {
 
 //create 2 hashed passwords
 
-let password = (userinput);
+//let password = (use app.post );
+//should compare 2 the one pasword from the user input signing up and the login
 const hash1 = hash(password);
 console.log(hash1)
 
