@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 //import InterviewCSS from "../css/Interview.css";
 
@@ -8,7 +9,7 @@ const InputNotes = () => {
   const [question2, setQuestion2] = useState({});
   const [question3, setQuestion3] = useState({});
 
-  const routeHTTP = "http://localhost:8000";
+  const routeHTTP = `${baseurl}`
 
   const handleSelect = (eventKey) => {
     setActiveTab(eventKey);
@@ -22,7 +23,7 @@ const InputNotes = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("data:", data);
+        console.log("data:", data);
         setQuestion1(data[0]);
         setQuestion2(data[1]);
         setQuestion3(data[2]);
