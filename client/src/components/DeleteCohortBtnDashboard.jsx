@@ -77,7 +77,7 @@ function CohortPopUp() {
 
   return (
     <>
-      <Button className='CohortBtn' variant="primary" onClick={handleModalShow}>
+      <Button className='DeleteCohortBtn' variant="primary" onClick={handleModalShow}>
         Show Cohorts
       </Button>
 

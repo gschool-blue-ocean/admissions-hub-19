@@ -58,7 +58,7 @@
     right: 0;
 }
 
-.CohortBtn {
+.DeleteCohortBtn {
     display: flex;
     align-self: end;
     margin-bottom: 20px;
