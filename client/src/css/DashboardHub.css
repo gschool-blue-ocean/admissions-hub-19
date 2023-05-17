@@ -50,13 +50,13 @@
     margin-bottom: 20px;
 }
 
-.AddCohortBtn {
+/* .AddCohortBtn {
     display: flex;
     align-self: end;
     margin-bottom: 20px;
     margin-right: 180px;
     right: 0;
-}
+} */
 
 .DeleteCohortBtn {
     display: flex;

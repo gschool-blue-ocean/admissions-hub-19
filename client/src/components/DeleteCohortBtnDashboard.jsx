@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, ListGroup } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Button, Modal, ListGroup, Row, Col } from "react-bootstrap";
 
-function CohortPopUp() {
-
-    const routeHTTPGet = "http://localhost:8000/cohorts";
-    const routeHTTPDel= "http://localhost:8000/cohort";
+function DeleteCohortButton() {
+  const routeHTTPGet = "http://localhost:8000/cohorts";
+  const routeHTTPDel = "http://localhost:8000/cohort";
 
   const [cohorts, setCohorts] = useState([]);
   const [selectedCohort, setSelectedCohort] = useState(null);
@@ -17,41 +16,44 @@ function CohortPopUp() {
       const data = await response.json();
       setCohorts(data);
     } catch (error) {
-      console.error('Error fetching cohorts:', error);
+      console.error("Error fetching cohorts:", error);
     }
   };
 
   // Delete cohort
   const handleDeleteCohort = async () => {
     if (selectedCohort) {
-      console.log('Selected Cohort ID:', selectedCohort.id);
+      console.log("Selected Cohort ID:", selectedCohort.id);
       try {
         // Send a DELETE request to the server to delete the selected cohort
         await fetch(`${routeHTTPDel}/${selectedCohort.id}`, {
-          method: 'DELETE',
+          method: "DELETE",
         });
-  
+
         // Update the cohorts state by removing the deleted cohort
-        setCohorts(prevCohorts =>
-          prevCohorts.filter(cohort => cohort.id !== selectedCohort.id)
-          );
-  
+        setCohorts((prevCohorts) =>
+          prevCohorts.filter((cohort) => cohort.id !== selectedCohort.id)
+        );
+
         // Reset the selected cohort to null
         setSelectedCohort(null);
 
         // Close the modal
         handleModalClose();
       } catch (error) {
-        console.error('Error deleting cohort:', error);
+        console.error("Error deleting cohort:", error);
       }
     }
-  }
-
+  };
 
   // Select
   const handleSelectCohort = (cohort) => {
-    console.log('Selected Cohort:', cohort);
-    setSelectedCohort({ id: cohort.cohort_id, name: cohort.name, start_date: cohort.start_date });
+    console.log("Selected Cohort:", cohort);
+    setSelectedCohort({
+      id: cohort.cohort_id,
+      name: cohort.name,
+      start_date: cohort.start_date,
+    });
   };
 
   // Modal
@@ -68,7 +70,7 @@ function CohortPopUp() {
     fetchCohorts();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     // Fetch cohorts again whenever the showModal state changes
     if (showModal) {
       fetchCohorts();
@@ -77,8 +79,12 @@ function CohortPopUp() {
 
   return (
     <>
-      <Button className='DeleteCohortBtn' variant="primary" onClick={handleModalShow}>
-        Show Cohorts
+      <Button
+        className="DeleteCohortBtn"
+        variant="primary"
+        onClick={handleModalShow}
+      >
+        Delete Cohort
       </Button>
 
       <Modal show={showModal} onHide={handleModalClose}>
@@ -90,7 +96,7 @@ function CohortPopUp() {
             {cohorts.map((cohort) => (
               <ListGroup.Item
                 key={cohort.id}
-                active={selectedCohort && selectedCohort.id === cohort.id}
+                active={selectedCohort === cohort.id}
                 onClick={() => handleSelectCohort(cohort)}
               >
                 {cohort.name}
@@ -99,16 +105,22 @@ function CohortPopUp() {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleDeleteCohort}>
-            Delete
-          </Button>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Close
-          </Button>
+          <Row>
+            <Col>
+              <Button variant="danger" onClick={handleDeleteCohort}>
+                Delete
+              </Button>
+            </Col>
+            <Col>
+              <Button variant="secondary" onClick={handleModalClose}>
+                Cancel
+              </Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
     </>
   );
 }
 
-export default CohortPopUp;
+export default DeleteCohortButton;
