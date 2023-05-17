@@ -1,46 +1,29 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function NavBar() {
-
-    const navigate = useNavigate();
-
-    const handleEditProfile = () => {
-      // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
-    navigate.push('/editprofile');
-  };
-
-    const handleLogout = () => {
-        // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
-      navigate.push('/');
-    };
-
-
+function CodingWindow() {
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">Galvanize-Awesome!</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto">
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to='/editprofile' onClick={handleEditProfile}>
-                View/Edit Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/' onClick={handleLogout}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div style={{width: "100%", height: "100%", background: "black", color: "limegreen"}}>
+      <pre>{`
+      // Inputs:
+      //   nums: array holding integers
+      //   target: number we want two numbers from the array to add up to
+      // Output:
+      //   array value holding two values, the indexes of the array where the two values add to the target
+      // Constraints:
+      //   array nums only holds integers
+      //   may not use the same index twice
+      //   there is only one solution
+      // Edge Cases:
+      //   none
+      //
+      
+      function twoSum (nums, target) {
+
+      };
+      `}</pre>
+    </div>
   );
 }
 
-export default NavBar;
+export default CodingWindow;
