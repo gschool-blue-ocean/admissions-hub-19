@@ -45,7 +45,7 @@ const { baseURL } = require("../../testEnv.js");
 //   });
 // });
 
-console.log("testUserID: ", testUserID);
+//console.log("testUserID: ", testUserID);
 
 let studentsLength = 0; // holds length of all students
 describe(`GET all /students`, () => {
@@ -123,6 +123,32 @@ describe("GET non-int /students/cohort/:id", () => {
   });
 });
 
+let postID = 0; // holds student_id of newly created student
+describe("POST /student/", () => {
+  const newstudent = {
+    first_name: "Jimmy",
+    last_name: "Nuetron",
+    email: "jimmy.nuetron@space.com",
+    cohort_id: 1,
+    numattempts: 2,
+    paid: true,
+    paperwork: true,
+  };
+  //console.log("TEST USER INFO:", newstudent);
+  it("should create and return 1 student", async () => {
+    const response = await request(baseURL).post("/student").send(newstudent);
+    postID = response.body.student_id;
+    expect(response.statusCode).toBe(200);
+    expect(response.body.numattempts == 2).toBe(true);
+  });
+  it("should be previous student.length + 1", async () => {
+    const response = await request(baseURL).get("/students");
+    expect(response.body.length == studentsLength + 1).toBe(true);
+  });
+});
+
+//console.log("Updated postID:", postID);
+
 describe("POST duplicate /student/", () => {
   const newstudent = {
     first_name: "Jimmy",
@@ -136,31 +162,7 @@ describe("POST duplicate /student/", () => {
   it("should return 400", async () => {
     const response = await request(baseURL).post("/student").send(newstudent);
     expect(response.statusCode).toBe(400);
-    expect(response.text == "Student already exists for user").toBe(true);
-  });
-});
-
-let postID = 0; // holds student_id of newly created student
-describe("POST /student/", () => {
-  const newstudent = {
-    first_name: "Jimmy",
-    last_name: "Nuetron",
-    email: "jimmy.nuetron@space.com",
-    cohort_id: 1,
-    numattempts: 2,
-    paid: true,
-    paperwork: true,
-  };
-  console.log("TEST USER INFO:", newstudent);
-  it("should create and return 1 student", async () => {
-    const response = await request(baseURL).post("/student").send(newstudent);
-    postID = response.body.student_id;
-    expect(response.statusCode).toBe(200);
-    expect(response.body.numattempts == 2).toBe(true);
-  });
-  it("should be previous student.length + 1", async () => {
-    const response = await request(baseURL).get("/students");
-    expect(response.body.length == studentsLength + 1).toBe(true);
+    expect(response.text == "Student email already exists").toBe(true);
   });
 });
 
@@ -170,7 +172,7 @@ describe("UPDATE valid /student/:id", () => {
     const response = await request(baseURL)
       .patch(`/student/${postID}`)
       .send(updateStudent);
-    console.log("UPDATE RESPONSE:", response.body);
+    //console.log("UPDATE RESPONSE:", response.body);
     expect(response.statusCode).toBe(200);
     expect(response.body.numattempts == 3).toBe(true);
   });
