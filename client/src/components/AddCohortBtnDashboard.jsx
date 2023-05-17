@@ -42,7 +42,7 @@ const CohortButton = () => {
 
   return (
     <div>
-      <Button className='AddCohortBtn' onClick={handleButtonClick}>Create Cohort</Button>
+      <Button className='AddCohortBtn' variant="primary" onClick={handleButtonClick}>Create Cohort</Button>
 
       <Modal show={showPopup} onHide={handlePopupClose}>
         <Modal.Header closeButton>

@@ -5,7 +5,8 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
-import CohortButton from "./CohortBtnDashboard";
+import CohortButton from "./AddCohortBtnDashboard";
+import CohortPopup from "./CohortShowBtnDashboard";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
@@ -130,9 +131,7 @@ const DashboardHub = () => {
           aria-label="Search"
         />
       </Form>
-      <Button className="FilterBtn" variant="primary">
-        Cohort
-      </Button>
+     <CohortPopup />
       <Table borderedless hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>

@@ -55,7 +55,14 @@
     align-self: end;
     margin-bottom: 20px;
     margin-right: 180px;
-    position: absolute;
+    right: 0;
+}
+
+.CohortBtn {
+    display: flex;
+    align-self: end;
+    margin-bottom: 20px;
+    margin-right: 180px;
     right: 0;
 }
 
