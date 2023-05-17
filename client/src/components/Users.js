@@ -8,7 +8,6 @@ const users = [
   { id: 2, email: 'user2@example.com', password: '$2b$10$xquVEwee0Rce1.2d/s80.OHPGvWl4zV2a/HULNWzEdaT1kfjYR.b2' }
 ];
 
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // Authenticate user
