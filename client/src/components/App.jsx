@@ -10,6 +10,7 @@ import { AuthProvider } from "react-auth-kit";
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <div>
         <Nav variant="tabs">
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/interview" element={<Interview />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 
