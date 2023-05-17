@@ -1,9 +1,7 @@
 import pg from "pg";
 const db = new pg.Pool({ 
   connectionString: process.env.DATABASE_URL,
-  // ssl: {
-  //     rejectUnauthorized: false
-  // }
+  ssl: process.env.NODE_ENV === 'development' ? false : {rejectUnauthorized: false}
 });
 
 async function findAll(_req, res, next) {
