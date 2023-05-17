@@ -3,7 +3,8 @@ import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import StarRating from "./StarRating";
 //import baseurl from "../url";
-//import InterviewCSS from "../css/Interview.css";
+import InterviewCSS from "../css/Interview.css";
+import StudentSelector from "./StudentSelector";
 
 const InputNotes = () => {
   const [activeTab, setActiveTab] = useState("problem1");
@@ -145,10 +146,12 @@ const problems = ["Problem 1", "Problem 2", "Problem 3"];
 
   return (
     <div>
-      <Container className="border p-3 mt-3 float-right w-30">
+      <Container className="interview-container">
         <h2>Student Name, Cohort</h2>
+        
         <Button variant="primary">Click Here to Copy Student URL</Button>
-
+        <StudentSelector/>
+        
         <Nav
           variant="tabs"
           activeKey={activeTab}
@@ -167,39 +170,40 @@ const problems = ["Problem 1", "Problem 2", "Problem 3"];
         </Nav>
 
         {activeTab === "problem1" && (
-          <>
+          <div className="Tab-Sections">
             <h3>{question1.title}</h3>
             <p>{question1.question}</p>
             <p>{question1.description}</p>
             {notes1.map((note, index) => {
               return <p key={index}> {note.note} </p>; })
             }
-          </>
+          </div>
         )}
 
         {activeTab === "problem2" && (
-          <>
+          <div className ="Tab-Sections">
             <h3>{question2.title}</h3>
             <p>{question2.question}</p>
             <p>{question2.description}</p>
             {notes2.map((note, index) => {
               return <p key={index}> {note.note} </p>; })
             }
-          </>
+          </div>
         )}
 
         {activeTab === "problem3" && (
-          <>
+          <div className="Tab-Sections">
             <h3>{question3.title}</h3>
             <p>{question3.question}</p>
             <p>{question3.description}</p>
             {notes3.map((note, index) => {
               return <p key={index}> {note.note} </p>; })
             }
-          </>
+          </div>
         )}
         <h3>Notes</h3>
-        <input type="text" 
+        <textarea type="text"
+          style={{  width: "375px", height: "200px"}}
           placeholder="Notes and results for the student attempt"
           onChange={updateNotes} />
 
