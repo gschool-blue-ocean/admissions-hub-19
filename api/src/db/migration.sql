@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS users(
   first_name varchar(30) NOT NULL,
   last_name varchar(50) NOT NULL,
   email varchar(150) UNIQUE NOT NULL,
-  is_staff boolean NOT NULL,
   password_hash varchar(100) NOT NULL,
   salt BYTEA 
 ); 
@@ -29,13 +28,13 @@ CREATE TABLE IF NOT EXISTS questions (
 
 CREATE TABLE IF NOT EXISTS students (
   student_id serial PRIMARY KEY NOT NULL,
-  user_id int NOT NULL UNIQUE REFERENCES users(user_id),
+  first_name varchar(30) NOT NULL,
+  last_name varchar(50) NOT NULL,
+  email varchar(150) UNIQUE NOT NULL,
   cohort_id int REFERENCES cohorts(cohort_id),
   numAttempts int,
   paid boolean,
-  paperwork1 boolean,
-  paperwork2 boolean,
-  paperwork3 boolean
+  paperwork boolean
 );
 
 CREATE TABLE IF NOT EXISTS question_notes (

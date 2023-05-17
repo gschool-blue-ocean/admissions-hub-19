@@ -57,7 +57,6 @@ describe("POST with duplicated email address /user/", () => {
       first_name: response.first_name,
       last_name: response.last_name,
       email: response.email,
-      is_staff: response.is_staff,
       salt: response.salt,
       password_hash: response.password_hash,
     };
@@ -76,7 +75,6 @@ describe("POST with incorrect key names /user/", () => {
     first_names: "Johny",
     last_names: "Quest",
     emails: "Johny.Quest@thefuture.net",
-    is_staff: true,
     salt: "passwordSalt",
     password_hash: "passwordHash",
   };
@@ -94,7 +92,6 @@ describe("POST /user/", () => {
     first_name: "Johny",
     last_name: "Quest",
     email: "Johny.Quest@thefuture.net",
-    is_staff: true,
     salt: "passwordSalt",
     password_hash: "passwordHash",
   };
