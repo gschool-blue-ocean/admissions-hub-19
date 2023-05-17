@@ -5,6 +5,8 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
+import CohortButton from "./AddCohortBtnDashboard";
+import CohortPopup from "./CohortShowBtnDashboard";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const DashboardHub = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("data:", data);
+        // console.log("data:", data);
         setAllStudentsArray(data);
       });
   };
@@ -129,9 +131,7 @@ const DashboardHub = () => {
           aria-label="Search"
         />
       </Form>
-      <Button className="FilterBtn" variant="primary">
-        Filter
-      </Button>
+     <CohortPopup />
       <Table borderedless hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>
@@ -202,9 +202,7 @@ const DashboardHub = () => {
       >
         Launch Interview
       </Button>
-      <Button className="ExportStudentBtn" variant="primary">
-        Export Student
-      </Button>
+      <CohortButton />
     </div>
   );
 };

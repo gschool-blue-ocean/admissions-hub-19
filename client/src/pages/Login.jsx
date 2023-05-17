@@ -1,6 +1,6 @@
 import React from "react";
 import LoginUI from "../components/LoginUI";
-import ImageCarousel from "../components/ImageCarousel";
+import ImageCarousel from "../components/ImageCarouselLogin";
 
 const Login = () => {
     return (
