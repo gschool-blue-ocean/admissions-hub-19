@@ -1,5 +1,5 @@
 import pg from "pg";
-const db = new pg.Pool({ 
+const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   // ssl: {
   //     rejectUnauthorized: false
@@ -29,15 +29,13 @@ async function findOne(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const { first_name, last_name, email, is_staff, salt, password_hash } =
-    req.body;
-  const keys = "first_name, last_name, email, is_Staff, salt, password_hash";
+  const { first_name, last_name, email, salt, password_hash } = req.body;
+  const keys = "first_name, last_name, email, salt, password_hash";
   //console.log("CREATE USER BODY:", req.body);
   if (
     first_name === undefined ||
     last_name === undefined ||
     email === undefined ||
-    is_staff === undefined ||
     salt === undefined ||
     password_hash === undefined
   ) {
@@ -54,7 +52,7 @@ async function create(req, res, next) {
       const result = await db
         .query(
           `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-          [first_name, last_name, email, is_staff, salt, password_hash]
+          [first_name, last_name, email, salt, password_hash]
         )
         .catch(next);
       res.send(result.rows[0]);
@@ -86,7 +84,6 @@ async function update(req, res, next) {
     "first_name",
     "last_name",
     "email",
-    "is_staff",
     "salt",
     "password_hash",
   ];
