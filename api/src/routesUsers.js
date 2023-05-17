@@ -1,7 +1,10 @@
 import pg from "pg";
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'development' ? false : {rejectUnauthorized: false}
+  ssl:
+    process.env.NODE_ENV === "development"
+      ? false
+      : { rejectUnauthorized: false },
 });
 
 async function findAll(_req, res, next) {
@@ -49,7 +52,7 @@ async function create(req, res, next) {
     } else {
       const result = await db
         .query(
-          `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+          `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
           [first_name, last_name, email, salt, password_hash]
         )
         .catch(next);

@@ -17,10 +17,10 @@ const Interview = () => {
     >
       <CodingWindow
         style={{
-          width: "1000px",
+          width: "75%",
         }}
       />
-      <InputNotes style={{ width: "500px" }} />
+      <InputNotes />
     </div>
   );
 };
