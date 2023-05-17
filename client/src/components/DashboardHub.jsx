@@ -123,17 +123,17 @@ const DashboardHub = () => {
     setAllStudentsCohort([testObject, testObject]);
   }, []);
 
-  const handleSelectedStudents = (studentId, index) => {
-    if (selectedStudents.includes(studentId, index)) {
-      setSelectedStudents(selectedStudents.filter((selectedStudents) => selectedStudents !== index && selectedStudents !== studentId));
-    } else {
-      setSelectedStudents([...selectedStudents, studentId, index]);
-    }
-  }
+  // const handleSelectedStudents = (studentId, index) => {
+  //   if (selectedStudents.includes(studentId, index)) {
+  //     setSelectedStudents(selectedStudents.filter((selectedStudents) => selectedStudents !== index && selectedStudents !== studentId));
+  //   } else {
+  //     setSelectedStudents([...selectedStudents, studentId, index]);
+  //   }
+  // }
 
-  const deleteRows = (index) => {
-    const updatedData = selectedStudents.filter((index) => index.id !== id);
-    setData(updatedData);
+  const deleteRows = (studentId) => {
+    const updatedData = selectedStudents.filter(() => studentId !== studentId);
+    setAllStudentsArray(updatedData);
   }
 
   return (
@@ -146,7 +146,7 @@ const DashboardHub = () => {
           aria-label="Search"
         />
       </Form>
-     <CohortPopup />
+      <CohortPopup />
       <Table borderedless hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>
@@ -164,7 +164,7 @@ const DashboardHub = () => {
         <tbody>
           {allStudentsArray.map((student, index) => {
             return (
-              <tr key={index} onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} /*className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
+              <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
                 <td >
                   {student.first_name} {student.last_name}
                 </td>
@@ -175,19 +175,12 @@ const DashboardHub = () => {
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
                 <td>
-                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(index.id)}>
+                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(student.id)}>
                     Delete Student
                   </Button>
                 </td>
                 <td>
-                  <Button
-                    className="UpdateStudentBtn"
-                    variant="primary"
-                    onClick={() => navigate("/editprofile")}
-                    userid={1}
-                  >
-                    Update Student
-                  </Button>
+
                 </td>
               </tr>
             );
@@ -201,6 +194,14 @@ const DashboardHub = () => {
         onClick={() => navigate("/signup")}
       >
         Add Student
+      </Button>
+      <Button
+        className="UpdateStudentBtn"
+        variant="primary"
+        onClick={() => navigate("/editprofile")}
+        userid={1}
+      >
+        Update Student
       </Button>
 
       <Button
