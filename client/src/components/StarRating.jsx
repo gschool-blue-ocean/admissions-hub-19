@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import InterviewCSS from "../css/Interview.css";
+
 
 const StarRating = ({ onchange, title }) => {
   const [rating, setRating] = useState(0);

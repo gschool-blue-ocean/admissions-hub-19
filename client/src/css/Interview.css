@@ -2,8 +2,6 @@
     border: 1px solid black;
     padding: 10px;
     margin-top: 10px;
-    float: right;
-    width: 30%;
   }
   
   .code-container {
@@ -13,4 +11,13 @@
     margin-right: 10px;
     float: left;
     width: 70%;
+  }
+
+  .Tab-Style{
+    color: blueviolet;
+  }
+
+  .Tab-Sections {
+    width:375px;
+    height: 215px;
   }
