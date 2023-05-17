@@ -95,7 +95,6 @@ const SignUp = () => {
           setFirstName("");
           setLastName("");
           setEmail("");
-          setUserType("");
           setPassword1("");
           setPassword2("");
           alert("Welcome to Galvanize!");

@@ -7,7 +7,7 @@ import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useAuth } from './auth';
 import axios from 'axios';
-// import baseurl
+import baseurl from '../url'
 //needs to accept user input password and email 
 //should check this nin the database that was logged on the signup page
 
@@ -83,7 +83,7 @@ export const LoginUI = () => {
 
     try {
       // Send credentials to the server for authentication
-      const response = await axios.post('/api/Login', { email, password });
+      const response = await axios.post(`${baseurl}/api/Login`, { email, password });
       localStorage.setItem('token', response.data.token);
       navigate('/Dashboard');
     } catch (error) {
@@ -141,7 +141,7 @@ export const LoginUI = () => {
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
-        Sign Up!
+        Create Account!
       </Button>
       </Container>
     </Form>

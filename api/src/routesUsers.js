@@ -1,4 +1,6 @@
+import bcrypt from 'bcrypt';
 import pg from "pg";
+
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'development' ? false : {rejectUnauthorized: false}
@@ -47,10 +49,15 @@ async function create(req, res, next) {
       res.statusMessage = "Email address already exists";
       res.status(400).send("Email address already exists");
     } else {
+      const hash = await bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password_hash, salt, function(err, hash) {
+        return hash});
+        })
+
       const result = await db
         .query(
           `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-          [first_name, last_name, email, salt, password_hash]
+          [first_name, last_name, email, salt, hash]
         )
         .catch(next);
       res.send(result.rows[0]);
