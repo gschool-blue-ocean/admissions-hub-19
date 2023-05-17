@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import baseurl from "../url";
 import { Button, Modal, ListGroup, Row, Col } from "react-bootstrap";
 
 function DeleteCohortButton() {
-  const routeHTTPGet = "http://localhost:8000/cohorts";
-  const routeHTTPDel = "http://localhost:8000/cohort";
+  const routeHTTPGet = `${baseurl}/cohorts`;
+  const routeHTTPDel = `${baseurl}/cohort`;
 
   const [cohorts, setCohorts] = useState([]);
   const [selectedCohort, setSelectedCohort] = useState(null);

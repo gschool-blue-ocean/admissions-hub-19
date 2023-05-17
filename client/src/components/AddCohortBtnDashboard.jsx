@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import baseurl from "../url";
 import { Button, Modal, Form, ButtonToolbar} from "react-bootstrap";
 
 const AddCohortButton = () => {
-  const routeHTTP = "http://localhost:8000/cohort";
+  const routeHTTP = `${baseurl}/cohort`;
 
   const [showPopup, setShowPopup] = useState(false);
   const [name, setName] = useState("");
