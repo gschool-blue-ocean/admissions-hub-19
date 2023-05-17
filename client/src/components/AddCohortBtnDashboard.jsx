@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import "../css/DashboardHub.css";
 
 const CohortButton = () => {
 
@@ -67,10 +66,12 @@ const CohortButton = () => {
                 value={startDate}
                 onChange={(event) => setStartDate(event.target.value)}
               />
+              <br />
             </Form.Group>
             <Button variant="primary" type="submit">
               Submit
             </Button>
+            <br />
             <Button variant="secondary" onClick={handlePopupClose}>
               Cancel
             </Button>

@@ -3,16 +3,17 @@ import { Button, Modal, ListGroup } from 'react-bootstrap';
 
 function CohortPopUp() {
 
-    const routeHTTP = "http://localhost:8000/cohorts";
+    const routeHTTPGet = "http://localhost:8000/cohorts";
+    const routeHTTPDel= "http://localhost:8000/cohort";
 
   const [cohorts, setCohorts] = useState([]);
   const [selectedCohort, setSelectedCohort] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Function to fetch cohorts from the server
+  // Fetch cohorts from the server
   const fetchCohorts = async () => {
     try {
-      const response = await fetch(routeHTTP);
+      const response = await fetch(routeHTTPGet);
       const data = await response.json();
       setCohorts(data);
     } catch (error) {
@@ -20,12 +21,40 @@ function CohortPopUp() {
     }
   };
 
-  // Function to handle cohort selection
+  // Delete cohort
+  const handleDeleteCohort = async () => {
+    if (selectedCohort) {
+      console.log('Selected Cohort ID:', selectedCohort.id);
+      try {
+        // Send a DELETE request to the server to delete the selected cohort
+        await fetch(`${routeHTTPDel}/${selectedCohort.id}`, {
+          method: 'DELETE',
+        });
+  
+        // Update the cohorts state by removing the deleted cohort
+        setCohorts(prevCohorts =>
+          prevCohorts.filter(cohort => cohort.id !== selectedCohort.id)
+          );
+  
+        // Reset the selected cohort to null
+        setSelectedCohort(null);
+
+        // Close the modal
+        handleModalClose();
+      } catch (error) {
+        console.error('Error deleting cohort:', error);
+      }
+    }
+  }
+
+
+  // Select
   const handleSelectCohort = (cohort) => {
-    setSelectedCohort(cohort);
+    console.log('Selected Cohort:', cohort);
+    setSelectedCohort({ id: cohort.cohort_id, name: cohort.name, start_date: cohort.start_date });
   };
 
-  // Function to handle modal visibility
+  // Modal
   const handleModalShow = () => {
     setShowModal(true);
   };
@@ -38,6 +67,13 @@ function CohortPopUp() {
   useEffect(() => {
     fetchCohorts();
   }, []);
+
+    useEffect(() => {
+    // Fetch cohorts again whenever the showModal state changes
+    if (showModal) {
+      fetchCohorts();
+    }
+  }, [showModal]);
 
   return (
     <>
@@ -54,7 +90,7 @@ function CohortPopUp() {
             {cohorts.map((cohort) => (
               <ListGroup.Item
                 key={cohort.id}
-                active={selectedCohort === cohort}
+                active={selectedCohort && selectedCohort.id === cohort.id}
                 onClick={() => handleSelectCohort(cohort)}
               >
                 {cohort.name}
@@ -63,6 +99,9 @@ function CohortPopUp() {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="danger" onClick={handleDeleteCohort}>
+            Delete
+          </Button>
           <Button variant="secondary" onClick={handleModalClose}>
             Close
           </Button>
