@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users(
   first_name varchar(30) NOT NULL,
   last_name varchar(50) NOT NULL,
   email varchar(150) UNIQUE NOT NULL,
-  password_hash varchar(100) NOT NULL,
+  password_hash varchar(10000) NOT NULL,
   salt BYTEA 
 ); 
 

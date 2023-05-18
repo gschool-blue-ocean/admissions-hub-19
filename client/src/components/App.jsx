@@ -6,9 +6,11 @@ import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
 import Signup from "../pages/SignUp.jsx";
+import { AuthProvider } from "react-auth-kit";
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <div>
         <Nav variant="tabs">
@@ -55,6 +57,7 @@ const App = () => {
         <Route path="/interview" element={<Interview />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

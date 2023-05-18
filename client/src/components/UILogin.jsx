@@ -5,28 +5,48 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
-// import Users from "./Users";
+import { useAuth } from './auth';
 import axios from 'axios';
+import baseurl from '../url'
+//needs to accept user input password and email 
+//should check this nin the database that was logged on the signup page
 
-const LoginUI = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+// export const Login = () => {
+//   const [user, setUser] = UseState('')
+//   const auth = useAuth()
+// }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('/api/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+// export const LoginUI = () => {
+//   const navigate = useNavigate();
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const auth = useAuth();
 
-  const handleClick = () => {
-    navigate('/signup');
-  };
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await axios.post('/api/Login', { email, password });
+//       localStorage.setItem('token', response.data.token);
+//       navigate('/Dashboard');
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   const handleClick = () => {
+//     navigate('/signup');
+//   };
+
+  // if (email === 'user@example.com' && password === 'password') {
+    // Valid credentials
+    // alert('Login successful!');
+    // Perform additional actions (e.g., redirect to dashboard)
+  // } else {
+    // Invalid credentials
+//     alert('Invalid email or password.');
+//   }
+// };
+
 
 // const LoginUI = () => {
 
@@ -36,6 +56,50 @@ const LoginUI = () => {
 //     // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
 //   navigate.push('/signup');
 // };
+export const LoginUI = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const auth = useAuth();
+
+  const handleSubmit = async (e) => {
+    console.log(email)
+    e.preventDefault();
+    
+    // Email and password validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    // if (!emailRegex.test(email)) {
+    //   alert('Invalid email format.');
+    //   return;
+    // }
+
+    // if (!passwordRegex.test(password)) {
+    //   alert(
+    //     'Invalid password format. Password must be 8 characters long and contain at least 1 letter and 1 number.'
+    //   );
+    //   return;
+    // }
+
+    try {
+      // Send credentials to the server for authentication
+     
+      const response = await axios.post(`${baseurl}/login`, { email, password });
+      if(response.status === 200)  {
+        localStorage.setItem('token', response.data.token);
+        navigate('/Dashboard');
+      }
+      
+    } catch (error) {
+      console.error(error);
+      alert('Invalid email or password.');
+    }
+  };
+
+  const handleClick = () => {
+    navigate('/signup');
+  };
 
     return (
       <div className = {LoginCSS.formbg}>
@@ -47,7 +111,12 @@ const LoginUI = () => {
       <Row>
         <Form.Label column sm={4}> Email address</Form.Label>
         <Col sm={8}>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control 
+          type="email" 
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <Form.Text className="text-muted">
           Please use the email that you check most often.
         </Form.Text>
@@ -59,7 +128,12 @@ const LoginUI = () => {
         <Row>
         <Form.Label column sm={4}>Password</Form.Label>
         <Col sm={8}>        
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control 
+          type="password" 
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} 
+        />
         <Form.Text className="text-muted">
           Password must be 8 characters long.<br>
           </br>
@@ -75,14 +149,19 @@ const LoginUI = () => {
       </Form.Group>
 
       <Container className={LoginCSS.btnwrap}>
-      <Button className={LoginCSS.btn} variant="primary" type="submit">
+      <Button 
+        className={LoginCSS.btn} 
+        variant="primary" 
+        type="submit"
+        onClick={handleSubmit}
+      >
         Login!
       </Button>
       {/* <Users /> //this is the refernce for the signup */}
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
-        Sign Up!
+        Create Account!
       </Button>
       </Container>
     </Form>
@@ -90,5 +169,6 @@ const LoginUI = () => {
     </div>
     )
 }
+
 
 export default LoginUI;
