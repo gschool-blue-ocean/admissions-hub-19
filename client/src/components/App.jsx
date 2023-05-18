@@ -10,8 +10,13 @@ import Signup from "../pages/SignUp.jsx";
 const App = () => {
   const [userId, setUserId] = useState(null);
 
+<<<<<<< HEAD
   if (userId) {
     console.log(userId);
+=======
+  if(userId) {
+    console.log( "userId: " + userId)
+>>>>>>> 3cced02dff266f502287e02239186632b48a359f
   }
 
   const handleUser = (data) => {
