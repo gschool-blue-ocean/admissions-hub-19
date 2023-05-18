@@ -53,9 +53,7 @@ const SignUp = () => {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      is_staff: userType === "staff",
-      salt: "salt",
-      password_hash: password1,
+      password: password1,
     };
 
     if (password1 != password2) {
