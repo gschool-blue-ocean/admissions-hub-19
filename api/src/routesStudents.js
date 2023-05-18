@@ -71,7 +71,9 @@ async function create(req, res, next) {
     last_name === undefined ||
     email === undefined ||
     cohort_id === undefined ||
+    cohort_id === '' ||
     numattempts === undefined ||
+    numattempts === '' ||
     paid === undefined ||
     paperwork === undefined ||
     isNaN(cohort_id) ||

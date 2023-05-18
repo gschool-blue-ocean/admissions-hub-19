@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
 import AddCohortButton from "./AddCohortBtnDashboard";
+import AddStudentButton from "./AddStudentBtnDashboard";
 import DeleteCohortButton from "./DeleteCohortBtnDashboard";
 
 const DashboardHub = () => {
@@ -270,14 +271,6 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
-
-      <Button
-        className="AddStudentBtn"
-        variant="primary"
-        onClick={() => navigate("/signup")}
-      >
-        Add Student
-      </Button>
       <Button
         className="UpdateStudentBtn"
         variant="primary"
@@ -294,6 +287,7 @@ const DashboardHub = () => {
         Launch Interview
       </Button>
       <AddCohortButton />
+      <AddStudentButton />
       <DeleteCohortButton />
     </div>
   );

@@ -2,11 +2,11 @@ import React from "react";
 import LoginUI from "../components/UILogin";
 import ImageCarousel from "../components/ImageCarouselLogin";
 
-const Login = () => {
+const Login = ({handleUser}) => {
     return (
       <div>
-        <LoginUI />
-        <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'flex-start', 'zIndex':'10'}}>
+        <LoginUI handleUser={handleUser}/>
+        <div style={{'display':'flex', 'justifyContent':'flex-end', 'alignItems':'flex-start', 'zIndex':'10'}}>
           <ImageCarousel/>
         </div>
        
