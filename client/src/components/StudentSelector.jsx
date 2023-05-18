@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Nav } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import baseurl from "../url";
 
 function StudentSelector({ updateStudent }) {
@@ -36,9 +36,10 @@ function StudentSelector({ updateStudent }) {
   };
 
   const handleCohortSelection = (event) => {
-    setCohort(event.target.value);
-    if (event.target.value != 0) {
-      fetch(`${baseurl}/students/cohort/${event.target.value}`, {
+    //console.log("event:", event.target.target);
+    setCohort(event.target.target);
+    if (event.target.target != 0) {
+      fetch(`${baseurl}/students/cohort/${event.target.target}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         mode: "cors",
@@ -54,8 +55,8 @@ function StudentSelector({ updateStudent }) {
   };
 
   const handleStudentSelection = async (event) => {
-    setStudent(event.target.value);
-    await fetch(`${baseurl}/student/${event.target.value}`, {
+    setStudent(event.target.target);
+    await fetch(`${baseurl}/student/${event.target.target}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       mode: "cors",
@@ -73,20 +74,20 @@ function StudentSelector({ updateStudent }) {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: "flex", flex: "flex", marginBottom: "8px" }}>
+      {/*
       <div className="cohort-select">
-        {/* <label>Cohort</label> */}
         <select
           name="cohort-select"
           id="cohort-select"
           onChange={handleCohortSelection}
         >
-          <option key={0} value="0">
+          <option key={0} target="0">
             All Cohorts
           </option>
           {allCohorts.map((cohort) => {
             return (
-              <option key={cohort.cohort_id} value={cohort.cohort_id}>
+              <option key={cohort.cohort_id} target={cohort.cohort_id}>
                 {cohort.name}
               </option>
             );
@@ -94,42 +95,61 @@ function StudentSelector({ updateStudent }) {
         </select>
       </div>
       <div className="student-select">
-        {/* <label>Student</label> */}
         <select
           name="student-select"
           id="student-select"
           onChange={handleStudentSelection}
         >
-          <option key={0} value="0">
+          <option key={0} target="0">
             Select Student
           </option>
           {allStudents.map((student) => {
             return (
-              <option key={student.student_id} value={student.student_id}>
+              <option key={student.student_id} target={student.student_id}>
                 {student.first_name} {student.last_name}
               </option>
             );
           })}
         </select>
       </div>
-      {/*
-        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownCohorts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cohorts
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownCohorts">
-            {allCohorts.map((cohort, index) => {
-                <a className="dropdown-item" key={index} value={cohort.cohort_id} onClick={handleCohortSelection}>{cohort.name}</a>
-            })}
-        </div>
-        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownStudents" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Students
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownStudents">
-            {allStudents.map((student, index) => {
-                <a className="dropdown-item" key={index} value={student.student_id} onClick={handleStudentSelection}>{cohort.name}</a>
-            })}
-        </div>
-        */}
+      */}
+      <Dropdown>
+        <Dropdown.Toggle variant="primary">Select Cohort</Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item key={0} target={0} onClick={handleCohortSelection}>
+            All Cohorts
+          </Dropdown.Item>
+          <Dropdown.Divider />
+          {allCohorts.map((cohort) => {
+            return (
+              <Dropdown.Item
+                key={cohort.cohort_id}
+                target={cohort.cohort_id}
+                onClick={handleCohortSelection}
+              >
+                {cohort.name}
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
+      <div style={{ width: "8px" }}></div>
+      <Dropdown>
+        <Dropdown.Toggle variant="primary">Select Student</Dropdown.Toggle>
+        <Dropdown.Menu>
+          {allStudents.map((student) => {
+            return (
+              <Dropdown.Item
+                key={student.student_id}
+                target={student.student_id}
+                onClick={handleStudentSelection}
+              >
+                {student.first_name} {student.last_name}
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
   );
 }
