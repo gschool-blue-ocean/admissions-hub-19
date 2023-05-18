@@ -81,22 +81,40 @@ export const LoginUI = () => {
       return;
     }
 
-    try {
-      // Send credentials to the server for authentication
-      const response = await axios.post(`${baseurl}/api/Login`, { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/Dashboard');
-    } catch (error) {
-      console.error(error);
+  //   try {
+  //     // Send credentials to the server for authentication
+  //     const response = await axios.post(`${baseurl}/api/Login`, { email, password });
+  //     localStorage.setItem('token', response.data.token);
+  //     navigate('/Dashboard');
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('Invalid email or password.');
+  //   }
+  // };
+  try {
+    // Send credentials to the server for authentication
+    const response = await axios.post(`${baseurl}/api/login`, { email, password });
+
+    if (response.status === 200) {
+      // Authentication successful
+      auth.login(); // Update the authentication state in your app
+      navigate('/dashboard');
+    } else {
+      // Authentication failed
       alert('Invalid email or password.');
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('An error occurred during authentication.');
+  }
+};
 
   const handleClick = () => {
     navigate('/signup');
   };
 
     return (
+
       <div className = {LoginCSS.formbg}>
         <div>
           <h2 className={LoginCSS.headers}>Welcome to Galvanize Admissions</h2>
