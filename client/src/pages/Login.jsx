@@ -1,5 +1,5 @@
 import React from "react";
-import LoginUI from "../components/LoginUI";
+import LoginUI from "../components/UILogin";
 import ImageCarousel from "../components/ImageCarouselLogin";
 
 const Login = () => {

@@ -25,7 +25,7 @@
     position: absolute;
     left: 0;
 }
-
+/* 
 .DeleteStudentBtn {
     display: flex;
     align-self: end;
@@ -34,7 +34,7 @@
     position: absolute;
     left: 0;
 }
-
+*/
 .UpdateStudentBtn {
     display: flex;
     align-self: end;
@@ -42,7 +42,7 @@
     margin-left: 365px;
     position: absolute;
     left: 0;
-}
+} 
 
 .LaunchInterviewBtn {
     display: flex;
@@ -50,15 +50,15 @@
     margin-bottom: 20px;
 }
 
-.AddCohortBtn {
+/* .AddCohortBtn {
     display: flex;
     align-self: end;
     margin-bottom: 20px;
     margin-right: 180px;
     right: 0;
-}
+} */
 
-.CohortBtn {
+.DeleteCohortBtn {
     display: flex;
     align-self: end;
     margin-bottom: 20px;
@@ -98,4 +98,8 @@
 
 .Table tr {
     height: fit-content;
+}
+
+.SelectedRows {
+    background-color: lightslategray;
 }

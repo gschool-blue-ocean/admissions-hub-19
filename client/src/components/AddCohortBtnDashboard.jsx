@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
-import "../css/DashboardHub.css";
+import React, { useState } from "react";
+import baseurl from "../url";
+import { Button, Modal, Form, ButtonToolbar} from "react-bootstrap";
 
-const CohortButton = () => {
-
-  const routeHTTP = "http://localhost:8000/cohort";
+const AddCohortButton = () => {
+  const routeHTTP = `${baseurl}/cohort`;
 
   const [showPopup, setShowPopup] = useState(false);
-  const [name, setName] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [name, setName] = useState("");
+  const [startDate, setStartDate] = useState("");
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -16,8 +15,8 @@ const CohortButton = () => {
 
   const handlePopupClose = () => {
     setShowPopup(false);
-    setName('');
-    setStartDate('');
+    setName("");
+    setStartDate("");
   };
 
   const handleFormSubmit = async (event) => {
@@ -25,16 +24,16 @@ const CohortButton = () => {
 
     try {
       const response = await fetch(routeHTTP, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, start_date: startDate }),
       });
       const data = await response.json();
-      console.log('Record created:', data);
+      console.log("Record created:", data);
     } catch (error) {
-      console.error('Error creating record:', error);
+      console.error("Error creating record:", error);
     }
 
     handlePopupClose();
@@ -42,8 +41,13 @@ const CohortButton = () => {
 
   return (
     <div>
-      <Button className='AddCohortBtn' variant="primary" onClick={handleButtonClick}>Create Cohort</Button>
-
+      <Button
+        className="AddCohortBtn"
+        variant="primary"
+        onClick={handleButtonClick}
+      >
+        Create Cohort
+      </Button>
       <Modal show={showPopup} onHide={handlePopupClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create Cohort</Modal.Title>
@@ -67,13 +71,20 @@ const CohortButton = () => {
                 value={startDate}
                 onChange={(event) => setStartDate(event.target.value)}
               />
+              <br />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-            <Button variant="secondary" onClick={handlePopupClose}>
-              Cancel
-            </Button>
+            
+            <ButtonToolbar className="justify-content-end">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={handlePopupClose}
+              >
+                Cancel
+              </Button>
+            </ButtonToolbar>
           </Form>
         </Modal.Body>
       </Modal>
@@ -81,4 +92,4 @@ const CohortButton = () => {
   );
 };
 
-export default CohortButton;
+export default AddCohortButton;
