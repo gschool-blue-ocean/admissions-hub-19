@@ -12,19 +12,60 @@ import DeleteCohortButton from "./DeleteCohortBtnDashboard";
 const DashboardHub = () => {
   const navigate = useNavigate();
   const routeHTTP = "http://localhost:8000";
+  const routeHTTPDel = `${routeHTTP}/student`;
 
   const [allStudentsArray, setAllStudentsArray] = useState([]);
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const [deletedStudents, setDeletedStudents] = useState([]);
+  //create a useEffect that recognizes that when changes occur getAllStudent
+
+  // const handleDelete = (student, studentId) => {
+  //   const deletedStudent = allStudentsArray.find(() => student.student_id === studentId);
+  //   if(deletedStudent){
+  //   //store data in state
+  //   setDeletedStudents([...deletedStudents, deletedStudent])
+  //   // Make an HTTP DELETE request to the server endpoint to delete the data
+  //   axios.delete(`${routeHTTP}/student/${student.student_id}/`)
+  //     .then((response) => {
+  //       // Handle the success response, e.g., update the component's state or perform any necessary actions
+  //       console.log(response.data.message);
+  //     })
+  //     .catch((error) => {
+  //       // Handle any errors that occur during the request
+  //       console.error('Error deleting data:', error);
+  //     });
+  //   }
+  // };
+
+  const handleRowRestore = (student, studentId) => {
+    const restoredStudents = deletedStudents.find(() => student.id === studentId);
+    if (restoredStudents) {
+      const updatedData = [...allStudentsArray, restoredStudents];
+      setAllStudentsArray(updatedData);
+      setDeletedStudents(restoredStudents.filter(() => student.id !== studentId));
+    }
+  };
 
   useEffect(() => {
-    getOneStudentData();
     getAllStudentsData();
-    getAllStudentsFromCohort();
   }, []);
 
-    const getAllStudentsData = () => {
+  // useEffect(() => {
+  //   handleRowRestore();
+  // }, []);
+
+  // const handleRowRestore = (studentId) => {
+  //   const restoredData = deletedStudents.find((student) => student.student_id === studentId);
+  //   if (restoredData) {
+  //     const updatedData = [...allStudentsArray, restoredData];
+  //     setAllStudentsArray(updatedData);
+  //     setDeletedStudents(deleteStudents.filter((students) => students.student_id !== studentId));
+  //   }
+  // };
+
+  const getAllStudentsData = () => {
     fetch(`${routeHTTP}/students`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -32,11 +73,11 @@ const DashboardHub = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-         console.log("data:", data);
+        console.log("data:", data);
         setAllStudentsArray(data);
       });
-    };
-  
+  };
+
   const getOneStudentData = (userid) => {
     fetch(`${routeHTTP}/student/${userid}`, {
       method: "GET",
@@ -140,10 +181,45 @@ const DashboardHub = () => {
 
 
 
-  const deleteRows = (studentId) => {
-    const updatedData = allStudentsArray.filter((student) => student.student_id !== studentId);
-    setAllStudentsArray(updatedData);
-  }
+  // const deleteRows = (studentId) => {
+  //   const updatedData = all.filter((student) => student.student_id !== studentId);
+  //   setAllStudentsArray(updatedData);
+  // }
+
+  // Delete cohort
+  // const deleteRows = async (studentId) => {
+  //   if (studentId) {
+  //     // console.log("Selected Cohort ID:", studentId);
+  //     try {
+  //       // Send a DELETE request to the server to delete the selected cohort
+  //       await fetch(`${routeHTTPDel}/${studentId}`, {
+  //         method: "DELETE",
+  //       });
+  //       //record deleted students in an array
+  //       setDeletedStudents([...deletedStudents, studentId])
+  //       // Update the allStudents' state by removing the deleted student
+  //       setAllStudentsArray((studentId) =>
+  //         allStudentsArray.filter((student) => student.id !== studentId)
+  //       );
+
+  //       // Reset the selected cohort to null
+  //       setOneStudentObject(null);
+
+  //     } catch (error) {
+  //       console.error("Error deleting cohort:", error);
+  //     }
+  //   }
+  // };
+
+  // const handleSelectStudent = (student) => {
+  //   console.log("Selected Cohort:", student);
+  //   setSelectedStudents({
+  //     id: student.student_id,
+  //     name: student.name,
+  //     start_date: student.start_date,
+  //   });
+  // };
+
 
   return (
     <div className="DashboardHub">
@@ -183,7 +259,7 @@ const DashboardHub = () => {
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
                 <td>
-                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(student.student_id)}>
+                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => handleDelete(student, student.student_id)}>
                     Delete Student
                   </Button>
                 </td>

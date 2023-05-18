@@ -6,7 +6,7 @@ const Login = () => {
     return (
       <div>
         <LoginUI />
-        <div style={{'display':'flex', 'justifyContent':'flex-end', 'alignItems':'flex-start', 'zIndex':'10'}}>
+        <div style={{'display':'flex', 'justifyContent':'center', 'alignItems':'flex-start', 'zIndex':'10'}}>
           <ImageCarousel/>
         </div>
        
