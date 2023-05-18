@@ -63,44 +63,36 @@ export const LoginUI = () => {
   const auth = useAuth();
 
   const handleSubmit = async (e) => {
+    console.log(email)
     e.preventDefault();
     
     // Email and password validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    if (!emailRegex.test(email)) {
-      alert('Invalid email format.');
-      return;
-    }
+    // if (!emailRegex.test(email)) {
+    //   alert('Invalid email format.');
+    //   return;
+    // }
 
-    if (!passwordRegex.test(password)) {
-      alert(
-        'Invalid password format. Password must be 8 characters long and contain at least 1 letter and 1 number.'
-      );
-      return;
-    }
+    // if (!passwordRegex.test(password)) {
+    //   alert(
+    //     'Invalid password format. Password must be 8 characters long and contain at least 1 letter and 1 number.'
+    //   );
+    //   return;
+    // }
 
-  //   try {
-  //     // Send credentials to the server for authentication
-  //     const response = await axios.post(`${baseurl}/api/Login`, { email, password });
-  //     localStorage.setItem('token', response.data.token);
-  //     navigate('/Dashboard');
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('Invalid email or password.');
-  //   }
-  // };
-  try {
-    // Send credentials to the server for authentication
-    const response = await axios.post(`${baseurl}/api/login`, { email, password });
-
-    if (response.status === 200) {
-      // Authentication successful
-      auth.login(); // Update the authentication state in your app
-      navigate('/dashboard');
-    } else {
-      // Authentication failed
+    try {
+      // Send credentials to the server for authentication
+     
+      const response = await axios.post(`${baseurl}/login`, { email, password });
+      if(response.status === 200)  {
+        localStorage.setItem('token', response.data.token);
+        navigate('/Dashboard');
+      }
+      
+    } catch (error) {
+      console.error(error);
       alert('Invalid email or password.');
     }
   } catch (error) {
@@ -124,7 +116,12 @@ export const LoginUI = () => {
       <Row>
         <Form.Label column sm={4}> Email address</Form.Label>
         <Col sm={8}>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control 
+          type="email" 
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <Form.Text className="text-muted">
           Please use the email that you check most often.
         </Form.Text>
@@ -136,7 +133,12 @@ export const LoginUI = () => {
         <Row>
         <Form.Label column sm={4}>Password</Form.Label>
         <Col sm={8}>        
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control 
+          type="password" 
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} 
+        />
         <Form.Text className="text-muted">
           Password must be 8 characters long.<br>
           </br>
@@ -152,7 +154,12 @@ export const LoginUI = () => {
       </Form.Group>
 
       <Container className={LoginCSS.btnwrap}>
-      <Button className={LoginCSS.btn} variant="primary" type="submit">
+      <Button 
+        className={LoginCSS.btn} 
+        variant="primary" 
+        type="submit"
+        onClick={handleSubmit}
+      >
         Login!
       </Button>
       {/* <Users /> //this is the refernce for the signup */}

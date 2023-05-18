@@ -36,7 +36,21 @@ function StudentSelector() {
     }
 
     const handleCohortSelection = (event) => {
-        setCohort(event.target.valStudentue);
+        setCohort(event.target.value);
+        if (event.target.value != 0) {
+            fetch(`${baseurl}/students/cohort/${event.target.value}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                mode: "cors",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("data:", data);
+                setAllStudents(data);
+            });
+        } else {
+            getAllStudents();
+        }
     }
 
     const handleStudentSelection = (event) => {
@@ -50,6 +64,37 @@ function StudentSelector() {
 
   return (
     <div>
+        <div className="cohort-select">
+            <label>Cohort</label>
+            <select name="cohort-select" id="cohort-select">
+                <option value="0">All Cohorts</option>
+                {allCohorts.map((cohort, index) => {
+                    <option
+                        key={index}
+                        value={cohort.cohort_id}
+                        onClick={handleCohortSelection}
+                    >
+                        {cohort.name}
+                    </option>
+                })}
+            </select>
+        </div>
+        <div className="student-select">
+            <label>Student</label>
+            <select name="student-select" id="student-select">
+                <option value="0">All Students</option>
+                {allStudents.map((student, index) => {
+                    <option
+                        key={index}
+                        value={student.student_id}
+                        onClick={handleStudentSelection}
+                    >
+                        {student.first_name} {student.last_name}
+                    </option>
+                })}
+            </select>
+        </div>
+
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownCohorts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Cohorts
         </button>
