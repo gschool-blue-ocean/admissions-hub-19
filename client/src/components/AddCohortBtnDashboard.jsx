@@ -3,7 +3,7 @@ import baseurl from "../url";
 import { Button, Modal, Form, ButtonToolbar} from "react-bootstrap";
 
 const AddCohortButton = () => {
-  const routeHTTP = `${baseurl}/cohort`;
+  const routeHTTPPost = `${baseurl}/cohort`;
 
   const [showPopup, setShowPopup] = useState(false);
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ const AddCohortButton = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch(routeHTTP, {
+      const response = await fetch(routeHTTPPost, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const AddCohortButton = () => {
         variant="primary"
         onClick={handleButtonClick}
       >
-        Create Cohort
+        Add Cohort
       </Button>
       <Modal show={showPopup} onHide={handlePopupClose}>
         <Modal.Header closeButton>
