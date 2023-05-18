@@ -12,7 +12,7 @@ const App = () => {
   const [userId, setUserId] = useState(null)
 
   if(userId) {
-    console.log(userId)
+    console.log( "userId: " + userId)
   }
 
   const handleUser = (data) => {
