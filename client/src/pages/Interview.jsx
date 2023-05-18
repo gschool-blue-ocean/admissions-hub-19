@@ -4,31 +4,9 @@ import CodingWindow from "../components/CodingWindow";
 
 const Interview = ({ userid }) => {
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        marginLeft: "auto",
-        marginRight: "auto",
-        position: "relative",
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-    >
-      <div
-        style={{
-          minWidth: "600px",
-          width: "70%",
-          height: "80vh",
-          marginRight: "20px",
-        }}
-      >
-        <CodingWindow />
-      </div>
-      <div style={{ width: "400px", height: "80vh" }}>
-        <InputNotes userid={userid} />
-      </div>
-    </div>
+    <>
+      <InputNotes userid={userid} />
+    </>
   );
 };
 

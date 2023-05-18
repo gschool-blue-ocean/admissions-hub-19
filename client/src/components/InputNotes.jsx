@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
+import CodingWindow from "../components/CodingWindow";
 import StarRating from "./StarRating";
 import StudentSelector from "./StudentSelector";
 import "../css/Interview.css";
@@ -148,83 +149,105 @@ const InputNotes = ({ userid }) => {
   const problems = ["Problem 1", "Problem 2", "Problem 3"];
 
   return (
-    <div>
-      <Container className="interview-container">
-        {currentStudent.student_id ? (
-          <h2>
-            {currentStudent.first_name} {currentStudent.last_name},{" "}
-            {currentStudent.name}
-          </h2>
-        ) : (
-          <StudentSelector updateStudent={handleStudentUpdate} />
-        )}
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        marginLeft: "auto",
+        marginRight: "auto",
+        position: "relative",
+        display: "flex",
+        flexWrap: "wrap",
+      }}
+    >
+      <div
+        style={{
+          minWidth: "580px",
+          width: "60%",
+          height: "80vh",
+          marginRight: "20px",
+        }}
+      >
+        <CodingWindow />
+      </div>
+      <div style={{ width: "400px", height: "80vh" }}>
+        <Container className="interview-container">
+          {currentStudent.student_id ? (
+            <h2>
+              {currentStudent.first_name} {currentStudent.last_name},{" "}
+              {currentStudent.name}
+            </h2>
+          ) : (
+            <StudentSelector updateStudent={handleStudentUpdate} />
+          )}
 
-        <Button variant="primary">Click Here to Copy Student URL</Button>
+          <Button variant="primary">Click Here to Copy Student URL</Button>
 
-        <Nav
-          variant="tabs"
-          activeKey={activeTab}
-          onSelect={handleSelect}
-          style={{ marginTop: "10px" }}
-        >
-          <Nav.Item>
-            <Nav.Link eventKey="problem1">Problem 1</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="problem2">Problem 2</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="problem3">Problem 3</Nav.Link>
-          </Nav.Item>
-        </Nav>
+          <Nav
+            variant="tabs"
+            activeKey={activeTab}
+            onSelect={handleSelect}
+            style={{ marginTop: "10px" }}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey="problem1">Problem 1</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="problem2">Problem 2</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="problem3">Problem 3</Nav.Link>
+            </Nav.Item>
+          </Nav>
 
-        {activeTab === "problem1" && (
-          <div className="Tab-Sections">
-            <h3>{question1.title}</h3>
-            <p>{question1.question}</p>
-            <p>{question1.description}</p>
-            {notes1.map((note, index) => {
-              return <p key={index}> {note.note} </p>;
-            })}
-          </div>
-        )}
+          {activeTab === "problem1" && (
+            <div className="Tab-Sections">
+              <h3>{question1.title}</h3>
+              <p>{question1.question}</p>
+              <p>{question1.description}</p>
+              {notes1.map((note, index) => {
+                return <p key={index}> {note.note} </p>;
+              })}
+            </div>
+          )}
 
-        {activeTab === "problem2" && (
-          <div className="Tab-Sections">
-            <h3>{question2.title}</h3>
-            <p>{question2.question}</p>
-            <p>{question2.description}</p>
-            {notes2.map((note, index) => {
-              return <p key={index}> {note.note} </p>;
-            })}
-          </div>
-        )}
+          {activeTab === "problem2" && (
+            <div className="Tab-Sections">
+              <h3>{question2.title}</h3>
+              <p>{question2.question}</p>
+              <p>{question2.description}</p>
+              {notes2.map((note, index) => {
+                return <p key={index}> {note.note} </p>;
+              })}
+            </div>
+          )}
 
-        {activeTab === "problem3" && (
-          <div className="Tab-Sections">
-            <h3>{question3.title}</h3>
-            <p>{question3.question}</p>
-            <p>{question3.description}</p>
-            {notes3.map((note, index) => {
-              return <p key={index}> {note.note} </p>;
-            })}
-          </div>
-        )}
-        <h3>Notes</h3>
-        <textarea
-          type="text"
-          style={{ width: "375px", height: "200px" }}
-          placeholder="Notes and results for the student attempt"
-          onChange={updateNotes}
-        />
+          {activeTab === "problem3" && (
+            <div className="Tab-Sections">
+              <h3>{question3.title}</h3>
+              <p>{question3.question}</p>
+              <p>{question3.description}</p>
+              {notes3.map((note, index) => {
+                return <p key={index}> {note.note} </p>;
+              })}
+            </div>
+          )}
+          <h3>Notes</h3>
+          <textarea
+            type="text"
+            style={{ width: "375px", height: "200px" }}
+            placeholder="Notes and results for the student attempt"
+            onChange={updateNotes}
+          />
 
-        <StarRating onchange={updateRating1} title="Problem 1" />
-        <StarRating onchange={updateRating2} title="Problem 2" />
-        <StarRating onchange={updateRating3} title="Problem 3" />
+          <StarRating onchange={updateRating1} title="Problem 1" />
+          <StarRating onchange={updateRating2} title="Problem 2" />
+          <StarRating onchange={updateRating3} title="Problem 3" />
 
-        <Button variant="primary">Save and Exit</Button>
-        {/* <Button variant="primary">Save and Submit</Button> */}
-      </Container>
+          <Button variant="primary">Save and Exit</Button>
+          {/* <Button variant="primary">Save and Submit</Button> */}
+        </Container>
+      </div>
     </div>
   );
 };
