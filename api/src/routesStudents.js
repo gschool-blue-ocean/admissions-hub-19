@@ -1,7 +1,10 @@
 import pg from "pg";
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'development' ? false : {rejectUnauthorized: false}
+  ssl:
+    process.env.NODE_ENV === "development"
+      ? false
+      : { rejectUnauthorized: false },
 });
 
 async function findAll(_req, res, next) {
@@ -76,23 +79,31 @@ async function create(req, res, next) {
   ) {
     res.status(400).send("Recieved incorrect info");
   } else {
-    // const result = await db
-    //   .query("SELECT * FROM students WHERE student_id=$1", [user_id])
-    //   .catch(next);
-    // //console.log("STUDENTS RESULT ROWS", result.rows);
-    // if (result.rows.length != 0) {
-    //   res.status(400).send("Student already exists for user");
-    // } else {
     const result = await db
-      .query(
-        `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-        [first_name, last_name, email, cohort_id, numattempts, paid, paperwork]
-      )
+      .query("SELECT * FROM students WHERE email=$1", [email])
       .catch(next);
-    res.send(result.rows[0]);
+    //console.log("STUDENTS RESULT ROWS", result.rows);
+    if (result.rows.length != 0) {
+      res.status(400).send("Student email already exists");
+    } else {
+      const result = await db
+        .query(
+          `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+          [
+            first_name,
+            last_name,
+            email,
+            cohort_id,
+            numattempts,
+            paid,
+            paperwork,
+          ]
+        )
+        .catch(next);
+      res.send(result.rows[0]);
+    }
   }
 }
-//}
 
 async function remove(req, res, next) {
   if (Number.isNaN(parseInt(req.params.id))) {
