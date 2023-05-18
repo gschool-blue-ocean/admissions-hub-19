@@ -19,6 +19,7 @@ function generateHash(password) {
     .toString('hex'); // Convert the hash to a hexadecimal string
   return { salt, hash };
 }
+console.log(generateHash('password'))
 
 async function findAll(_req, res, next) {
   const result = await db.query("SELECT * FROM users").catch(next);
@@ -167,7 +168,9 @@ async function authenticate(req, res, next) {
     res.send(
       {
         message: "Authentication successful", 
-        token: token
+        token: token,
+        email: payload.email,
+        userId: payload.userId
       }); 
   } else {
     res.statusMessage = "Incorrect password";
