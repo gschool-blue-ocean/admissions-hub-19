@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import Login from "../pages/Login.jsx";
@@ -6,11 +6,20 @@ import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
 import Signup from "../pages/SignUp.jsx";
-import { AuthProvider } from "react-auth-kit";
+
 
 const App = () => {
+  const [userId, setUserId] = useState(null)
+
+  if(userId) {
+    console.log(userId)
+  }
+
+  const handleUser = (data) => {
+    setUserId(data)
+  }
+
   return (
-    <AuthProvider>
     <Router>
       <div>
         <Nav variant="tabs">
@@ -46,7 +55,7 @@ const App = () => {
         </Nav>
       </div>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login handleUser={handleUser}/>} />
 
         <Route path="/signup" element={<Signup />} />
 
@@ -57,7 +66,6 @@ const App = () => {
         <Route path="/interview" element={<Interview />} />
       </Routes>
     </Router>
-    </AuthProvider>
   );
 };
 
