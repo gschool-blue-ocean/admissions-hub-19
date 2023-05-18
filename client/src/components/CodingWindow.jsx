@@ -5,7 +5,7 @@ function CodingWindow() {
   return (
     <div style={{width: "100%", height: "100%", background: "black", color: "limegreen"}}>
       <pre>{`
-      // Inputs:
+      // Inputs: 
       //   nums: array holding integers
       //   target: number we want two numbers from the array to add up to
       // Output:
