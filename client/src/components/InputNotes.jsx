@@ -5,7 +5,7 @@ import StarRating from "./StarRating";
 import StudentSelector from "./StudentSelector";
 import "../css/Interview.css";
 
-const InputNotes = () => {
+const InputNotes = ({ userid }) => {
   const [activeTab, setActiveTab] = useState("problem1");
   const [question1, setQuestion1] = useState({});
   const [question2, setQuestion2] = useState({});
@@ -93,7 +93,7 @@ const InputNotes = () => {
       body: {
         date: testDate,
         student_id: currentStudent.student_id,
-        staff_id: "", // How to get this?
+        staff_id: userid,
         question1_id: question1.question_id,
         answer1: "", // How to get this from CodingWindow Component?
         rating1: rating1,

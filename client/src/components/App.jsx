@@ -7,17 +7,16 @@ import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
 import Signup from "../pages/SignUp.jsx";
 
-
 const App = () => {
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState(null);
 
-  if(userId) {
-    console.log(userId)
+  if (userId) {
+    console.log(userId);
   }
 
   const handleUser = (data) => {
-    setUserId(data)
-  }
+    setUserId(data);
+  };
 
   return (
     <Router>
@@ -55,15 +54,15 @@ const App = () => {
         </Nav>
       </div>
       <Routes>
-        <Route path="/" element={<Login handleUser={handleUser}/>} />
+        <Route path="/" element={<Login handleUser={handleUser} />} />
 
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/editprofile" element={<Edit_Profile userid={2} />} />
+        <Route path="/editprofile" element={<Edit_Profile userid={userId} />} />
 
-        <Route path="/interview" element={<Interview />} />
+        <Route path="/interview" element={<Interview userid={userId} />} />
       </Routes>
     </Router>
   );

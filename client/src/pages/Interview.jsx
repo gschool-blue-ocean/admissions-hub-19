@@ -2,9 +2,10 @@ import React from "react";
 import InputNotes from "../components/InputNotes";
 import CodingWindow from "../components/CodingWindow";
 
-const Interview = () => {
+const Interview = ({ userid }) => {
   return (
-    <div style={{
+    <div
+      style={{
         width: "100vw",
         height: "100vh",
         marginLeft: "auto",
@@ -14,11 +15,18 @@ const Interview = () => {
         flexWrap: "wrap",
       }}
     >
-      <div style={{ minWidth: "600px", width: "70%", height:"80vh", marginRight: "20px" }}>
+      <div
+        style={{
+          minWidth: "600px",
+          width: "70%",
+          height: "80vh",
+          marginRight: "20px",
+        }}
+      >
         <CodingWindow />
       </div>
-      <div style={{width: "400px", height: "80vh"}}>
-        <InputNotes />
+      <div style={{ width: "400px", height: "80vh" }}>
+        <InputNotes userid={userid} />
       </div>
     </div>
   );
