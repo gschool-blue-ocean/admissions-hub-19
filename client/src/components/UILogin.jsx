@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
-import { useAuth } from './auth';
 import axios from 'axios';
 import baseurl from '../url'
+
 //needs to accept user input password and email 
 //should check this nin the database that was logged on the signup page
 
@@ -56,11 +56,15 @@ import baseurl from '../url'
 //     // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
 //   navigate.push('/signup');
 // };
-export const LoginUI = () => {
+export const LoginUI = ({handleUser}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useAuth();
+
+
+
+  
+
 
   const handleSubmit = async (e) => {
     console.log(email)
@@ -87,7 +91,9 @@ export const LoginUI = () => {
      
       const response = await axios.post(`${baseurl}/login`, { email, password });
       if(response.status === 200)  {
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token
+        localStorage.setItem('token', token);
+        handleUser(response.data.userId)
         navigate('/Dashboard');
       }
       
