@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
@@ -17,8 +18,13 @@ const DashboardHub = () => {
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
 
+  useEffect(() => {
+    getOneStudentData();
+    getAllStudentsData();
+    getAllStudentsFromCohort();
+  }, []);
 
-  const getAllStudentsData = () => {
+    const getAllStudentsData = () => {
     fetch(`${routeHTTP}/students`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -26,11 +32,11 @@ const DashboardHub = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("data:", data);
+         console.log("data:", data);
         setAllStudentsArray(data);
       });
-  };
-
+    };
+  
   const getOneStudentData = (userid) => {
     fetch(`${routeHTTP}/student/${userid}`, {
       method: "GET",
@@ -91,37 +97,37 @@ const DashboardHub = () => {
     return count + " / 3";
   };
 
-  useEffect(() => {
-    //getAllStudentsData();
-    //getOneStudentData(1);
-    //getAllStudentsFromCohort();
+  // useEffect(() => {
+  // //   //getAllStudentsData();
+  // //   //getOneStudentData(1);
+  // //   //getAllStudentsFromCohort();
 
-    // EXAMPLE DATA FROM DATABASE
-    const testObject = {
-      student_id: 1,
-      user_id: 1,
-      cohort_id: 1,
-      numattempts: 0,
-      paid: true,
-      paperwork1: true,
-      paperwork2: false,
-      paperwork3: true,
-      name: "MCSP-35",
-      start_date: "2023-07-01T00:00:00.000Z",
-      first_name: "John",
-      last_name: "Doe",
-      email: "john.doe@example.com",
-      is_staff: false,
-      password_hash: "password1",
-      salt: {
-        type: "Buffer",
-        data: [115, 97, 108, 116, 49],
-      },
-    };
-    setAllStudentsArray([testObject, testObject, testObject, testObject, testObject, testObject, testObject]);
-    setOneStudentObject(testObject);
-    setAllStudentsCohort([testObject, testObject]);
-  }, []);
+  // //   // EXAMPLE DATA FROM DATABASE
+  //   const testObject = {
+  //     student_id: 1,
+  //     user_id: 1,
+  //     cohort_id: 1,
+  //     numattempts: 0,
+  //     paid: true,
+  //     paperwork1: true,
+  //     paperwork2: false,
+  //     paperwork3: true,
+  //     name: "MCSP-35",
+  //     start_date: "2023-07-01T00:00:00.000Z",
+  //     first_name: "John",
+  //     last_name: "Doe",
+  //     email: "john.doe@example.com",
+  //     is_staff: false,
+  //     password_hash: "password1",
+  //     salt: {
+  //       type: "Buffer",
+  //       data: [115, 97, 108, 116, 49],
+  //     },
+  //   };
+  //   setAllStudentsArray([testObject, testObject, testObject, testObject, testObject, testObject, testObject]);
+  //   setOneStudentObject(testObject);
+  //   setAllStudentsCohort([testObject, testObject]);
+  // }, []);
 
   // const handleSelectedStudents = (studentId, index) => {
   //   if (selectedStudents.includes(studentId, index)) {
@@ -131,8 +137,11 @@ const DashboardHub = () => {
   //   }
   // }
 
+
+
+
   const deleteRows = (studentId) => {
-    const updatedData = selectedStudents.filter(() => studentId !== studentId);
+    const updatedData = allStudentsArray.filter((student) => student.student_id !== studentId);
     setAllStudentsArray(updatedData);
   }
 
@@ -174,12 +183,11 @@ const DashboardHub = () => {
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
                 <td>
-                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(student.id)}>
+                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(student.student_id)}>
                     Delete Student
                   </Button>
                 </td>
                 <td>
-
                 </td>
               </tr>
             );
@@ -202,7 +210,6 @@ const DashboardHub = () => {
       >
         Update Student
       </Button>
-
       <Button
         className="LaunchInterviewBtn"
         variant="primary"
