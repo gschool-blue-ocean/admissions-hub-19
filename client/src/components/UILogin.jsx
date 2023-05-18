@@ -89,10 +89,7 @@ export const LoginUI = () => {
       if(response.status === 200)  {
         localStorage.setItem('token', response.data.token);
         navigate('/Dashboard');
-      }
-      
-    } catch (error) {
-      console.error(error);
+    } else {
       alert('Invalid email or password.');
     }
   } catch (error) {

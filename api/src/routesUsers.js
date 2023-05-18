@@ -72,7 +72,6 @@ async function create(req, res, next) {
         .query(
           `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
           [first_name, last_name, email, salt, password_hash]
->>>>>>>>> Temporary merge branch 2
         )
         .catch(next);
       res.send(result.rows[0]);
