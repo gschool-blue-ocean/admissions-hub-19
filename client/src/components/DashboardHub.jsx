@@ -6,9 +6,9 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
-import AddCohortButton from "./AddCohortBtnDashboard";
-import AddStudentButton from "./AddStudentBtnDashboard";
-import DeleteCohortButton from "./DeleteCohortBtnDashboard";
+import AddCohortButton from "./DashboardAddCohortBtn";
+import AddStudentButton from "./DashboardAddStudentBtn";
+import DeleteCohortButton from "./DashboardDeleteCohortBtn";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
