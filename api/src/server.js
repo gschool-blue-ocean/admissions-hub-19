@@ -63,6 +63,7 @@ app.get("/user/:id", usersController.findOne);
 app.post("/user", usersController.create);
 app.delete("/user/:id", usersController.remove);
 app.patch("/user/:id", usersController.update);
+app.post("/login", usersController.authenticate)
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
