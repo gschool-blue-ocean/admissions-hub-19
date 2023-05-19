@@ -30,10 +30,10 @@
     left: 0;
 }
 */
-.UpdateStudentBtn {
-  /*margin-bottom: 20px;
-  margin-right: 20px; */
-}
+/* .UpdateStudentBtn {
+  margin-bottom: 20px;
+  margin-right: 20px;
+} */
 
 .LaunchInterviewBtn {
   margin-bottom: 20px;
@@ -52,11 +52,11 @@
   margin-right: 20px;
 }
 
-.Table {
-  /* position: absolute; */
-  /* height: 525px;
-    width: 1900px; */
-}
+/* .Table {
+  position: absolute;
+  height: 525px;
+    width: 1900px;
+} */
 
 .SearchAndAdd {
   display: flex;
