@@ -31,10 +31,6 @@ const Edit_Profile = ({ userid }) => {
     setEmail(event.target.value);
   };
 
-  // const handleUserTypeChange = (event) => {
-  //   setUserType(event.target.value);
-  // };
-
   const handlePassword1Change = (event) => {
     setPassword1(event.target.value);
   };
