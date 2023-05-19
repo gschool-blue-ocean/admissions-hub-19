@@ -9,9 +9,7 @@ const Login = ({handleUser}) => {
         <div style={{'display':'flex', 'justifyContent':'flex-end', 'alignItems':'flex-start', 'zIndex':'10'}}>
           <ImageCarousel/>
         </div>
-       
       </div>
-      
     );
 };
 

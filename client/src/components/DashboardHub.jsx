@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
+import Alert from 'react-bootstrap/Alert';
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
 import AddCohortButton from "./DashboardAddCohortBtn";
@@ -17,6 +18,7 @@ const DashboardHub = () => {
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const [showAlert, setshowAlert] = useState(false);
   // const [deletedStudents, setDeletedStudents] = useState([]);
   //create a useEffect that recognizes that when changes occur getAllStudent
 
@@ -35,9 +37,8 @@ const DashboardHub = () => {
         // Handle any errors that occur during the request
         console.error('Error deleting data:', error);
       });
-    }
-  
-  };
+  }
+
 
   // const handleRowRestore = (student, studentId) => {
   //   const restoredStudents = deletedStudents.find(() => student.id === studentId);
@@ -61,7 +62,7 @@ const DashboardHub = () => {
     getAllStudentsData();
   }, []);
 
-    const getAllStudentsData = () => {
+  const getAllStudentsData = () => {
     fetch(`${routeHTTP}/students`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -175,10 +176,10 @@ const DashboardHub = () => {
 
 
 
-  const deleteRows = (studentId) => {
-    const updatedData = allStudentsArray.filter((student) => student.student_id !== studentId);
-    setAllStudentsArray(updatedData);
-  }
+  // const deleteRows = (studentId) => {
+  //   const updatedData = allStudentsArray.filter((student) => student.student_id !== studentId);
+  //   setAllStudentsArray(updatedData);
+  // }
 
   return (
     <div className="DashboardHub">
@@ -211,16 +212,12 @@ const DashboardHub = () => {
         <tbody>
           {allStudentsArray.map((student, index) => {
             return (
-              <tr
-                key={
-                  index
-                } /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/
-              >
+              <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
                 <td>
                   <Button
                     className="DeleteStudentBtn"
                     variant="primary"
-                    onClick={() => deleteRows(student.student_id)}
+                    onClick={() => handleDelete(student.student_id)}
                   >
                     Delete
                   </Button>
@@ -229,7 +226,7 @@ const DashboardHub = () => {
                   <Button
                     className="UpdateStudentBtn"
                     variant="primary"
-                    onClick={() => updateRows(student.student_id)}
+                  /*onClick={() => updateRows(student.student_id)}*/
                   >
                     Update
                   </Button>
@@ -243,11 +240,6 @@ const DashboardHub = () => {
                 <td>{student.numattempts}</td>
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
-                <td>
-                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => deleteRows(student.student_id)}>
-                    Delete Student
-                  </Button>
-                </td>
                 <td>
                 </td>
               </tr>
@@ -273,8 +265,9 @@ const DashboardHub = () => {
       <AddCohortButton />
       <AddStudentButton />
       <DeleteCohortButton />
+
     </div>
   );
-
+};
 
 export default DashboardHub;
