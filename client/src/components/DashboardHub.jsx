@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Alert from 'react-bootstrap/Alert';
+import Modal from 'react-bootstrap/Modal';
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
 import AddCohortButton from "./DashboardAddCohortBtn";
@@ -19,27 +20,81 @@ const DashboardHub = () => {
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const [cohorts, setCohorts] = useState([]);
   const [showStudents, setShowStudents] = useState(5);
+  const [showAlert, setShowAlert] = useState(false);
+  const [yesDeleteStudent, setYesDeleteStudent] = useState(false);
+  const [showUpdateStudents, setShowUpdateStudents] = useState(false);
+  const [updateStudentData, setUpdateStudentData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    cohort_id: "",
+    numattempts: "",
+    paid: false,
+    paperwork: false,
+  });
   // const [deletedStudents, setDeletedStudents] = useState([]);
   //create a useEffect that recognizes that when changes occur getAllStudent
 
-  const handleDelete = (student) => {
+  
+  const fetchCohorts = async () => {
+    try {
+      const response = await fetch(`${routeHTTP}/cohorts`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch cohorts");
+      }
+      const data = await response.json();
+      setCohorts(data);
+    } catch (error) {
+      console.error("Error fetching cohorts:", error);
+    }
+  };
+  
+  const handleUpdateStudent = async () => {
+    try {
+      // Post the student data to the server
+      const response = await fetch(routeHTTPPost, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(studentData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add student");
+      }
+
+      const newStudent = await response.json();
+      console.log("Added student:", newStudent);
+
+      // Fetch cohorts again to update the options
+      fetchCohorts();
+
+      // Close the modal
+      setShowModal(false);
+
+    } catch (error) {
+      console.error("Error adding student:", error);
+    }
+  };
+
+  const handleDelete = (studentId) => {
     // const deletedStudent = allStudentsArray.find(() => student.student_id === studentId);
     // if(deletedStudent){
     // //store data in state
     // setDeletedStudents([...deletedStudents, deletedStudent])
     // Make an HTTP DELETE request to the server endpoint to delete the data
-    axios.delete(`${routeHTTP}/student/${student.student_id}/`)
-      .then((response) => {
-        // Handle the success response, e.g., update the component's state or perform any necessary actions
-        console.log(response.data.message);
-      })
-      .catch((error) => {
-        // Handle any errors that occur during the request
-        console.error('Error deleting data:', error);
-      });
+    
+    const updatedData = allStudentsArray.filter((student) => student.student_id === studentId);
+    setAllStudentsArray(updatedData);
+    
   }
 
+  // const handleUpdateStudent = () => {
+  //   axios.patch()
+  // }
 
   // const handleRowRestore = (student, studentId) => {
   //   const restoredStudents = deletedStudents.find(() => student.id === studentId);
@@ -62,6 +117,7 @@ const DashboardHub = () => {
   useEffect(() => {
     //getOneStudentData();
     getAllStudentsData();
+    fetchCohorts();
     //getAllStudentsFromCohort();
   }, []);
 
@@ -190,6 +246,80 @@ const DashboardHub = () => {
 
   return (
     <div className="DashboardHub">
+      {showAlert === true ?
+        <Alert show={showAlert} variant="danger">
+          <Alert.Heading> Are you sure ? </Alert.Heading>
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setYesDeleteStudent(true)} variant="primary">
+              Yes
+            </Button>
+            <Button onClick={() => setShowAlert(false)} variant="primary">
+              No
+            </Button>
+          </div>
+        </Alert> : null
+      }
+      <Modal show={showUpdateStudents}>
+        <Modal.Body>
+        <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="firstName"
+                placeholder=""
+                autoFocus
+              />
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="lastName"
+                placeholder=""
+                autoFocus
+              />
+                <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder=""
+                autoFocus
+              />
+                  <Form.Group controlId="formCohortId">
+              <Form.Label>Cohort ID</Form.Label>
+              <Form.Control
+                as="select"
+                name="cohort_id"
+                // value={studentData.cohort_id}
+                // onChange={handleInputChange}
+              >
+                <option value="">Select a cohort</option>
+                {cohorts.map((cohort) => {
+                  console.log("Cohort ID:", cohort.cohort_id);
+                  return (
+                    <option key={cohort.cohort_id} value={cohort.cohort_id}>
+                      {cohort.name}
+                    </option>
+                  );
+                })}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formNumAttempts">
+              <Form.Label>Number of Attempts</Form.Label>
+              <Form.Control
+                type="number"
+                name="numattempts"
+                // value={studentData.numattempts}
+                // onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Paid?" />
+              </Form.Group>
+              <Form.Group controlId="formBasicCheckbox"></Form.Group>
+                <Form.Check type="checkbox" label="Paperwork?"/>
+         </Form.Group>
+          </Form>
+          <Button >Update</Button>
+          <Button onClick={() => setShowUpdateStudents(false)}>Close</Button>
+        </Modal.Body>
+      </Modal>
       <div className="SearchAndAdd">
         <Form className="Searchbar">
           <Form.Control
@@ -224,16 +354,17 @@ const DashboardHub = () => {
                   <Button
                     className="DeleteStudentBtn"
                     variant="primary"
-                    onClick={() => handleDelete(student.student_id)}
+                    onClick={() => setShowAlert(true)}
                   >
                     Delete
                   </Button>
                 </td>
+                {yesDeleteStudent && handleDelete(student.student_id)}
                 <td>
                   <Button
                     className="UpdateStudentBtn"
                     variant="primary"
-                  /*onClick={() => updateRows(student.student_id)}*/
+                    onClick={() => setShowUpdateStudents(true)}
                   >
                     Update
                   </Button>
@@ -255,7 +386,7 @@ const DashboardHub = () => {
         </tbody>
       </Table>
       {showStudents < allStudentsArray.length && (
-        <Button  variant="primary" onClick={handleShowMoreStudents}>Show More</Button>
+        <Button variant="primary" onClick={handleShowMoreStudents}>Show More</Button>
       )}
       <Button
         className="UpdateStudentBtn"
