@@ -67,7 +67,6 @@ const AddStudentButton = () => {
 
       // Close the modal
       setShowModal(false);
-
     } catch (error) {
       console.error("Error adding student:", error);
     }
@@ -186,11 +185,11 @@ const AddStudentButton = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleAddStudent}>
             Add Student
+          </Button>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
