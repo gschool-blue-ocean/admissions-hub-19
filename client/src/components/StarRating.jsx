@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import InterviewCSS from "../css/Interview.css";
-
+import "../css/Interview.css";
 
 const StarRating = ({ onchange, title }) => {
   const [rating, setRating] = useState(0);
-
 
   return (
     <div className="star-rating">
@@ -17,7 +15,9 @@ const StarRating = ({ onchange, title }) => {
           setRating(index);
           onchange(index);
         };
-        {/* My comment here */}
+        {
+          /* My comment here */
+        }
         return (
           <Button
             variant="link"
@@ -34,7 +34,6 @@ const StarRating = ({ onchange, title }) => {
             <span className="star">&#9733;</span>
           </Button>
         );
-
       })}
     </div>
   );
