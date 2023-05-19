@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import CodingWindow from "../components/CodingWindow";
@@ -22,6 +23,7 @@ const InputNotes = ({ userid }) => {
   const [currentStudent, setCurrentStudent] = useState({});
 
   const routeHTTP = `${baseurl}`;
+  const navigate = useNavigate();
 
   const handleSelect = (eventKey) => {
     setActiveTab(eventKey);
@@ -259,6 +261,13 @@ const InputNotes = ({ userid }) => {
           </div>
           <Button variant="primary">Save and Exit</Button>
           {/* <Button variant="primary">Save and Submit</Button> */}
+          <Button
+            className="exit-btn"
+            variant="secondary"
+            onClick={() => navigate("/dashboard")}
+          >
+            Cancel
+          </Button>
         </Container>
       </div>
     </div>
