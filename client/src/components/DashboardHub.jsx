@@ -19,16 +19,32 @@ const DashboardHub = () => {
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const [deletedStudents, setDeletedStudents] = useState([]);
+  // const [deletedStudents, setDeletedStudents] = useState([]);
   //create a useEffect that recognizes that when changes occur getAllStudent
 
-  // const handleDelete = (student, studentId) => {
-  //   const deletedStudent = allStudentsArray.find(() => student.student_id === studentId);
-  //   if(deletedStudent){
-  //   //store data in state
-  //   setDeletedStudents([...deletedStudents, deletedStudent])
-  //   // Make an HTTP DELETE request to the server endpoint to delete the data
-  //   axios.delete(`${routeHTTP}/student/${student.student_id}/`)
+  const handleDelete = (student) => {
+    // const deletedStudent = allStudentsArray.find(() => student.student_id === studentId);
+    // if(deletedStudent){
+    // //store data in state
+    // setDeletedStudents([...deletedStudents, deletedStudent])
+    // Make an HTTP DELETE request to the server endpoint to delete the data
+    axios.delete(`${routeHTTP}/student/${student.student_id}/`)
+      .then((response) => {
+        // Handle the success response, e.g., update the component's state or perform any necessary actions
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error('Error deleting data:', error);
+      });
+    }
+  
+  };
+
+  // const handleRowRestore = (student, studentId) => {
+  //   const restoredStudents = deletedStudents.find(() => student.id === studentId);
+  //   if (restoredStudents) {
+  //     axios.post(`${routeHTTP}/student/${student.student_id}/`)
   //     .then((response) => {
   //       // Handle the success response, e.g., update the component's state or perform any necessary actions
   //       console.log(response.data.message);
@@ -37,17 +53,11 @@ const DashboardHub = () => {
   //       // Handle any errors that occur during the request
   //       console.error('Error deleting data:', error);
   //     });
+  //     const updatedData = [...allStudentsArray, restoredStudents];
+  //     setAllStudentsArray(updatedData);
+  //     setDeletedStudents(restoredStudents.filter(() => student.id !== studentId));
   //   }
   // };
-
-  const handleRowRestore = (student, studentId) => {
-    const restoredStudents = deletedStudents.find(() => student.id === studentId);
-    if (restoredStudents) {
-      const updatedData = [...allStudentsArray, restoredStudents];
-      setAllStudentsArray(updatedData);
-      setDeletedStudents(restoredStudents.filter(() => student.id !== studentId));
-    }
-  };
 
   useEffect(() => {
     getAllStudentsData();
@@ -260,7 +270,7 @@ const DashboardHub = () => {
                 <td>{student.paid ? "Y" : "N"}</td>
                 <td>{getPaperworkStatus(student)}</td>
                 <td>
-                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => handleDelete(student, student.student_id)}>
+                  <Button className="DeleteStudentBtn" variant="primary" onClick={() => handleDelete(student)}>
                     Delete Student
                   </Button>
                 </td>
@@ -271,6 +281,14 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
+      <div>
+      {deletedRows.map((deletedRow) => (
+          <div key={deletedRow.id}>
+            <span>{deletedRow.name}</span>
+            <button /*onClick={() => handleRowRestore(deletedRow.id)}*/>Restore</button>
+            </div>
+            ))}
+          </div>
       <Button
         className="UpdateStudentBtn"
         variant="primary"
@@ -291,6 +309,6 @@ const DashboardHub = () => {
       <DeleteCohortButton />
     </div>
   );
-};
+
 
 export default DashboardHub;
