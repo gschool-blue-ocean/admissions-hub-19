@@ -67,6 +67,7 @@ const AddStudentButton = () => {
 
       // Close the modal
       setShowModal(false);
+
     } catch (error) {
       console.error("Error adding student:", error);
     }
@@ -88,6 +89,13 @@ const AddStudentButton = () => {
   const handleModalClose = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    // Fetch cohorts again whenever the showModal state changes
+    if (showModal) {
+      fetchCohorts();
+    }
+  }, [showModal]);
 
   return (
     <div>
