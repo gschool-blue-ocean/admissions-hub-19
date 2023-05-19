@@ -7,65 +7,12 @@ import LoginCSS from '../css/LoginUI.module.css';
 import { Row, Col, Container } from 'react-bootstrap';
 import axios from 'axios';
 import baseurl from '../url'
+import Symbol from '../Images/GalvSymbol.webp';
 
-//needs to accept user input password and email 
-//should check this nin the database that was logged on the signup page
-
-// export const Login = () => {
-//   const [user, setUser] = UseState('')
-//   const auth = useAuth()
-// }
-
-// export const LoginUI = () => {
-//   const navigate = useNavigate();
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const auth = useAuth();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post('/api/Login', { email, password });
-//       localStorage.setItem('token', response.data.token);
-//       navigate('/Dashboard');
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   const handleClick = () => {
-//     navigate('/signup');
-//   };
-
-  // if (email === 'user@example.com' && password === 'password') {
-    // Valid credentials
-    // alert('Login successful!');
-    // Perform additional actions (e.g., redirect to dashboard)
-  // } else {
-    // Invalid credentials
-//     alert('Invalid email or password.');
-//   }
-// };
-
-
-// const LoginUI = () => {
-
-//   const navigate = useNavigate();
-
-//   const handleClick = () => {
-//     // localStorage.removeItem('token'); // remove token from local storage // awaiting login functionality to test
-//   navigate.push('/signup');
-// };
 export const LoginUI = ({handleUser}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
-
-  
-
-
   const handleSubmit = async (e) => {
     console.log(email)
     e.preventDefault();
@@ -74,21 +21,9 @@ export const LoginUI = ({handleUser}) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    // if (!emailRegex.test(email)) {
-    //   alert('Invalid email format.');
-    //   return;
-    // }
-
-    // if (!passwordRegex.test(password)) {
-    //   alert(
-    //     'Invalid password format. Password must be 8 characters long and contain at least 1 letter and 1 number.'
-    //   );
-    //   return;
-    // }
-
     try {
+
       // Send credentials to the server for authentication
-     
       const response = await axios.post(`${baseurl}/login`, { email, password });
       if(response.status === 200)  {
         const token = response.data.token
@@ -129,7 +64,6 @@ export const LoginUI = ({handleUser}) => {
       </Col>
       </Row>
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Row>
         <Form.Label column sm={4}>Password</Form.Label>
@@ -149,11 +83,8 @@ export const LoginUI = ({handleUser}) => {
         </Col>
         </Row>
       </Form.Group>
-
-
       <Form.Group className="mb-3" controlId="Loginbtn">
       </Form.Group>
-
       <Container className={LoginCSS.btnwrap}>
       <Button 
         className={LoginCSS.btn} 
@@ -163,7 +94,6 @@ export const LoginUI = ({handleUser}) => {
       >
         Login!
       </Button>
-      {/* <Users /> //this is the refernce for the signup */}
       </Container>
       <Container className={LoginCSS.btnwrap}>
       <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
@@ -173,8 +103,8 @@ export const LoginUI = ({handleUser}) => {
     </Form>
     </div>
     </div>
-    )
-}
+    );
+};
 
 
 export default LoginUI;

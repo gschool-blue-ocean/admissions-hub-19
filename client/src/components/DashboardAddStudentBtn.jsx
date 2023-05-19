@@ -186,11 +186,11 @@ const AddStudentButton = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleAddStudent}>
             Add Student
+          </Button>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

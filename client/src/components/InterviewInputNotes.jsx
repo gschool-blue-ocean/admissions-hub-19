@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
-import CodingWindow from "../components/CodingWindow";
-import StarRating from "./StarRating";
-import StudentSelector from "./StudentSelector";
+import CodingWindow from "./InterviewCodingWindow";
+import StarRating from "./InterviewStarRating";
+import StudentSelector from "./InterviewStudentSelector";
 import "../css/Interview.css";
 
 const InputNotes = ({ userid }) => {
