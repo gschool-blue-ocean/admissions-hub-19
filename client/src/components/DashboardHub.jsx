@@ -211,6 +211,7 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
+      <div>
       <Button
         className="LaunchInterviewBtn"
         variant="primary"
@@ -221,6 +222,7 @@ const DashboardHub = () => {
       <AddCohortButton />
       <AddStudentButton />
       <DeleteCohortButton />
+      </div>
     </div>
   );
 };
