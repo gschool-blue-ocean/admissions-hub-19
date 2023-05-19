@@ -42,14 +42,19 @@ export const LoginUI = ({ handleUser }) => {
   };
 
   return (
-    <div className={LoginCSS.loginContainer}>
+    <div className={LoginCSS.loginContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div>
-        <h1 style={{ color: "white" }}>Welcome to Galvanize Admissions</h1>
+        <img
+        src="../Images/GSymbol.webp"
+        alt="Background Image"
+        style={{ display: "block", margin: "0 auto" }}
+        />
+        <h1 style={{ color: "white", textAlign: "center", fontWeight: "bold" }}>Welcome to Galvanize Admissions</h1>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Row className="mb-3">
-              <Form.Label column sm={2}>
-                Email address
+              <Form.Label style={{ color: "white", fontWeight: "bold" }} column sm={2}>
+                Email Address
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
@@ -59,7 +64,7 @@ export const LoginUI = ({ handleUser }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   size="sm"
                 />
-                <Form.Text  style={{ color: "white" }}>
+                <Form.Text  style={{ color: "white", fontWeight: "bold" }}>
                   Please use the email that you check most often.
                 </Form.Text>
               </Col>
@@ -67,7 +72,7 @@ export const LoginUI = ({ handleUser }) => {
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Row className="mb-3">
-              <Form.Label column sm={2}>
+              <Form.Label style={{ color: "white", fontWeight: "bold" }} column sm={2}>
                 Password
               </Form.Label>
               <Col sm={10}>
@@ -78,7 +83,7 @@ export const LoginUI = ({ handleUser }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   size="sm"
                 />
-                <Form.Text style={{ color: "white" }}>
+                <Form.Text style={{ color: "white", fontWeight: "bold" }}>
                   Password must be 8 characters long.<br />
                   Must have a special character eg., @$#! <br />
                 </Form.Text>

@@ -17,9 +17,14 @@
 } */
 
 .loginContainer {
-  background-image: url('../Images/stockphoto.jpg');
+  background-image: url('../Images/GreenLime.jpeg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .carouselContainer {
