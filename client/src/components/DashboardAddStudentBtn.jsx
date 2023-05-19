@@ -189,7 +189,7 @@ const AddStudentButton = () => {
             Add Student
           </Button>
           <Button variant="secondary" onClick={handleModalClose}>
-            Close
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

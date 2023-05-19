@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../url";
-import { Container, Modal, Button, Nav } from "react-bootstrap";
-import CodingWindow from "../components/CodingWindow";
-import StarRating from "./StarRating";
-import StudentSelector from "./StudentSelector";
+import { Container, Row, Col, Button, Nav } from "react-bootstrap";
+import CodingWindow from "./InterviewCodingWindow";
+import StarRating from "./InterviewStarRating";
+import StudentSelector from "./InterviewStudentSelector";
 import "../css/Interview.css";
 
 const InputNotes = ({ userid }) => {
