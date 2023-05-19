@@ -6,14 +6,13 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
-import AddCohortButton from "./AddCohortBtnDashboard";
-import AddStudentButton from "./AddStudentBtnDashboard";
-import DeleteCohortButton from "./DeleteCohortBtnDashboard";
+import AddCohortButton from "./DashboardAddCohortBtn";
+import AddStudentButton from "./DashboardAddStudentBtn";
+import DeleteCohortButton from "./DashboardDeleteCohortBtn";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
   const routeHTTP = "http://localhost:8000";
-
   const [allStudentsArray, setAllStudentsArray] = useState([]);
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
@@ -102,7 +101,6 @@ const DashboardHub = () => {
   // //   //getAllStudentsData();
   // //   //getOneStudentData(1);
   // //   //getAllStudentsFromCohort();
-
   // //   // EXAMPLE DATA FROM DATABASE
   //   const testObject = {
   //     student_id: 1,
@@ -129,7 +127,6 @@ const DashboardHub = () => {
   //   setOneStudentObject(testObject);
   //   setAllStudentsCohort([testObject, testObject]);
   // }, []);
-
   // const handleSelectedStudents = (studentId, index) => {
   //   if (selectedStudents.includes(studentId, index)) {
   //     setSelectedStudents(selectedStudents.filter((selectedStudents) => selectedStudents !== index && selectedStudents !== studentId));
