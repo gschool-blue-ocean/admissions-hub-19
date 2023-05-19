@@ -9,19 +9,20 @@ import { useNavigate } from "react-router-dom";
 import AddCohortButton from "./DashboardAddCohortBtn";
 import AddStudentButton from "./DashboardAddStudentBtn";
 import DeleteCohortButton from "./DashboardDeleteCohortBtn";
+import baseurl from "../url";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
-  const routeHTTP = "http://localhost:8000";
+  const routeHTTP = baseurl;
   const [allStudentsArray, setAllStudentsArray] = useState([]);
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
 
   useEffect(() => {
-    getOneStudentData();
+    //getOneStudentData();
     getAllStudentsData();
-    getAllStudentsFromCohort();
+    //getAllStudentsFromCohort();
   }, []);
 
   const getAllStudentsData = () => {
@@ -165,7 +166,7 @@ const DashboardHub = () => {
         <AddCohortButton />
         <AddStudentButton />
       </div>
-      <Table borderedless hover height="525px" width="1900px" className="Table">
+      <Table hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>
             <th height="20px">Delete</th>
