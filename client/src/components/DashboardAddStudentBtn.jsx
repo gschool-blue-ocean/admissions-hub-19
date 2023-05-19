@@ -67,7 +67,6 @@ const AddStudentButton = () => {
 
       // Close the modal
       setShowModal(false);
-
     } catch (error) {
       console.error("Error adding student:", error);
     }

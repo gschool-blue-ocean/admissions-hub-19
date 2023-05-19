@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import baseurl from "../url";
-import { Button, Modal, Form, ButtonToolbar} from "react-bootstrap";
+import { Button, Modal, Form, ButtonToolbar } from "react-bootstrap";
 
 const AddCohortButton = () => {
   const routeHTTPPost = `${baseurl}/cohort`;
@@ -73,18 +73,14 @@ const AddCohortButton = () => {
               />
               <br />
             </Form.Group>
-            
-            <ButtonToolbar className="justify-content-end">
+            <Modal.Footer>
               <Button variant="primary" type="submit">
                 Submit
               </Button>
-              <Button
-                variant="secondary"
-                onClick={handlePopupClose}
-              >
+              <Button variant="secondary" onClick={handlePopupClose}>
                 Cancel
               </Button>
-            </ButtonToolbar>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
