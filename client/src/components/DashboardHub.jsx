@@ -19,7 +19,7 @@ const DashboardHub = () => {
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const [showAlert, setshowAlert] = useState(false);
+  const [showStudents, setShowStudents] = useState(5);
   // const [deletedStudents, setDeletedStudents] = useState([]);
   //create a useEffect that recognizes that when changes occur getAllStudent
 
@@ -138,6 +138,10 @@ const DashboardHub = () => {
     return count + " / 3";
   };
 
+  const handleShowMoreStudents = () => {
+    setShowStudents(showStudents + 5);
+  }
+
   // useEffect(() => {
   // //   //getAllStudentsData();
   // //   //getOneStudentData(1);
@@ -213,7 +217,7 @@ const DashboardHub = () => {
           </tr>
         </thead>
         <tbody>
-          {allStudentsArray.map((student, index) => {
+          {allStudentsArray.slice(0, showStudents).map((student, index) => {
             return (
               <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
                 <td>
@@ -250,6 +254,9 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
+      {showStudents < allStudentsArray.length && (
+        <Button  variant="primary" onClick={handleShowMoreStudents}>Show More</Button>
+      )}
       <Button
         className="UpdateStudentBtn"
         variant="primary"
