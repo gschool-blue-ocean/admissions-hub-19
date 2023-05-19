@@ -1,6 +1,6 @@
 import React from "react";
-import InputNotes from "../components/InputNotes";
-import CodingWindow from "../components/CodingWindow";
+import InputNotes from "../components/InterviewInputNotes";
+import CodingWindow from "../components/InterviewCodingWindow";
 
 const Interview = ({ userid }) => {
   return (

@@ -16,7 +16,17 @@
   text-align: left;
 } */
 
-.headers{
+.loginContainer {
+  background-image: url('../Images/stockphoto.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* .carouselContainer {
+  width: 70%;
+} */
+
+/* .headers{
   padding-bottom: 50px;
 }
 
@@ -24,7 +34,8 @@
   padding: 40px;
   margin: 40px;
   background-color: #f7f7f7;
-  height: 90vh;
+  width: 50vw;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,9 +58,9 @@
   width: 30px;
   height: 30px;
   fill: #ccc;
-}
+} */
 
-.form-label {
+/* .form-label {
   width: 150px;
 }
 
@@ -61,4 +72,4 @@
 
 .btn{
   text-align: center;
-}
+} */
