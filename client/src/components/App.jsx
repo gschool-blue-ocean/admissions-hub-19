@@ -58,7 +58,7 @@ const App = () => {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard userid={userId} />} />
 
         <Route path="/editprofile" element={<Edit_Profile userid={userId} />} />
 
