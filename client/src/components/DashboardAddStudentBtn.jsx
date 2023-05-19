@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import baseurl from "../url";
 import { Modal, Button, Form } from 'react-bootstrap';
 
 const AddStudentButton = () => {
 
   const routeHTTPPost = `${baseurl}/student`;
+  const routeHTTPGet = `${baseurl}/cohorts`;
 
   const [showModal, setShowModal] = useState(false);
   const [studentData, setStudentData] = useState({
@@ -16,10 +17,32 @@ const AddStudentButton = () => {
     paid: false,
     paperwork: false,
   });
+  const [cohorts, setCohorts] = useState([]);
+
+  useEffect(() => {
+    fetchCohorts();
+  }, []);
+
+  const fetchCohorts = async () => {
+    try {
+      const response = await fetch(routeHTTPGet);
+      if (!response.ok) {
+        throw new Error('Failed to fetch cohorts');
+      }
+      const data = await response.json();
+      setCohorts(data);
+    } catch (error) {
+      console.error('Error fetching cohorts:', error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setStudentData((prevData) => ({ ...prevData, [name]: value }));
+
+    if (name === 'cohort_id') {
+      console.log("Selected Cohort ID:", value);
+    };
   };
 
   const handleAddStudent = async () => {
@@ -96,11 +119,21 @@ const AddStudentButton = () => {
             <Form.Group controlId="formCohortId">
               <Form.Label>Cohort ID</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="cohort_id"
                 value={studentData.cohort_id}
                 onChange={handleInputChange}
-              />
+              >
+              <option value="">Select a cohort</option>
+                {cohorts.map((cohort) => {
+                  console.log("Cohort ID:", cohort.cohort_id);
+                  return (
+                  <option key={cohort.cohort_id} value={cohort.cohort_id}>
+                    {cohort.name}
+                  </option>
+                  );
+                  })}
+              </Form.Control>
             </Form.Group>
             <Form.Group controlId="formNumAttempts">
               <Form.Label>Number of Attempts</Form.Label>
