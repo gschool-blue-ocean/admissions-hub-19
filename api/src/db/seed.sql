@@ -1,14 +1,14 @@
 -- Seed data for users table
 INSERT INTO users (first_name, last_name, email, password_hash, salt) VALUES 
-  ('Tony', 'Stark', 'ironman@example.com', 'password1', 'salt1'),
-  ('Steve', 'Rogers', 'captainamerica@example.com', 'password2', 'salt2'),
-  ('Natasha', 'Romanoff', 'blackwidow@example.com', 'password3', 'salt3'),
-  ('Bruce', 'Banner', 'hulk@example.com', 'password4', 'salt4'),
-  ('Thor', 'Odinson', 'thor@example.com', 'password5', 'salt5'),
-  ('Peter', 'Parker', 'spiderman@example.com', 'password6', 'salt6'),
-  ('Wanda', 'Maximoff', 'scarletwitch@example.com', 'password7', 'salt7'),
-  ('Stephen', 'Strange', 'doctorstrange@example.com', 'password8', 'salt8'),
-  ('Carol', 'Danvers', 'captainmarvel@example.com', 'password9', 'salt9');
+  ('Tony', 'Stark', 'ironman@example.com', 'password', 'salt'),
+  ('Steve', 'Rogers', 'captainamerica@example.com', 'password', 'salt'),
+  ('Natasha', 'Romanoff', 'blackwidow@example.com', 'password', 'salt'),
+  ('Bruce', 'Banner', 'hulk@example.com', 'password', 'salt'),
+  ('Thor', 'Odinson', 'thor@example.com', 'password', 'salt'),
+  ('Peter', 'Parker', 'spiderman@example.com', 'password', 'salt'),
+  ('Wanda', 'Maximoff', 'scarletwitch@example.com', 'password', 'salt'),
+  ('Stephen', 'Strange', 'doctorstrange@example.com', 'password', 'salt'),
+  ('Carol', 'Danvers', 'captainmarvel@example.com', 'password', 'salt');
 
 -- Seed data for cohorts table
 INSERT INTO cohorts (name, start_date) VALUES

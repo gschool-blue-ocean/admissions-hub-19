@@ -36,9 +36,6 @@ function DeleteCohortButton() {
           prevCohorts.filter((cohort) => cohort.id !== selectedCohort.id)
         );
 
-        // Reset the selected cohort to null
-        setSelectedCohort(null);
-
         // Close the modal
         handleModalClose();
       } catch (error) {
