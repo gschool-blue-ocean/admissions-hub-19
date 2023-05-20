@@ -30,8 +30,7 @@ export const LoginUI = ({ handleUser }) => {
         navigate('/Dashboard');
       }
       
-    } catch (error) {
-      console.error(error);
+    else {
       alert('Invalid email or password.');
     }
   } catch (error) {
@@ -111,5 +110,5 @@ export const LoginUI = ({ handleUser }) => {
     </div>
     </div>
   );
-
+    }
 export default LoginUI;
