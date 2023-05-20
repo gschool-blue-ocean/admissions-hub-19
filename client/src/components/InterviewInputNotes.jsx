@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
-import CodingWindow from "../components/CodingWindow";
-import StarRating from "./StarRating";
-import StudentSelector from "./StudentSelector";
+import CodingWindow from "./InterviewCodingWindow";
+import StarRating from "./InterviewStarRating";
+import StudentSelector from "./InterviewStudentSelector";
 import "../css/Interview.css";
 
 const InputNotes = ({ userid }) => {
@@ -17,10 +18,12 @@ const InputNotes = ({ userid }) => {
   const [rating1, setRating1] = useState(0);
   const [rating2, setRating2] = useState(0);
   const [rating3, setRating3] = useState(0);
+  const [totalRating, setTotalRating] = useState(0);
   const [attemptNotes, setAttemptNotes] = useState("");
   const [currentStudent, setCurrentStudent] = useState({});
 
   const routeHTTP = `${baseurl}`;
+  const navigate = useNavigate();
 
   const handleSelect = (eventKey) => {
     setActiveTab(eventKey);
@@ -86,7 +89,6 @@ const InputNotes = ({ userid }) => {
     // format today's date for input
     let testDate = new Date();
     testDate = `${testDate.getFullYear()}-${testDate.getMonth()}-${testDate.getDate()}`;
-    let rating = Math.round(((rating1 + rating2 + rating3) / 15) * 100);
     fetch(`${routeHTTP}/attempts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -105,8 +107,8 @@ const InputNotes = ({ userid }) => {
         answer3: "", // How to get this from CodingWindow Component?
         rating3: rating3,
         notes: attemptNotes,
-        rating_score: rating,
-        pass: rating >= 60,
+        rating_score: totalRating,
+        pass: totalRating >= 75,
       },
     })
       .then((response) => response.json())
@@ -139,6 +141,12 @@ const InputNotes = ({ userid }) => {
     console.log("Rating3:", rating);
     setRating3(rating);
   };
+
+  // Function to run upon any rating update
+  // Updates the total rating state
+  useEffect(() => {
+    setTotalRating(Math.round(((rating1 + rating2 + rating3) / 15) * 100));
+  }, [rating1, rating2, rating3]);
 
   // Function to run upon initial loading of the component
   useEffect(() => {
@@ -239,13 +247,26 @@ const InputNotes = ({ userid }) => {
             placeholder="Notes and results for the student attempt"
             onChange={updateNotes}
           />
-
-          <StarRating onchange={updateRating1} title="Problem 1" />
-          <StarRating onchange={updateRating2} title="Problem 2" />
-          <StarRating onchange={updateRating3} title="Problem 3" />
-
-          <Button variant="primary">Save and Exit</Button>
-          {/* <Button variant="primary">Save and Submit</Button> */}
+          <div style={{ display: "flex", flexBox: "wrap" }}>
+            <div>
+              <StarRating onchange={updateRating1} title="Problem 1" />
+              <StarRating onchange={updateRating2} title="Problem 2" />
+              <StarRating onchange={updateRating3} title="Problem 3" />
+            </div>
+            {totalRating < 75 ? (
+              <div className="total-rating text-danger">{totalRating}</div>
+            ) : (
+              <div className="total-rating text-success">{totalRating}</div>
+            )}
+          </div>
+          <div className="inputnotes-footer">
+            <Button variant="primary">Save and Exit</Button>
+            {/* <Button variant="primary">Save and Submit</Button> */}
+            <div style={{ width: "8px" }}></div>
+            <Button variant="secondary" onClick={() => navigate("/dashboard")}>
+              Cancel
+            </Button>
+          </div>
         </Container>
       </div>
     </div>

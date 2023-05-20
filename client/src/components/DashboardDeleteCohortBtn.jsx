@@ -103,18 +103,12 @@ function DeleteCohortButton() {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Row>
-            <Col>
-              <Button variant="danger" onClick={handleDeleteCohort}>
-                Delete
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="secondary" onClick={handleModalClose}>
-                Cancel
-              </Button>
-            </Col>
-          </Row>
+          <Button variant="danger" onClick={handleDeleteCohort}>
+            Delete
+          </Button>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Cancel
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
