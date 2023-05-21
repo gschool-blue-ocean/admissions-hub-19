@@ -29,6 +29,8 @@
   font-size: 60px;
 }
 
-.exit-btn {
-  float: right;
+.inputnotes-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }

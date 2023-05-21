@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
-import CodingWindow from "../components/CodingWindow";
-import StarRating from "./StarRating";
-import StudentSelector from "./StudentSelector";
+import CodingWindow from "./InterviewCodingWindow";
+import StarRating from "./InterviewStarRating";
+import StudentSelector from "./InterviewStudentSelector";
 import "../css/Interview.css";
 
 const InputNotes = ({ userid }) => {
@@ -259,15 +259,14 @@ const InputNotes = ({ userid }) => {
               <div className="total-rating text-success">{totalRating}</div>
             )}
           </div>
-          <Button variant="primary">Save and Exit</Button>
-          {/* <Button variant="primary">Save and Submit</Button> */}
-          <Button
-            className="exit-btn"
-            variant="secondary"
-            onClick={() => navigate("/dashboard")}
-          >
-            Cancel
-          </Button>
+          <div className="inputnotes-footer">
+            <Button variant="primary">Save and Exit</Button>
+            {/* <Button variant="primary">Save and Submit</Button> */}
+            <div style={{ width: "8px" }}></div>
+            <Button variant="secondary" onClick={() => navigate("/dashboard")}>
+              Cancel
+            </Button>
+          </div>
         </Container>
       </div>
     </div>
