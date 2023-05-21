@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import baseurl from "../url";
-import { Button, Modal, Form, ButtonToolbar } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 
 const AddCohortButton = () => {
   const routeHTTPPost = `${baseurl}/cohort`;
