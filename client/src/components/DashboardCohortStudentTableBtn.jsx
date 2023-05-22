@@ -20,7 +20,7 @@ const CohortComponent = () => {
   const [students, setStudents] = useState([]);
   const [editedStudent, setEditedStudent] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [editId, setEditId] = useState(null)
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     const fetchCohorts = async () => {
@@ -120,7 +120,7 @@ const CohortComponent = () => {
       paid: student.paid,
       paperwork: student.paperwork,
     };
-    setEditId(student.student_id)
+    setEditId(student.student_id);
     setEditedStudent(editData);
     setShowModal(true);
   };
