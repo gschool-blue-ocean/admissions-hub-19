@@ -118,7 +118,7 @@ const SignUp = () => {
             color: "white",
           }}
         >
-          Please Sign Up!
+          Get An Account Now!
         </h1>
         <Container
           style={{
