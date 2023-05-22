@@ -32,8 +32,13 @@ const DashboardHub = () => {
       mode: "cors",
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("data:", data);
+      .then(async (data) => {
+        //console.log("data:", data);
+        data.forEach(async (student) => {
+          student.last_interview = await getLastInterViewDate(
+            student.student_id
+          );
+        });
         setAllStudentsArray(data);
       });
   };
@@ -64,24 +69,24 @@ const DashboardHub = () => {
       });
   };
 
-  const getLastInterViewDate = (userid) => {
-    // fetch(`${routeHTTP}/attempts/student/${userid}`, {
-    //   method: "GET",
-    //   headers: { "Content-Type": "application/json" },
-    //   mode: "cors",
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //console.log("data:", data);
-    const data = [];
-    let answer = "";
-    if (data.length == 0) {
-      answer = "N/A";
-    } else {
-      answer = data.at(-1).date;
+  const getLastInterViewDate = async (userid) => {
+    //return "N/A";
+    // Vite refuses to work with Async/Await
+    try {
+      let response = await fetch(`${routeHTTP}/attempts/student/${userid}`);
+      if (response.status == 404) {
+        // console.log("Returning N/A");
+        return "N/A";
+      } else {
+        let data = await response.json();
+        // console.log("response", response);
+        // console.log("data", data);
+        // console.log("Returning date", data.at(-1).date.slice(0, 10));
+        return data.at(-1).date.slice(0, 10);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
-    return answer;
-    //   });
   };
 
   const getPaperworkStatus = (studentObject) => {
@@ -182,6 +187,7 @@ const DashboardHub = () => {
         </thead>
         <tbody>
           {allStudentsArray.map((student, index) => {
+            // console.log("Student", student);
             return (
               <tr
                 key={
@@ -191,7 +197,7 @@ const DashboardHub = () => {
                 <td>
                   <Button
                     className="DeleteStudentBtn"
-                    variant="primary"
+                    variant="danger"
                     onClick={() => deleteRows(student.student_id)}
                   >
                     Delete
@@ -211,10 +217,10 @@ const DashboardHub = () => {
                 </td>
                 <td>{student.email}</td>
                 <td>{student.name}</td>
-                <td>{getLastInterViewDate(student)}</td>
+                <td>{student.last_interview}</td>
                 <td>{student.numattempts}</td>
                 <td>{student.paid ? "Y" : "N"}</td>
-                <td>{getPaperworkStatus(student)}</td>
+                <td>{student.paperwork ? "Y" : "N"}</td>
               </tr>
             );
           })}

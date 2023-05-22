@@ -6,7 +6,7 @@ import {
   Table,
   Button,
   Modal,
-  Form
+  Form,
 } from "react-bootstrap";
 
 const CohortComponent = () => {
@@ -84,13 +84,12 @@ const CohortComponent = () => {
       console.log("Update URL:", url);
 
       const response = await fetch(url, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editedStudent),
-        }
-      );
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedStudent),
+      });
 
       console.log("Update response status:", response.status);
       console.log("Update response body:", await response.json());
@@ -111,7 +110,7 @@ const CohortComponent = () => {
   };
 
   const handleEditStudent = (student) => {
-    setEditedStudent({...student});
+    setEditedStudent({ ...student });
     setShowModal(true);
   };
 
