@@ -7,15 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // These are different components requests
-import { classnames } from "../utils/general";
-import { languageOptions } from "../constants/languageOptions";
-import { defineTheme } from "../lib/defineTheme";
-import useKeyPress from "../hooks/useKeyPress";
-import OutputWindow from "./OutputWindow";
-import CustomInput from "./CustomInput";
-import OutputDetails from "./OutputDetails";
-import ThemeDropdown from "./ThemeDropdown";
-import LanguagesDropdown from "./LanguagesDropdown";
+import { classnames } from "../components/exports/general"
+import { languageOptions } from "../components/exports/languageOptions";
+import { defineTheme } from "../components/exports/defineTheme";
+import useKeyPress from "../components/exports/hooks";
+import OutputWindow from "../components/Guides/OutputWindow";
+import CustomInput from "../components/Guides/CustomInput";
+import OutputDetails from "../components/Guides/OutputDetails";
+import ThemeDropdown from "../components/Guides/ThemeDropdown";
+import LanguagesDropdown from "../components/Guides/LanguagesDropdown";
 
 
 
