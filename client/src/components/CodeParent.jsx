@@ -1,22 +1,21 @@
 import React, {useState, UseEffect} from 'react';
 import axios from "axios";
-//import CodeEditor from "./CodeEditor";
+import CodeEditor from "./CodeEditor";
 
 
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-//These are different components requests
-// import { classnames } from "../utils/general";
-// import { languageOptions } from "../constants/languageOptions";
-// import { defineTheme } from "../lib/defineTheme";
-// import useKeyPress from "../hooks/useKeyPress";
-// import Footer from "./Footer";
-// import OutputWindow from "./OutputWindow";
-// import CustomInput from "./CustomInput";
-// import OutputDetails from "./OutputDetails";
-// import ThemeDropdown from "./ThemeDropdown";
-// import LanguagesDropdown from "./LanguagesDropdown";
+// These are different components requests
+import { classnames } from "../utils/general";
+import { languageOptions } from "../constants/languageOptions";
+import { defineTheme } from "../lib/defineTheme";
+import useKeyPress from "../hooks/useKeyPress";
+import OutputWindow from "./OutputWindow";
+import CustomInput from "./CustomInput";
+import OutputDetails from "./OutputDetails";
+import ThemeDropdown from "./ThemeDropdown";
+import LanguagesDropdown from "./LanguagesDropdown";
 
 
 
@@ -229,7 +228,7 @@ const CodeParent= () => {
       </div>
       <div className="flex flex-row space-x-4 items-start px-4 py-4">
         <div className="flex flex-col w-full h-full justify-start items-end">
-          <CodeEditorWindow
+          <CodeEditor
             code={code}
             onChange={onChange}
             language={language?.value}
@@ -258,7 +257,7 @@ const CodeParent= () => {
           {outputDetails && <OutputDetails outputDetails={outputDetails} />}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
