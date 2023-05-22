@@ -44,6 +44,7 @@ const CohortComponent = () => {
     }
   }, [selectedCohort]);
 
+  // Fetch students for the selected cohort
   const fetchStudentsForCohort = async (cohort_id) => {
     try {
       const response = await fetch(`${routeHTTPGetStudents}/${cohort_id}`);
@@ -59,6 +60,7 @@ const CohortComponent = () => {
     setSelectedCohort(cohort_id);
   };
 
+  // Delete student
   const handleDeleteStudent = async (student_id) => {
     try {
       const response = await fetch(`${routeHTTPDelStudent}/${student_id}`, {
@@ -77,6 +79,7 @@ const CohortComponent = () => {
     }
   };
 
+  // Update student
   const handleUpdateStudent = async () => {
     try {
       console.log("Updating student:", editId);
@@ -280,11 +283,11 @@ const CohortComponent = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleUpdateStudent}>
             Save Changes
+          </Button>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
