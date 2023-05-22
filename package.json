@@ -14,10 +14,12 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.5.1",
     "bootstrap": "^5.2.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "react-bootstrap": "^2.7.4",
+    "react-monaco-editor": "^0.52.0",
     "react-toastify": "^9.1.3"
   }
 }

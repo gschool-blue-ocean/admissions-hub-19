@@ -1,11 +1,11 @@
 import React from 'react';
 import CodeEditor from './CodeEditor';
-import CodeParent from './CodeParent';
+// import CodeParent from './CodeParent';
 
 function CodingWindow() {
   return (
   <div>
-    <CodeParent/>
+    <CodeEditor/>
   </div>
   );
 }
