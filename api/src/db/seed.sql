@@ -1,7 +1,14 @@
 -- Seed data for users table
-INSERT INTO users (first_name, last_name, email, is_staff, password_hash, salt) VALUES 
-('John', 'Doe', 'john.doe@example.com', false, 'password1', 'salt1'),
-('Jane', 'Doe', 'jane.doe@example.com', true, 'password2', 'salt2');
+INSERT INTO users (first_name, last_name, email, password_hash, salt) VALUES 
+  ('Tony', 'Stark', 'ironman@example.com', 'password', 'salt'),
+  ('Steve', 'Rogers', 'captainamerica@example.com', 'password', 'salt'),
+  ('Natasha', 'Romanoff', 'blackwidow@example.com', 'password', 'salt'),
+  ('Bruce', 'Banner', 'hulk@example.com', 'password', 'salt'),
+  ('Thor', 'Odinson', 'thor@example.com', 'password', 'salt'),
+  ('Peter', 'Parker', 'spiderman@example.com', 'password', 'salt'),
+  ('Wanda', 'Maximoff', 'scarletwitch@example.com', 'password', 'salt'),
+  ('Stephen', 'Strange', 'doctorstrange@example.com', 'password', 'salt'),
+  ('Carol', 'Danvers', 'captainmarvel@example.com', 'password', 'salt');
 
 -- Seed data for cohorts table
 INSERT INTO cohorts (name, start_date) VALUES
@@ -15,8 +22,18 @@ INSERT INTO questions (title, question, description) VALUES
 ('Question 3', 'Merge Two Sorted Lists', 'Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.');
 
 -- Seed data for students table
-INSERT INTO students (user_id, cohort_id, numAttempts, paid, paperwork1, paperwork2, paperwork3) VALUES
-(1, 1, 0, true, true, false, true);
+INSERT INTO students (first_name, last_name, email, cohort_id, numAttempts, paid, paperwork)
+VALUES
+  ('Jon', 'Snow', 'jonsnow@example.com', 1, 2, true, false),
+  ('Daenerys', 'Targaryen', 'daenerystargaryen@example.com', 2, 1, true, true),
+  ('Tyrion', 'Lannister', 'tyrionlannister@example.com', 2, 3, false, true),
+  ('Arya', 'Stark', 'aryastark@example.com', 1, 1, true, true),
+  ('Sansa', 'Stark', 'sansastark@example.com', 2, 2, true, false),
+  ('Cersei', 'Lannister', 'cerseilannister@example.com', 1, 1, false, true),
+  ('Jaime', 'Lannister', 'jaimelannister@example.com', 1, 3, true, false),
+  ('Bran', 'Stark', 'branstark@example.com', 2, 1, true, true),
+  ('Theon', 'Greyjoy', 'theongreyjoy@example.com', 2, 2, false, true),
+  ('Margaery', 'Tyrell', 'margaerytyrell@example.com', 1, 2, true, false);
 
 
 -- Seed data for question_notes table

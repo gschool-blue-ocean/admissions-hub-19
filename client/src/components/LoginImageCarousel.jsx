@@ -8,22 +8,22 @@ import Image8 from '../Images/BlueOceanImage8.webp';
 const ImageCarousel = () => {
 
     return (
-        <Carousel  indicators={false} controls={false} style={{'height':"330px", 'width': "630px"}}>
-            <Carousel.Item style={{'height':"330px", 'width': "630px"}}>
+        <Carousel  indicators={false} controls={false} style={{'height':"200%px", 'width': "200%px"}}>
+            <Carousel.Item style={{'height':"100%", 'width': "100%"}}>
                 <img
                     className='d-flex w-100'
                     src={Image5}
                     alt='FirstSlide'
                 />
             </Carousel.Item>
-            <Carousel.Item style={{'height':"330px", 'width': "630px"}}> 
+            <Carousel.Item style={{'height':"90%", 'width': "100%"}}> 
                 <img
                     className='d-flex w-100'
                     src={Image7}
                     alt='SecondSlide'
                 />
             </Carousel.Item>
-            <Carousel.Item style={{'height':"330px", 'width': "630px"}}>
+            <Carousel.Item style={{'height':"150%", 'width': "100%"}}>
                 <img
                     className='d-flex w-100'
                     src={Image8}

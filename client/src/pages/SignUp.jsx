@@ -53,9 +53,7 @@ const SignUp = () => {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      is_staff: userType === "staff",
-      salt: "salt",
-      password_hash: password1,
+      password: password1,
     };
 
     if (password1 != password2) {
@@ -95,7 +93,6 @@ const SignUp = () => {
           setFirstName("");
           setLastName("");
           setEmail("");
-          setUserType("");
           setPassword1("");
           setPassword2("");
           alert("Welcome to Galvanize!");
@@ -196,32 +193,6 @@ const SignUp = () => {
                   Must have a capital letter, a lowercase letter,<br></br>a
                   number, and a special character.<br></br>
                 </Form.Text>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicUserType">
-            <Row>
-              <Form.Label column sm={4}>
-                Student or Staff member?
-              </Form.Label>
-              <br />
-              <Col sm={8}>
-                <Form.Check
-                  type="radio"
-                  label="Student"
-                  name="userType"
-                  value="student"
-                  checked={userType === "student"}
-                  onChange={handleUserTypeChange}
-                />
-                <Form.Check
-                  type="radio"
-                  label="Staff"
-                  name="userType"
-                  value="staff"
-                  checked={userType === "staff"}
-                  onChange={handleUserTypeChange}
-                />
               </Col>
             </Row>
           </Form.Group>

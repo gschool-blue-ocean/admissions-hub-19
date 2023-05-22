@@ -1,16 +1,36 @@
 .interview-container {
-    border: 1px solid black;
-    padding: 10px;
-    margin-top: 10px;
-    float: right;
-    width: 30%;
-  }
-  
-  .code-container {
-    border: 1px solid black;
-    padding: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    float: left;
-    width: 70%;
-  }
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.code-container {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  float: left;
+  width: 70%;
+}
+
+.Tab-Style {
+  color: blueviolet;
+}
+
+.Tab-Sections {
+  width: 375px;
+  height: 215px;
+}
+
+.total-rating {
+  margin: auto;
+  font-weight: bold;
+  font-size: 60px;
+}
+
+.inputnotes-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}

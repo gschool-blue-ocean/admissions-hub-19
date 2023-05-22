@@ -2,7 +2,10 @@ const request = require("supertest");
 
 const { baseURL } = require("../../testEnv.js");
 
-let testUserID = 1; // holds the test user_id needed for creating a new student
+// NOTE
+// NO LONGER NEEDED AT STUDENTS IS NOT JOINED TO USERS
+//
+//let testUserID = 1; // holds the test user_id needed for creating a new student
 // beforeAll ( async () => {
 //   const newUser = {
 //     first_name: "Bugs",
@@ -23,26 +26,26 @@ let testUserID = 1; // holds the test user_id needed for creating a new student
 //   console.log("DELETED USER FOR TESTING");
 // });
 
-describe("Creating a test /user/", () => {
-  const newUser = {
-    first_name: "Bugs",
-    last_name: "Bunny",
-    email: "Bugs.Bunny@LooneyToons.com",
-    is_staff: false,
-    salt: "passwordSalt",
-    password_hash: "passwordHash",
-  };
-  it("creating a test user", async () => {
-    const response = await request(baseURL).post("/user").send(newUser);
-    expect(response.statusCode).toBe(200);
-    expect(response.body.email == "Bugs.Bunny@LooneyToons.com").toBe(true);
-    testUserID = response.body.user_id;
-    console.log("CREATE USER FOR TESTING:", testUserID);
-    console.log("CREATE USER FOR TESTING:", response.body);
-  });
-});
+// describe("Creating a test /user/", () => {
+//   const newUser = {
+//     first_name: "Bugs",
+//     last_name: "Bunny",
+//     email: "Bugs.Bunny@LooneyToons.com",
+//     is_staff: false,
+//     salt: "passwordSalt",
+//     password_hash: "passwordHash",
+//   };
+//   it("creating a test user", async () => {
+//     const response = await request(baseURL).post("/user").send(newUser);
+//     expect(response.statusCode).toBe(200);
+//     expect(response.body.email == "Bugs.Bunny@LooneyToons.com").toBe(true);
+//     testUserID = response.body.user_id;
+//     console.log("CREATE USER FOR TESTING:", testUserID);
+//     console.log("CREATE USER FOR TESTING:", response.body);
+//   });
+// });
 
-console.log("testUserID: ", testUserID);
+//console.log("testUserID: ", testUserID);
 
 let studentsLength = 0; // holds length of all students
 describe(`GET all /students`, () => {
@@ -120,38 +123,21 @@ describe("GET non-int /students/cohort/:id", () => {
   });
 });
 
-describe("POST duplicate /student/", () => {
-  const newstudent = {
-    user_id: 1,
-    cohort_id: 1,
-    numattempts: 2,
-    paid: true,
-    paperwork1: true,
-    paperwork2: true,
-    paperwork3: true,
-  };
-  it("should return 400", async () => {
-    const response = await request(baseURL).post("/student").send(newstudent);
-    expect(response.statusCode).toBe(400);
-    expect(response.text == "Student already exists for user").toBe(true);
-  });
-});
-
 let postID = 0; // holds student_id of newly created student
 describe("POST /student/", () => {
   const newstudent = {
-    user_id: testUserID,
+    first_name: "Jimmy",
+    last_name: "Nuetron",
+    email: "jimmy.nuetron@space.com",
     cohort_id: 1,
     numattempts: 2,
     paid: true,
-    paperwork1: true,
-    paperwork2: true,
-    paperwork3: true,
+    paperwork: true,
   };
-  console.log("TEST USER INFO:", newstudent);
+  //console.log("TEST USER INFO:", newstudent);
   it("should create and return 1 student", async () => {
     const response = await request(baseURL).post("/student").send(newstudent);
-    postID = response.body.user_id;
+    postID = response.body.student_id;
     expect(response.statusCode).toBe(200);
     expect(response.body.numattempts == 2).toBe(true);
   });
@@ -161,13 +147,32 @@ describe("POST /student/", () => {
   });
 });
 
+//console.log("Updated postID:", postID);
+
+describe("POST duplicate /student/", () => {
+  const newstudent = {
+    first_name: "Jimmy",
+    last_name: "Nuetron",
+    email: "jimmy.nuetron@space.com",
+    cohort_id: 1,
+    numattempts: 2,
+    paid: true,
+    paperwork: true,
+  };
+  it("should return 400", async () => {
+    const response = await request(baseURL).post("/student").send(newstudent);
+    expect(response.statusCode).toBe(400);
+    expect(response.text == "Student email already exists").toBe(true);
+  });
+});
+
 describe("UPDATE valid /student/:id", () => {
   const updateStudent = { numattempts: 3 };
   it("should update and return updated info", async () => {
     const response = await request(baseURL)
       .patch(`/student/${postID}`)
       .send(updateStudent);
-    console.log("UPDATE RESPONSE:", response.body);
+    //console.log("UPDATE RESPONSE:", response.body);
     expect(response.statusCode).toBe(200);
     expect(response.body.numattempts == 3).toBe(true);
   });
@@ -237,14 +242,16 @@ describe("DELETE non-int invalid /student/:id", () => {
   });
 });
 
-describe("DELETE test /user/:id", () => {
-  it("should return 204", async () => {
-    const response = await request(baseURL).delete(`/user/${testUserID}`);
-    expect(response.statusCode).toBe(204);
-  });
-  it("GET user_id should return 404", async () => {
-    const response = await request(baseURL).get(`/user/${testUserID}`);
-    expect(response.statusCode).toBe(404);
-    expect(response.text == "Not Found").toBe(true);
-  });
-});
+// NOTE
+// NO LONGER NEEDED AT STUDENTS IS NO LONGER JOINED TO USERS
+// describe("DELETE test /user/:id", () => {
+//   it("should return 204", async () => {
+//     const response = await request(baseURL).delete(`/user/${testUserID}`);
+//     expect(response.statusCode).toBe(204);
+//   });
+//   it("GET user_id should return 404", async () => {
+//     const response = await request(baseURL).get(`/user/${testUserID}`);
+//     expect(response.statusCode).toBe(404);
+//     expect(response.text == "Not Found").toBe(true);
+//   });
+// });

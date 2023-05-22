@@ -1,31 +1,26 @@
 .DashboardHub {
-    display: flex;
-    /* border: 2px solid; */
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-    height: 75%;
+  /* border: 2px solid; */
+  justify-content: center;
+  width: 95vw;
+  height: 75%;
 }
 
 .FilterBtn {
-    display: flex;
-    position: absolute;
-    left: 86%;
-    margin-top: 50px;
+  display: flex;
+  position: absolute;
+  left: 86%;
+  margin-top: 50px;
 }
 
 .AddStudentBtn {
-    display: flex;
-    align-self: end;
-    margin-bottom: 20px;
-    margin-left: 90px;
-    position: absolute;
-    left: 0;
+  display: flex;
+  align-self: end;
+  margin-bottom: 20px;
+  margin-left: 90px;
+  position: absolute;
+  left: 0;
 }
-
+/* 
 .DeleteStudentBtn {
     display: flex;
     align-self: end;
@@ -34,61 +29,64 @@
     position: absolute;
     left: 0;
 }
-
-.UpdateStudentBtn {
-    display: flex;
-    align-self: end;
-    margin-bottom: 20px;
-    margin-left: 365px;
-    position: absolute;
-    left: 0;
-}
+*/
+/* .UpdateStudentBtn {
+  margin-bottom: 20px;
+  margin-right: 20px;
+} */
 
 .LaunchInterviewBtn {
-    display: flex;
-    align-self: end;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  margin-left: 365px;
+  margin-right: 20px;
 }
 
-.ExportStudentBtn {
-    display: flex;
-    align-self: end;
-    margin-bottom: 20px;
-    margin-right: 180px;
-    position: absolute;
-    right: 0;
+.AddCohortBtn {
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
-.Table {
-    position: absolute;
-    /* height: 525px;
-    width: 1900px; */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.DeleteCohortBtn {
+  margin-bottom: 20px;
+  margin-left: 180px;
+  margin-right: 20px;
+}
+
+/* .Table {
+  position: absolute;
+  height: 525px;
+    width: 1900px;
+} */
+
+.SearchAndAdd {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  width: 100%;
+  position: relative;
+  right: 0;
 }
 
 .Searchbar {
-    display: flex;
-    height: 35px;
-    width: 230px;
-    margin-top: 50px;
-    margin-left: 90px;
-    position: absolute;
-    left: 0;
-
+  height: 35px;
+  width: 230px;
+  margin-right: 200px;
+  margin-left: 90px;
 }
 
 .Table td {
-    text-align: center;
-    text-justify: center;
+  text-align: center;
+  text-justify: center;
 }
 
 .Table th {
-    text-align: center;
+  text-align: center;
 }
 
-
 .Table tr {
-    height: fit-content;
+  height: fit-content;
+}
+
+.SelectedRows {
+  background-color: lightslategray;
 }

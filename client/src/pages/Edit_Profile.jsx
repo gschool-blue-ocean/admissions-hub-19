@@ -4,20 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginCSS from "../css/LoginUI.module.css";
 import { Row, Col, Container } from "react-bootstrap";
+import baseurl from "../url";
 
 const Edit_Profile = ({ userid }) => {
   const navigate = useNavigate();
 
   const handleToDashBoard = () => {
-    navigate.push("/dashboard");
+    navigate("/dashboard");
   };
-
-  const routeHTTP = "http://localhost:8000";
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [userType, setUserType] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
 
@@ -31,10 +29,6 @@ const Edit_Profile = ({ userid }) => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  };
-
-  const handleUserTypeChange = (event) => {
-    setUserType(event.target.value);
   };
 
   const handlePassword1Change = (event) => {
@@ -54,7 +48,6 @@ const Edit_Profile = ({ userid }) => {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      is_staff: userType === "staff",
     };
     if (password1.length == 0 && password2.length == 0) {
       doFetch = true;
@@ -85,7 +78,7 @@ const Edit_Profile = ({ userid }) => {
     }
 
     if (doFetch) {
-      fetch(`${routeHTTP}/user/${userid}`, {
+      fetch(`${baseurl}/user/${userid}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         mode: "cors",
@@ -101,7 +94,7 @@ const Edit_Profile = ({ userid }) => {
   };
 
   const getUserData = () => {
-    fetch(`${routeHTTP}/user/${userid}`, {
+    fetch(`${baseurl}/user/${userid}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       mode: "cors",
@@ -112,11 +105,6 @@ const Edit_Profile = ({ userid }) => {
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setEmail(data.email);
-        if (data.is_staff) {
-          setUserType("staff");
-        } else {
-          setUserType("student");
-        }
       });
   };
 
@@ -212,32 +200,6 @@ const Edit_Profile = ({ userid }) => {
                   Must have a capital letter, a lowercase letter,<br></br>a
                   number, and a special character.<br></br>
                 </Form.Text>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicUserType">
-            <Row>
-              <Form.Label column sm={4}>
-                Student or Staff member?
-              </Form.Label>
-              <br />
-              <Col sm={8}>
-                <Form.Check
-                  type="radio"
-                  label="Student"
-                  name="userType"
-                  value="student"
-                  checked={userType === "student"}
-                  onChange={handleUserTypeChange}
-                />
-                <Form.Check
-                  type="radio"
-                  label="Staff"
-                  name="userType"
-                  value="staff"
-                  checked={userType === "staff"}
-                  onChange={handleUserTypeChange}
-                />
               </Col>
             </Row>
           </Form.Group>
