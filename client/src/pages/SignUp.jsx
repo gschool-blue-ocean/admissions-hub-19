@@ -101,22 +101,41 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "rgb(2,3,129)", backgroundSize: "cover", minHeight: "100vh" }}>
+    <div
+      style={{
+        backgroundColor: "rgb(2,3,129)",
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
+    >
       <div>
-        <h1 style={{ display: "flex", justifyContent: "center", alignItems: "center", color: "white"}}>
-          Welcome to Galvanize Admissions
-        </h1>
-          <br />
-        <h2 style={{ display: "flex", justifyContent: "center", alignItems: "center", color: "white"}}>
+        <br />
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
           Please Sign Up!
-        </h2>
+        </h1>
         <Container
-          style={{ backgroundColor: "#ef6e47", padding: "30px", borderRadius: "10px" }}
+          style={{
+            backgroundColor: "#ef6e47",
+            padding: "30px",
+            borderRadius: "10px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+          }}
         >
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
-                <Form.Label column sm={1} style={{color: "white", fontWeight: "bold"}}>
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
                   First Name
                 </Form.Label>
                 <Col sm={8}>
@@ -132,7 +151,11 @@ const SignUp = () => {
             </Form.Group>
             <Form.Group controlId="formBasicLastName">
               <Row className="justify-content-md-center">
-                <Form.Label column sm={1} style={{color: "white", fontWeight: "bold"}}>
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
                   Last Name
                 </Form.Label>
                 <Col sm={8}>
@@ -148,7 +171,11 @@ const SignUp = () => {
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
               <Row className="justify-content-md-center">
-                <Form.Label column sm={1} style={{color: "white", fontWeight: "bold"}}>
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
                   Email address
                 </Form.Label>
                 <Col sm={8}>
@@ -158,7 +185,7 @@ const SignUp = () => {
                     onChange={handleEmailChange}
                     placeholder="Enter email"
                   />
-                  <Form.Text style={{color: "white", fontWeight: "bold"}}>
+                  <Form.Text style={{ color: "white", fontWeight: "bold" }}>
                     Please use the email that you check most often.
                   </Form.Text>
                 </Col>
@@ -167,7 +194,11 @@ const SignUp = () => {
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Row className="justify-content-md-center">
-                <Form.Label column sm={1} style={{color: "white", fontWeight: "bold"}}>
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
                   Password
                 </Form.Label>
                 <Col sm={8}>
@@ -181,11 +212,13 @@ const SignUp = () => {
               </Row>
               <br />
             </Form.Group>
-            <Form.Group
-              controlId="formBasicConfirmPassword"
-            >
+            <Form.Group controlId="formBasicConfirmPassword">
               <Row className="justify-content-md-center">
-                <Form.Label column sm={1} style={{color: "white", fontWeight: "bold"}}>
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
                   Confirm Password
                 </Form.Label>
                 <Col sm={8}>
@@ -195,7 +228,7 @@ const SignUp = () => {
                     onChange={handlePassword2Change}
                     placeholder="Confirm Password"
                   />
-                  <Form.Text style={{color: "white", fontWeight: "bold"}}>
+                  <Form.Text style={{ color: "white", fontWeight: "bold" }}>
                     Passwords must be at least 8 characters long.<br></br>
                     Must have a capital letter, a lowercase letter,<br></br>a
                     number, and a special character.<br></br>
@@ -204,11 +237,7 @@ const SignUp = () => {
               </Row>
             </Form.Group>
             <Container className="d-flex justify-content-between">
-              <Button
-                className="btn"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="btn" variant="primary" type="submit">
                 Submit
               </Button>
               <Button
