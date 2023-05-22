@@ -125,9 +125,25 @@ const SignUp = () => {
             backgroundColor: "#ef6e47",
             padding: "30px",
             borderRadius: "10px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+            boxShadow: "0 0 70px rgba(255, 255, 255, 0.3)",
+            animation: "glow 1.5s ease-in-out infinite",
           }}
         >
+      <style>
+        {`
+        @keyframes glow {
+          0% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Initial box shadow
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); // Stronger glow
+          }
+          100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Return to initial box shadow
+          }
+        }
+        `}
+      </style>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
