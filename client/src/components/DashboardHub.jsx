@@ -25,22 +25,19 @@ const DashboardHub = () => {
     //getAllStudentsFromCohort();
   }, []);
 
-  const getAllStudentsData = () => {
-    fetch(`${routeHTTP}/students`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    })
-      .then((response) => response.json())
-      .then(async (data) => {
-        //console.log("data:", data);
-        data.forEach(async (student) => {
-          student.last_interview = await getLastInterViewDate(
-            student.student_id
-          );
-        });
-        setAllStudentsArray(data);
+  const getAllStudentsData = async () => {
+    try {
+      const response = await fetch(`${routeHTTP}/students`);
+      const data = await response.json();
+      console.log("data:", data);
+      data.forEach(async (student) => {
+        student.last_interview = await getLastInterViewDate(student.student_id);
       });
+      console.log("data:", data);
+      setAllStudentsArray(data);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const getOneStudentData = (userid) => {
