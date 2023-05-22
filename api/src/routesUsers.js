@@ -72,7 +72,7 @@ async function create(req, res, next) {
       const result = await db
         .query(
           `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-          [first_name, last_name, email, salt, password_hash]
+          [first_name, last_name, email, salt, hash]
         )
         .catch(next);
       res.send(result.rows[0]);
