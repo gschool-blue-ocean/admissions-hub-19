@@ -13,12 +13,16 @@
     "vitest": "^0.29.2"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.5.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.17.3",
-    "full-stack-react": "file:..",
     "jest": "^29.5.0",
     "jsonwebtoken": "^9.0.0",
-    "pg": "^8.9.0"
+    "monaco-themes": "^0.4.4",
+    "pg": "^8.9.0",
+    "react-monaco-editor": "^0.52.0",
+    "react-select": "^5.7.3",
+    "react-toastify": "^9.1.3"
   }
 }
