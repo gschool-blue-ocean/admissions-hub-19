@@ -6,7 +6,7 @@ import {
   Table,
   Button,
   Modal,
-  Form
+  Form,
 } from "react-bootstrap";
 
 const CohortComponent = () => {
@@ -20,6 +20,7 @@ const CohortComponent = () => {
   const [students, setStudents] = useState([]);
   const [editedStudent, setEditedStudent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [editId, setEditId] = useState(null)
 
   useEffect(() => {
     const fetchCohorts = async () => {
@@ -78,19 +79,18 @@ const CohortComponent = () => {
 
   const handleUpdateStudent = async () => {
     try {
-      console.log("Updating student:", editedStudent);
+      console.log("Updating student:", editId);
 
-      const url = `${routeHTTPPatchStudent}/${editedStudent.student_id}`;
+      const url = `${routeHTTPPatchStudent}/${editId}`;
       console.log("Update URL:", url);
 
       const response = await fetch(url, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editedStudent),
-        }
-      );
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedStudent),
+      });
 
       console.log("Update response status:", response.status);
       console.log("Update response body:", await response.json());
@@ -111,7 +111,17 @@ const CohortComponent = () => {
   };
 
   const handleEditStudent = (student) => {
-    setEditedStudent({...student});
+    const editData = {
+      first_name: student.first_name,
+      last_name: student.last_name,
+      numattempts: student.numattempts,
+      cohort_id: student.cohort_id,
+      email: student.email,
+      paid: student.paid,
+      paperwork: student.paperwork,
+    };
+    setEditId(student.student_id)
+    setEditedStudent(editData);
     setShowModal(true);
   };
 
