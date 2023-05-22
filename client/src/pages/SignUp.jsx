@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginCSS from "../css/LoginUI.module.css";
 import { Row, Col, Container } from "react-bootstrap";
+import baseurl from "../url";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const SignUp = () => {
     navigate.push("/");
   };
 
-  const routeHTTP = "http://localhost:8000/user";
+  const routeHTTP = `${baseurl}/user`;
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
