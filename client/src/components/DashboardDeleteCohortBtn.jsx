@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import baseurl from "../url";
-import { Button, Modal, ListGroup, Row, Col } from "react-bootstrap";
+import { Button, Modal, ListGroup } from "react-bootstrap";
 
 function DeleteCohortButton() {
   const routeHTTPGet = `${baseurl}/cohorts`;
