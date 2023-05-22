@@ -21,7 +21,9 @@ const DashboardHub = () => {
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [cohorts, setCohorts] = useState([]);
-  const [showStudents, setShowStudents] = useState(5);
+  const [student, setStudent] = useState();
+  const [update, setUpdate] = useState(false);
+  const [showMoreStudents, setShowMoreStudents] = useState(5);
   const [showAlert, setShowAlert] = useState(false);
   const [yesDeleteStudent, setYesDeleteStudent] = useState(false);
   const [showUpdateStudents, setShowUpdateStudents] = useState(false);
@@ -51,33 +53,46 @@ const DashboardHub = () => {
     }
   };
   
+const studentToUpdate = (student) => {
+setStudent(student);
+setShowUpdateStudents(true);
+}
+
+const startUpdate = () => {
+  setUpdate(true);
+  handleUpdateStudent();
+}
+
+
   const handleUpdateStudent = async () => {
+    if(update === true){
     try {
       // Post the student data to the server
-      const response = await fetch(routeHTTPPost, {
-        method: "POST",
+      const response = await fetch(`${routeHTTP}/student/${student.student_id}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(studentData),
+        body: JSON.stringify(updateStudentData),
       });
 
       if (!response.ok) {
         throw new Error("Failed to add student");
       }
 
-      const newStudent = await response.json();
-      console.log("Added student:", newStudent);
+      const updatedStudent = await response.json();
+      console.log("Updated student:", updatedStudent);
 
       // Fetch cohorts again to update the options
       fetchCohorts();
 
       // Close the modal
-      setShowModal(false);
+     setShowUpdateStudents(false);
 
     } catch (error) {
       console.error("Error adding student:", error);
     }
+  }
   };
 
   const handleDelete = (studentId) => {
@@ -195,7 +210,7 @@ const DashboardHub = () => {
   };
 
   const handleShowMoreStudents = () => {
-    setShowStudents(showStudents + 5);
+    setShowMoreStudents(showMoreStudents + 5);
   }
 
   // useEffect(() => {
@@ -316,7 +331,7 @@ const DashboardHub = () => {
                 <Form.Check type="checkbox" label="Paperwork?"/>
          </Form.Group>
           </Form>
-          <Button >Update</Button>
+          <Button onClick={startUpdate}>Update</Button>
           <Button onClick={() => setShowUpdateStudents(false)}>Close</Button>
         </Modal.Body>
       </Modal>
@@ -347,7 +362,7 @@ const DashboardHub = () => {
           </tr>
         </thead>
         <tbody>
-          {allStudentsArray.slice(0, showStudents).map((student, index) => {
+          {allStudentsArray.slice(0, showMoreStudents).map((student, index) => {
             return (
               <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
                 <td>
@@ -364,7 +379,7 @@ const DashboardHub = () => {
                   <Button
                     className="UpdateStudentBtn"
                     variant="primary"
-                    onClick={() => setShowUpdateStudents(true)}
+                    onClick={() => studentToUpdate(student)}
                   >
                     Update
                   </Button>
@@ -385,7 +400,7 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
-      {showStudents < allStudentsArray.length && (
+      {showMoreStudents < allStudentsArray.length && (
         <Button variant="primary" onClick={handleShowMoreStudents}>Show More</Button>
       )}
       <Button
