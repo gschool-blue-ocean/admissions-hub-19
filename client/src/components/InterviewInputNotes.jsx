@@ -86,33 +86,39 @@ const InputNotes = ({ userid }) => {
 
   // Save this attempt to the database
   const saveAttemptToDB = () => {
+    console.log("Running");
     // format today's date for input
     let testDate = new Date();
     testDate = `${testDate.getFullYear()}-${testDate.getMonth()}-${testDate.getDate()}`;
-    fetch(`${routeHTTP}/attempts`, {
+    const body = {
+      date: testDate,
+      student_id: currentStudent.student_id,
+      staff_id: userid,
+      question1_id: question1.question_id,
+      answer1: "", // How to get this from CodingWindow Component?
+      rating1: rating1,
+      question2_id: question2.question_id,
+      answer2: "", // How to get this from CodingWindow Component?
+      rating2: rating2,
+      question3_id: question3.question_id,
+      answer3: "", // How to get this from CodingWindow Component?
+      rating3: rating3,
+      notes: attemptNotes,
+      rating_score: totalRating,
+      pass: totalRating >= 75,
+    };
+    //console.log("POST Body:", body);
+    fetch(`${routeHTTP}/attempt`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       mode: "cors",
-      body: {
-        date: testDate,
-        student_id: currentStudent.student_id,
-        staff_id: userid,
-        question1_id: question1.question_id,
-        answer1: "", // How to get this from CodingWindow Component?
-        rating1: rating1,
-        question2_id: question2.question_id,
-        answer2: "", // How to get this from CodingWindow Component?
-        rating2: rating2,
-        question3_id: question3.question_id,
-        answer3: "", // How to get this from CodingWindow Component?
-        rating3: rating3,
-        notes: attemptNotes,
-        rating_score: totalRating,
-        pass: totalRating >= 75,
-      },
+      body: JSON.stringify(body),
     })
       .then((response) => response.json())
       .then((data) => {
+        alert(
+          `Thank you for your submittal for...\n   Student: ${currentStudent.first_name} ${currentStudent.last_name}\n   Notes: ${attemptNotes}\n   Score: ${totalRating}`
+        );
         console.log("Submitted Attempt Info:", data);
       });
   };
@@ -260,7 +266,15 @@ const InputNotes = ({ userid }) => {
             )}
           </div>
           <div className="inputnotes-footer">
-            <Button variant="primary">Save and Exit</Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                saveAttemptToDB();
+                navigate("/dashboard");
+              }}
+            >
+              Save and Exit
+            </Button>
             {/* <Button variant="primary">Save and Submit</Button> */}
             <div style={{ width: "8px" }}></div>
             <Button variant="secondary" onClick={() => navigate("/dashboard")}>

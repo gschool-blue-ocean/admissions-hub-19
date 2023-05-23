@@ -129,8 +129,8 @@ const SignUp = () => {
             animation: "glow 1.5s ease-in-out infinite",
           }}
         >
-      <style>
-        {`
+          <style>
+            {`
         @keyframes glow {
           0% {
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Initial box shadow
@@ -143,7 +143,7 @@ const SignUp = () => {
           }
         }
         `}
-      </style>
+          </style>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
