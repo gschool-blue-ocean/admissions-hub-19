@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
@@ -136,17 +136,19 @@ const startUpdate = () => {
     //getAllStudentsFromCohort();
   }, []);
 
-  const getAllStudentsData = () => {
-    fetch(`${routeHTTP}/students`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data:", data);
-        setAllStudentsArray(data);
+  const getAllStudentsData = async () => {
+    try {
+      const response = await fetch(`${routeHTTP}/students`);
+      const data = await response.json();
+      console.log("data:", data);
+      data.forEach(async (student) => {
+        student.last_interview = await getLastInterViewDate(student.student_id);
       });
+      console.log("data:", data);
+      setAllStudentsArray(data);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const getOneStudentData = (userid) => {
@@ -175,24 +177,24 @@ const startUpdate = () => {
       });
   };
 
-  const getLastInterViewDate = (userid) => {
-    // fetch(`${routeHTTP}/attempts/student/${userid}`, {
-    //   method: "GET",
-    //   headers: { "Content-Type": "application/json" },
-    //   mode: "cors",
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //console.log("data:", data);
-    const data = [];
-    let answer = "";
-    if (data.length == 0) {
-      answer = "N/A";
-    } else {
-      answer = data.at(-1).date;
+  const getLastInterViewDate = async (userid) => {
+    //return "N/A";
+    // Vite refuses to work with Async/Await
+    try {
+      let response = await fetch(`${routeHTTP}/attempts/student/${userid}`);
+      if (response.status == 404) {
+        // console.log("Returning N/A");
+        return "N/A";
+      } else {
+        let data = await response.json();
+        // console.log("response", response);
+        // console.log("data", data);
+        // console.log("Returning date", data.at(-1).date.slice(0, 10));
+        return data.at(-1).date.slice(0, 10);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
-    return answer;
-    //   });
   };
 
   const getPaperworkStatus = (studentObject) => {
@@ -260,82 +262,14 @@ const startUpdate = () => {
   // }
 
   return (
-    <div className="DashboardHub">
-      {showAlert === true ?
-        <Alert show={showAlert} variant="danger">
-          <Alert.Heading> Are you sure ? </Alert.Heading>
-          <div className="d-flex justify-content-end">
-            <Button onClick={() => setYesDeleteStudent(true)} variant="primary">
-              Yes
-            </Button>
-            <Button onClick={() => setShowAlert(false)} variant="primary">
-              No
-            </Button>
-          </div>
-        </Alert> : null
-      }
-      <Modal show={showUpdateStudents}>
-        <Modal.Body>
-        <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                type="firstName"
-                placeholder=""
-                autoFocus
-              />
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type="lastName"
-                placeholder=""
-                autoFocus
-              />
-                <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder=""
-                autoFocus
-              />
-                  <Form.Group controlId="formCohortId">
-              <Form.Label>Cohort ID</Form.Label>
-              <Form.Control
-                as="select"
-                name="cohort_id"
-                // value={studentData.cohort_id}
-                // onChange={handleInputChange}
-              >
-                <option value="">Select a cohort</option>
-                {cohorts.map((cohort) => {
-                  console.log("Cohort ID:", cohort.cohort_id);
-                  return (
-                    <option key={cohort.cohort_id} value={cohort.cohort_id}>
-                      {cohort.name}
-                    </option>
-                  );
-                })}
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="formNumAttempts">
-              <Form.Label>Number of Attempts</Form.Label>
-              <Form.Control
-                type="number"
-                name="numattempts"
-                // value={studentData.numattempts}
-                // onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Paid?" />
-              </Form.Group>
-              <Form.Group controlId="formBasicCheckbox"></Form.Group>
-                <Form.Check type="checkbox" label="Paperwork?"/>
-         </Form.Group>
-          </Form>
-          <Button onClick={startUpdate}>Update</Button>
-          <Button onClick={() => setShowUpdateStudents(false)}>Close</Button>
-        </Modal.Body>
-      </Modal>
-      <div className="SearchAndAdd">
+    <div
+    style={{
+      backgroundColor: "#ef6e47",
+      backgroundSize: "cover",
+      minHeight: "100vh",
+    }}
+    >
+      {/* <div className="SearchAndAdd">
         <Form className="Searchbar">
           <Form.Control
             type="search"
@@ -344,9 +278,7 @@ const startUpdate = () => {
             aria-label="Search"
           />
         </Form>
-        <AddCohortButton />
-        <AddStudentButton />
-      </div>
+      </div> */}
       <Table hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>
@@ -362,14 +294,14 @@ const startUpdate = () => {
           </tr>
         </thead>
         <tbody>
-          {allStudentsArray.slice(0, showMoreStudents).map((student, index) => {
+          {allStudentsArray.map((student, index) => {
             return (
               <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
                 <td>
                   <Button
                     className="DeleteStudentBtn"
-                    variant="primary"
-                    onClick={() => setShowAlert(true)}
+                    variant="danger"
+                    onClick={() => deleteRows(student.student_id)}
                   >
                     Delete
                   </Button>
@@ -389,39 +321,33 @@ const startUpdate = () => {
                 </td>
                 <td>{student.email}</td>
                 <td>{student.name}</td>
-                <td>{getLastInterViewDate(student)}</td>
+                <td>{student.last_interview}</td>
                 <td>{student.numattempts}</td>
                 <td>{student.paid ? "Y" : "N"}</td>
-                <td>{getPaperworkStatus(student)}</td>
-                <td>
-                </td>
+                <td>{student.paperwork ? "Y" : "N"}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
-      {showMoreStudents < allStudentsArray.length && (
-        <Button variant="primary" onClick={handleShowMoreStudents}>Show More</Button>
-      )}
-      <Button
-        className="UpdateStudentBtn"
-        variant="primary"
-        onClick={() => navigate("/editprofile")}
-        userid={1}
-      >
-        Update Student
-      </Button>
-      <Button
-        className="LaunchInterviewBtn"
-        variant="primary"
-        onClick={() => navigate("/interview")}
-      >
-        Launch Interview
-      </Button>
-      <AddCohortButton />
-      <AddStudentButton />
-      <DeleteCohortButton />
-
+      <div className="SearchAndAdd">
+        {/* <Button
+          className="UpdateStudentBtn"
+          variant="primary"
+          onClick={() => navigate("/editprofile")}
+          userid={1}
+        >
+          Update Student
+        </Button> */}
+        <Button
+          className="LaunchInterviewBtn"
+          variant="primary"
+          onClick={() => navigate("/interview")}
+        >
+          Launch Interview
+        </Button>
+        <DeleteCohortButton />
+      </div>
     </div>
   );
 };

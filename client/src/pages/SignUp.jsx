@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginCSS from "../css/LoginUI.module.css";
-import { Row, Col, Container } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../url";
 
 const SignUp = () => {
@@ -103,117 +101,173 @@ const SignUp = () => {
   };
 
   return (
-    <div className={LoginCSS.formbg}>
+    <div
+      style={{
+        backgroundColor: "rgb(2,3,129)",
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
+    >
       <div>
-        <h2 className={LoginCSS.headers}>
-          Welcome to Galvanize Admissions
-          <br />
-          Please Sign Up!
-        </h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3 text-left" controlId="formBasicFirstName">
-            <Row>
-              <Form.Label column sm={4}>
-                First Name
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="text"
-                  value={firstName}
-                  onChange={handleFirstNameChange}
-                  placeholder="Enter your first name"
-                />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicLastName">
-            <Row>
-              <Form.Label column sm={4}>
-                Last Name
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="text"
-                  value={lastName}
-                  onChange={handleLastNameChange}
-                  placeholder="Enter your last name"
-                />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicEmail">
-            <Row>
-              <Form.Label column sm={4}>
-                Email address
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  placeholder="Enter email"
-                />
-                <Form.Text className="text-muted">
-                  Please use the email that you check most often.
-                </Form.Text>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group className="mb-3 text-left" controlId="formBasicPassword">
-            <Row>
-              <Form.Label column sm={4}>
-                Password
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="password"
-                  value={password1}
-                  onChange={handlePassword1Change}
-                  placeholder="Enter Password"
-                />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group
-            className="mb-3 text-left"
-            controlId="formBasicConfirmPassword"
-          >
-            <Row>
-              <Form.Label column sm={4}>
-                Confirm Password
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="password"
-                  value={password2}
-                  onChange={handlePassword2Change}
-                  placeholder="Confirm Password"
-                />
-                <Form.Text className="text-muted">
-                  Passwords must be at least 8 characters long.<br></br>
-                  Must have a capital letter, a lowercase letter,<br></br>a
-                  number, and a special character.<br></br>
-                </Form.Text>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Container className={LoginCSS.btnwrap}>
-            <Button className={LoginCSS.btn} variant="primary" type="submit">
-              Submit
-            </Button>
-          </Container>
-          <Container className={LoginCSS.btnwrap}>
-            <Button
-              as={Link}
-              to="/"
-              onClick={handleCancel}
-              variant="primary"
-              type="cancel"
-            >
-              Cancel
-            </Button>
-          </Container>
-        </Form>
+        <br />
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+          }}
+        >
+          Get An Account Now!
+        </h1>
+        <Container
+          style={{
+            backgroundColor: "#ef6e47",
+            padding: "30px",
+            borderRadius: "10px",
+            boxShadow: "0 0 70px rgba(255, 255, 255, 0.3)",
+            animation: "glow 1.5s ease-in-out infinite",
+          }}
+        >
+          <style>
+            {`
+        @keyframes glow {
+          0% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); 
+          }
+          100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+          }
+        }
+        `}
+          </style>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formBasicFirstName">
+              <Row className="justify-content-md-center">
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  First Name
+                </Form.Label>
+                <Col sm={8}>
+                  <Form.Control
+                    type="text"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    placeholder="Enter your first name"
+                  />
+                </Col>
+              </Row>
+              <br />
+            </Form.Group>
+            <Form.Group controlId="formBasicLastName">
+              <Row className="justify-content-md-center">
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  Last Name
+                </Form.Label>
+                <Col sm={8}>
+                  <Form.Control
+                    type="text"
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    placeholder="Enter your last name"
+                  />
+                </Col>
+              </Row>
+              <br />
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Row className="justify-content-md-center">
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  Email address
+                </Form.Label>
+                <Col sm={8}>
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    placeholder="Enter email"
+                  />
+                  <Form.Text style={{ color: "white", fontWeight: "bold" }}>
+                    Please use the email that you check most often.
+                  </Form.Text>
+                </Col>
+              </Row>
+              <br />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Row className="justify-content-md-center">
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  Password
+                </Form.Label>
+                <Col sm={8}>
+                  <Form.Control
+                    type="password"
+                    value={password1}
+                    onChange={handlePassword1Change}
+                    placeholder="Enter Password"
+                  />
+                </Col>
+              </Row>
+              <br />
+            </Form.Group>
+            <Form.Group controlId="formBasicConfirmPassword">
+              <Row className="justify-content-md-center">
+                <Form.Label
+                  column
+                  sm={1}
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  Confirm Password
+                </Form.Label>
+                <Col sm={8}>
+                  <Form.Control
+                    type="password"
+                    value={password2}
+                    onChange={handlePassword2Change}
+                    placeholder="Confirm Password"
+                  />
+                  <Form.Text style={{ color: "white", fontWeight: "bold" }}>
+                    Passwords must be at least 8 characters long.<br></br>
+                    Must have a capital letter, a lowercase letter,<br></br>a
+                    number, and a special character.<br></br>
+                  </Form.Text>
+                </Col>
+              </Row>
+            </Form.Group>
+            <Container className="d-flex justify-content-between">
+              <Button className="btn" variant="primary" type="submit">
+                Submit
+              </Button>
+              <Button
+                as={Link}
+                to="/"
+                onClick={handleCancel}
+                variant="primary"
+                type="cancel"
+              >
+                Cancel
+              </Button>
+            </Container>
+          </Form>
+        </Container>
       </div>
     </div>
   );

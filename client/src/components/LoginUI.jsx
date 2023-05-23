@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Row, Col, Container, Form } from "react-bootstrap";
+import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import baseurl from "../url";
 import LoginCSS from "../css/LoginUI.module.css";
@@ -44,12 +42,17 @@ export const LoginUI = ({ handleUser }) => {
   };
 
     return (
-      <div className = {LoginCSS.formbg}>
+      <div className={LoginCSS.loginContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div>
-          <h2 className={LoginCSS.headers}>Welcome to Galvanize Admissions</h2>
+        <img
+        src="../Images/GSymbol.webp"
+        alt="Logo"
+        style={{ display: "block", margin: "0 auto" }}
+        />
+          <h1>Welcome to Galvanize Admissions</h1>
       <Form>
         
-      <Form.Group className="mb-3 text-left" controlId="formBasicEmail">
+      <Form.Group style={{ color: "black", fontWeight: "bold" }}>
       <Row>
         <Form.Label column sm={4}> Email address</Form.Label>
         <Col sm={8}>
@@ -59,14 +62,14 @@ export const LoginUI = ({ handleUser }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Form.Text className="text-muted">
+        <Form.Text style={{ color: "black", fontWeight: "bold" }}>
           Please use the email that you check most often.
         </Form.Text>
       </Col>
       </Row>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group style={{ color: "black", fontWeight: "bold" }}>
         <Row>
         <Form.Label column sm={4}>Password</Form.Label>
         <Col sm={8}>        
@@ -76,7 +79,7 @@ export const LoginUI = ({ handleUser }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} 
         />
-        <Form.Text className="text-muted">
+        <Form.Text style={{ color: "black", fontWeight: "bold" }}>
           Password must be 8 characters long.<br>
           </br>
           Must have a special character eg., @$#! <br>
@@ -87,24 +90,28 @@ export const LoginUI = ({ handleUser }) => {
       </Form.Group>
 
 
-      <Form.Group className="mb-3" controlId="Loginbtn">
+      <Form.Group controlId="Loginbtn">
       </Form.Group>
-
-      <Container className={LoginCSS.btnwrap}>
-      <Button 
-        className={LoginCSS.btn} 
-        variant="primary" 
-        type="submit"
-        onClick={handleSubmit}
-      >
+      <br />
+      <Container className="d-flex justify-content-between">
+      <Button
+              className="btn"
+              variant="primary"
+              type="submit"
+              onClick={handleSubmit}
+            >
         Login!
       </Button>
-      {/* <Users /> //this is the refernce for the signup */}
-      </Container>
-      <Container className={LoginCSS.btnwrap}>
-      <Button as={Link} to='/signup' onClick={handleClick} className={LoginCSS.btn} variant="primary" type="submit" >
-        Create Account!
-      </Button>
+      <Button
+              as={Link}
+              to="/signup"
+              onClick={handleClick}
+              className="btn"
+              variant="primary"
+              type="submit"
+            >
+              Create Account!
+            </Button>
       </Container>
     </Form>
     </div>

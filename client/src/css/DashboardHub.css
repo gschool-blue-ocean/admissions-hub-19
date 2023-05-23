@@ -1,25 +1,25 @@
-.DashboardHub {
-  /* border: 2px solid; */
+/* .DashboardHub {
+  border: 2px solid;
   justify-content: center;
   width: 95vw;
   height: 75%;
-}
+} */
 
-.FilterBtn {
+/* .FilterBtn {
   display: flex;
   position: absolute;
   left: 86%;
   margin-top: 50px;
-}
+} */
 
-.AddStudentBtn {
+/* .AddStudentBtn {
   display: flex;
   align-self: end;
   margin-bottom: 20px;
   margin-left: 90px;
   position: absolute;
   left: 0;
-}
+} */
 /* 
 .DeleteStudentBtn {
     display: flex;
@@ -35,22 +35,22 @@
   margin-right: 20px;
 } */
 
-.LaunchInterviewBtn {
+/* .LaunchInterviewBtn {
   margin-bottom: 20px;
   margin-left: 365px;
   margin-right: 20px;
-}
+} */
 
-.AddCohortBtn {
+/* .AddCohortBtn {
   margin-bottom: 20px;
   margin-right: 20px;
-}
+} */
 
-.DeleteCohortBtn {
+/* .DeleteCohortBtn {
   margin-bottom: 20px;
   margin-left: 180px;
   margin-right: 20px;
-}
+} */
 
 /* .Table {
   position: absolute;
