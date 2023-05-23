@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
@@ -155,8 +155,14 @@ const DashboardHub = () => {
   };
 
   return (
-    <div className="DashboardHub">
-      <div className="SearchAndAdd">
+    <div
+    style={{
+      backgroundColor: "#ef6e47",
+      backgroundSize: "cover",
+      minHeight: "100vh",
+    }}
+    >
+      {/* <div className="SearchAndAdd">
         <Form className="Searchbar">
           <Form.Control
             type="search"
@@ -165,9 +171,7 @@ const DashboardHub = () => {
             aria-label="Search"
           />
         </Form>
-        <AddCohortButton />
-        <AddStudentButton />
-      </div>
+      </div> */}
       <Table hover height="525px" width="1900px" className="Table">
         <thead>
           <tr>
@@ -223,24 +227,21 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
-      <div className="SearchAndAdd">
-        {/* <Button
-          className="UpdateStudentBtn"
-          variant="primary"
-          onClick={() => navigate("/editprofile")}
-          userid={1}
-        >
-          Update Student
-        </Button> */}
-        <Button
+    
+        <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", marginBottom: "20px"}}>
+          <Button
           className="LaunchInterviewBtn"
           variant="primary"
           onClick={() => navigate("/interview")}
         >
           Launch Interview
         </Button>
+        
+        <AddStudentButton />
+        <AddCohortButton />
         <DeleteCohortButton />
-      </div>
+        </div>
+      
     </div>
   );
 };
