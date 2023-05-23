@@ -165,4 +165,5 @@ async function update(req, res, next) {
   }
 }
 
+
 export default { findAll, findOne, findAllInCohort, create, remove, update };

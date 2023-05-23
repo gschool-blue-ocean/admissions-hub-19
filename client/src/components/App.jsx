@@ -6,6 +6,7 @@ import Dashboard from "../pages/Dashboard.jsx";
 import Edit_Profile from "../pages/Edit_Profile.jsx";
 import Interview from "../pages/Interview.jsx";
 import Signup from "../pages/SignUp.jsx";
+import Test from "../pages/Test.jsx";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
@@ -51,6 +52,12 @@ const App = () => {
               Interview
             </Nav.Link>
           </Nav.Item>
+        
+          <Nav.Item>
+            <Nav.Link as={Link} to="/test">
+              Test
+            </Nav.Link>
+          </Nav.Item>
         </Nav>
       </div>
       <Routes>
@@ -63,6 +70,8 @@ const App = () => {
         <Route path="/editprofile" element={<Edit_Profile userid={userId} />} />
 
         <Route path="/interview" element={<Interview userid={userId} />} />
+
+        <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
   );
