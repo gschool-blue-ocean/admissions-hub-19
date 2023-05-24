@@ -1,17 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
-// import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import Form from "react-bootstrap/Form";
-import Alert from 'react-bootstrap/Alert';
-import Modal from 'react-bootstrap/Modal';
+import { Button } from "react-bootstrap";
 import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
+import CohortComponent from "./DashboardCohortStudentTableBtn";
 import AddCohortButton from "./DashboardAddCohortBtn";
 import AddStudentButton from "./DashboardAddStudentBtn";
 import DeleteCohortButton from "./DashboardDeleteCohortBtn";
-import baseurl from "../url";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
@@ -20,120 +14,10 @@ const DashboardHub = () => {
   const [oneStudentObject, setOneStudentObject] = useState({});
   const [allStudentsCohort, setAllStudentsCohort] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const [cohorts, setCohorts] = useState([]);
-  const [student, setStudent] = useState();
-  const [update, setUpdate] = useState(false);
-  const [showMoreStudents, setShowMoreStudents] = useState(5);
-  const [showAlert, setShowAlert] = useState(false);
-  const [yesDeleteStudent, setYesDeleteStudent] = useState(false);
-  const [showUpdateStudents, setShowUpdateStudents] = useState(false);
-  const [selectedCohort, setSelectedCohort] = useState();
-  const [updateStudentData, setUpdateStudentData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    cohort_id: "",
-    numattempts: "",
-    paid: false,
-    paperwork: false,
-  });
-  // const [deletedStudents, setDeletedStudents] = useState([]);
-  //create a useEffect that recognizes that when changes occur getAllStudent
-
-
-  const fetchCohorts = async () => {
-    try {
-      const response = await fetch(`${routeHTTP}/cohorts`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch cohorts");
-      }
-      const data = await response.json();
-      setCohorts(data);
-    } catch (error) {
-      console.error("Error fetching cohorts:", error);
-    }
-  };
-
-  const studentToUpdate = (student) => {
-    setStudent(student);
-    setShowUpdateStudents(true);
-  }
-
-  const startUpdate = () => {
-    setUpdate(true);
-    handleUpdateStudent();
-  }
-
-
-  const handleUpdateStudent = async () => {
-    if (update === true) {
-      try {
-        // Post the student data to the server
-        const response = await fetch(`${routeHTTP}/student/${student.student_id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updateStudentData),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to add student");
-        }
-
-        const updatedStudent = await response.json();
-        console.log("Updated student:", updatedStudent);
-
-        // Fetch cohorts again to update the options
-        fetchCohorts();
-
-        // Close the modal
-        setShowUpdateStudents(false);
-
-      } catch (error) {
-        console.error("Error adding student:", error);
-      }
-    }
-  };
-
-  const handleDelete = (studentId) => {
-    // const deletedStudent = allStudentsArray.find(() => student.student_id === studentId);
-    // if(deletedStudent){
-    // //store data in state
-    // setDeletedStudents([...deletedStudents, deletedStudent])
-    // Make an HTTP DELETE request to the server endpoint to delete the data
-
-    const updatedData = allStudentsArray.filter((student) => student.student_id === studentId);
-    setAllStudentsArray(updatedData);
-
-  }
-
-  // const handleUpdateStudent = () => {
-  //   axios.patch()
-  // }
-
-  // const handleRowRestore = (student, studentId) => {
-  //   const restoredStudents = deletedStudents.find(() => student.id === studentId);
-  //   if (restoredStudents) {
-  //     axios.post(`${routeHTTP}/student/${student.student_id}/`)
-  //     .then((response) => {
-  //       // Handle the success response, e.g., update the component's state or perform any necessary actions
-  //       console.log(response.data.message);
-  //     })
-  //     .catch((error) => {
-  //       // Handle any errors that occur during the request
-  //       console.error('Error deleting data:', error);
-  //     });
-  //     const updatedData = [...allStudentsArray, restoredStudents];
-  //     setAllStudentsArray(updatedData);
-  //     setDeletedStudents(restoredStudents.filter(() => student.id !== studentId));
-  //   }
-  // };
 
   useEffect(() => {
     //getOneStudentData();
     getAllStudentsData();
-    fetchCohorts();
     //getAllStudentsFromCohort();
   }, []);
 
@@ -212,10 +96,6 @@ const DashboardHub = () => {
     return count + " / 3";
   };
 
-  const handleShowMoreStudents = () => {
-    setShowMoreStudents(showMoreStudents + 5);
-  }
-
   // useEffect(() => {
   // //   //getAllStudentsData();
   // //   //getOneStudentData(1);
@@ -254,25 +134,30 @@ const DashboardHub = () => {
   //   }
   // }
 
+  const deleteRows = (studentId) => {
+    const updatedData = allStudentsArray.filter(
+      (student) => student.student_id !== studentId
+    );
+    setAllStudentsArray(updatedData);
+  };
 
-
-
-  // const deleteRows = (studentId) => {
-  //   const updatedData = allStudentsArray.filter((student) => student.student_id !== studentId);
-  //   setAllStudentsArray(updatedData);
-  // }
+  const updateRows = (studentId) => {
+    /*
+    const updatedData = allStudentsArray.filter(
+      (student) => student.student_id !== studentId
+    );
+    setAllStudentsArray(updatedData);
+    */
+  };
 
   return (
     <div
-      style={{
-        backgroundColor: "#ffebc7",
-        backgroundSize: "cover",
-        minHeight: "100vh",
-      }}
+    style={{
+      backgroundColor: "#ef6e47",
+      backgroundSize: "cover",
+      minHeight: "100vh",
+    }}
     >
-      <Button variant="primary">
-        Select Cohort
-      </Button>
       {/* <div className="SearchAndAdd">
         <Form className="Searchbar">
           <Form.Control
@@ -299,8 +184,13 @@ const DashboardHub = () => {
         </thead>
         <tbody>
           {allStudentsArray.map((student, index) => {
+            // console.log("Student", student);
             return (
-              <tr key={index} /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/>
+              <tr
+                key={
+                  index
+                } /*onClick={() => handleSelectedStudents(index)} onClickCapture={() => deleteRows(index)} className={selectedStudents.includes(index) ? 'SelectedRows' : ''}*/
+              >
                 <td>
                   <Button
                     className="DeleteStudentBtn"
@@ -310,12 +200,11 @@ const DashboardHub = () => {
                     Delete
                   </Button>
                 </td>
-                {yesDeleteStudent && handleDelete(student.student_id)}
                 <td>
                   <Button
                     className="UpdateStudentBtn"
                     variant="primary"
-                    onClick={() => studentToUpdate(student)}
+                    onClick={() => updateRows(student.student_id)}
                   >
                     Update
                   </Button>
@@ -334,22 +223,18 @@ const DashboardHub = () => {
           })}
         </tbody>
       </Table>
-      <div className="SearchAndAdd">
-        {/* <Button
-          className="UpdateStudentBtn"
-          variant="primary"
-          onClick={() => navigate("/editprofile")}
-          userid={1}
-        >
-          Update Student
-        </Button> */}
-        <Button
+    
+        <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", marginBottom: "20px"}}>
+          <Button
           className="LaunchInterviewBtn"
           variant="primary"
           onClick={() => navigate("/interview")}
         >
           Launch Interview
         </Button>
+        
+        <AddStudentButton />
+        <AddCohortButton />
         <DeleteCohortButton />
       </div>
     </div>
