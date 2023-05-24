@@ -27,6 +27,7 @@ const DashboardHub = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [yesDeleteStudent, setYesDeleteStudent] = useState(false);
   const [showUpdateStudents, setShowUpdateStudents] = useState(false);
+  const [selectedCohort, setSelectedCohort] = useState();
   const [updateStudentData, setUpdateStudentData] = useState({
     first_name: "",
     last_name: "",
@@ -39,7 +40,7 @@ const DashboardHub = () => {
   // const [deletedStudents, setDeletedStudents] = useState([]);
   //create a useEffect that recognizes that when changes occur getAllStudent
 
-  
+
   const fetchCohorts = async () => {
     try {
       const response = await fetch(`${routeHTTP}/cohorts`);
@@ -52,47 +53,47 @@ const DashboardHub = () => {
       console.error("Error fetching cohorts:", error);
     }
   };
-  
-const studentToUpdate = (student) => {
-setStudent(student);
-setShowUpdateStudents(true);
-}
 
-const startUpdate = () => {
-  setUpdate(true);
-  handleUpdateStudent();
-}
+  const studentToUpdate = (student) => {
+    setStudent(student);
+    setShowUpdateStudents(true);
+  }
+
+  const startUpdate = () => {
+    setUpdate(true);
+    handleUpdateStudent();
+  }
 
 
   const handleUpdateStudent = async () => {
-    if(update === true){
-    try {
-      // Post the student data to the server
-      const response = await fetch(`${routeHTTP}/student/${student.student_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updateStudentData),
-      });
+    if (update === true) {
+      try {
+        // Post the student data to the server
+        const response = await fetch(`${routeHTTP}/student/${student.student_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updateStudentData),
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to add student");
+        if (!response.ok) {
+          throw new Error("Failed to add student");
+        }
+
+        const updatedStudent = await response.json();
+        console.log("Updated student:", updatedStudent);
+
+        // Fetch cohorts again to update the options
+        fetchCohorts();
+
+        // Close the modal
+        setShowUpdateStudents(false);
+
+      } catch (error) {
+        console.error("Error adding student:", error);
       }
-
-      const updatedStudent = await response.json();
-      console.log("Updated student:", updatedStudent);
-
-      // Fetch cohorts again to update the options
-      fetchCohorts();
-
-      // Close the modal
-     setShowUpdateStudents(false);
-
-    } catch (error) {
-      console.error("Error adding student:", error);
     }
-  }
   };
 
   const handleDelete = (studentId) => {
@@ -101,10 +102,10 @@ const startUpdate = () => {
     // //store data in state
     // setDeletedStudents([...deletedStudents, deletedStudent])
     // Make an HTTP DELETE request to the server endpoint to delete the data
-    
+
     const updatedData = allStudentsArray.filter((student) => student.student_id === studentId);
     setAllStudentsArray(updatedData);
-    
+
   }
 
   // const handleUpdateStudent = () => {
@@ -263,12 +264,15 @@ const startUpdate = () => {
 
   return (
     <div
-    style={{
-      backgroundColor: "#ef6e47",
-      backgroundSize: "cover",
-      minHeight: "100vh",
-    }}
+      style={{
+        backgroundColor: "#ffebc7",
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
     >
+      <Button variant="primary">
+        Select Cohort
+      </Button>
       {/* <div className="SearchAndAdd">
         <Form className="Searchbar">
           <Form.Control

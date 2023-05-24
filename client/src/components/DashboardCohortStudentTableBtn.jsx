@@ -8,6 +8,7 @@ import {
   Modal,
   Form,
 } from "react-bootstrap";
+import "../css/DashboardHub.css";
 
 const CohortComponent = () => {
   const routeHTTPGetCohorts = `${baseurl}/cohorts`;
@@ -134,8 +135,8 @@ const CohortComponent = () => {
   };
 
   return (
-    <div>
-      <DropdownButton title="Select Cohort" onSelect={handleCohortSelect}>
+    <div className="DashboarbHub">
+      <DropdownButton className='cohortDropDown' title="Select Cohort" onSelect={handleCohortSelect}>
         {cohorts.map((cohort) => (
           <Dropdown.Item key={cohort.cohort_id} eventKey={cohort.cohort_id}>
             {cohort.name}
@@ -143,7 +144,7 @@ const CohortComponent = () => {
         ))}
       </DropdownButton>
       <br />
-      <Table striped bordered>
+      <Table striped bordered className="Main">
         <thead>
           <tr>
             <th>Edit</th>
