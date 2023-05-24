@@ -149,7 +149,8 @@ const CohortComponent = () => {
         ))}
       </DropdownButton>
       <br />
-      <Table
+      <Table 
+      hover
         style={{
           backgroundColor: "#ef6e47",
           borderStyle: "solid",
