@@ -58,23 +58,23 @@
     width: 1900px;
 } */
 
-.SearchAndAdd {
+/* .SearchAndAdd {
   display: flex;
   flex-wrap: wrap;
   margin-top: 15px;
   width: 100%;
   position: relative;
   right: 0;
-}
+} */
 
-.Searchbar {
+/* .Searchbar {
   height: 35px;
   width: 230px;
   margin-right: 200px;
   margin-left: 90px;
-}
+} */
 
-.Table td {
+/* .Table td {
   text-align: center;
   text-justify: center;
 }
@@ -89,4 +89,4 @@
 
 .SelectedRows {
   background-color: lightslategray;
-}
+} */
