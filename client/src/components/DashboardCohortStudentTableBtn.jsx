@@ -39,10 +39,8 @@ const CohortComponent = () => {
   useEffect(() => {
     if (selectedCohort) {
       fetchStudentsForCohort(selectedCohort);
-    } else {
-      setStudents([]);
     }
-  }, [selectedCohort]);
+  }, [selectedCohort, students]);
 
   // Fetch students for the selected cohort
   const fetchStudentsForCohort = async (cohort_id) => {
@@ -101,7 +99,7 @@ const CohortComponent = () => {
       if (response.status === 200) {
         setStudents((prevStudents) =>
           prevStudents.map((student) =>
-            student.student_id === editedStudent.id ? editedStudent : student
+            student.student_id === editedStudent.student_id ? editedStudent : student
           )
         );
         handleCloseModal();
@@ -135,7 +133,15 @@ const CohortComponent = () => {
 
   return (
     <div>
-      <DropdownButton title="Select Cohort" onSelect={handleCohortSelect}>
+      <DropdownButton
+        title="Select Cohort"
+        onSelect={handleCohortSelect}
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginRight: "10px",
+        }}
+      >
         {cohorts.map((cohort) => (
           <Dropdown.Item key={cohort.cohort_id} eventKey={cohort.cohort_id}>
             {cohort.name}
@@ -143,55 +149,67 @@ const CohortComponent = () => {
         ))}
       </DropdownButton>
       <br />
-      <Table striped bordered>
+      <Table 
+      hover
+        style={{
+          backgroundColor: "#ef6e47",
+          borderStyle: "solid",
+          borderColor: "rgb(57,204,140)",
+          marginLeft: "10%",
+          width: "80%",
+        }}
+      >
         <thead>
-          <tr>
+          <tr style={{ color: "white", fontWeight: "bold" }}>
             <th>Edit</th>
             <th>Delete</th>
             <th>Name</th>
             <th>Email</th>
             <th>Cohort</th>
-            {/* <th>Last Interview</th> */}
             <th>Attempt</th>
             <th>Submitted Pay</th>
             <th>Paperwork</th>
           </tr>
         </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.student_id}>
-              <td>
-                <Button
-                  variant="primary"
-                  onClick={() => handleEditStudent(student)}
-                >
-                  Edit
-                </Button>
+        <tbody style={{ color: "white", fontWeight: "bold" }}>
+          {students.length === 0 && selectedCohort ? (
+            <tr>
+              <td colSpan="8">
+                No students available for the selected cohort.
               </td>
-              <td>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDeleteStudent(student.student_id)}
-                >
-                  Delete
-                </Button>
-              </td>
-              <td>
-                {student.first_name} {student.last_name}
-              </td>
-              <td>{student.email}</td>
-              <td>{student.name}</td>
-              {/* <td>{student.last_interview}</td> */}
-              <td>{student.numattempts}</td>
-              <td>{student.paid ? "Y" : "N"}</td>
-              <td>{student.paperwork ? "Y" : "N"}</td>
             </tr>
-          ))}
+          ) : (
+            students.map((student) => (
+              <tr key={student.student_id}>
+                <td>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleEditStudent(student)}
+                  >
+                    Edit
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDeleteStudent(student.student_id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+                <td>
+                  {student.first_name} {student.last_name}
+                </td>
+                <td>{student.email}</td>
+                <td>{student.name}</td>
+                <td>{student.numattempts}</td>
+                <td>{student.paid ? "Y" : "N"}</td>
+                <td>{student.paperwork ? "Y" : "N"}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
-      {students.length === 0 && selectedCohort && (
-        <p>No students available for the selected cohort.</p>
-      )}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Student</Modal.Title>

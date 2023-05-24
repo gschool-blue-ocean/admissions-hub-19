@@ -39,13 +39,25 @@ function NavBar({ userid }) {
   }, []);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect style={{ background:"radial-gradient(circle, rgb(216,245,169), rgba(110,218,150,255))  " }}>
       <Container>
-        <Navbar.Brand href="#home">Galvanize-Awesome!</Navbar.Brand>
+        <div>
+          <img
+            src="../Images/GSymbol.webp"
+            alt="Logo"
+            style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          />
+          <span style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>Galvanize</span>
+        </div>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            <NavDropdown title={userName} id="collasible-nav-dropdown">
+            <NavDropdown title={userName} id="collasible-nav-dropdown"
+            style={{
+              backgroundColor: "rgb(57,204,140)",
+              borderRadius: "20px",
+            }}
+            >
               <NavDropdown.Item
                 as={Link}
                 to="/editprofile"

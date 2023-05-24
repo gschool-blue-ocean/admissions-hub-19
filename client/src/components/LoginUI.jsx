@@ -46,7 +46,7 @@ export const LoginUI = ({ handleUser }) => {
         <div>
         <img
         src="../Images/GSymbol.webp"
-        alt="Background Image"
+        alt="Logo"
         style={{ display: "block", margin: "0 auto" }}
         />
           <h1>Welcome to Galvanize Admissions</h1>

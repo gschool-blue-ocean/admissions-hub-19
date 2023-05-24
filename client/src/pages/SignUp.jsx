@@ -118,7 +118,7 @@ const SignUp = () => {
             color: "white",
           }}
         >
-          Please Sign Up!
+          Get An Account Now!
         </h1>
         <Container
           style={{
@@ -129,21 +129,21 @@ const SignUp = () => {
             animation: "glow 1.5s ease-in-out infinite",
           }}
         >
-      <style>
-        {`
+          <style>
+            {`
         @keyframes glow {
           0% {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Initial box shadow
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
           }
           50% {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); // Stronger glow
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); 
           }
           100% {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Return to initial box shadow
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
           }
         }
         `}
-      </style>
+          </style>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
