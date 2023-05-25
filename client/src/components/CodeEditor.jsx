@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import React, { useState } from "react";
+import MonacoEditor from "react-monaco-editor";
+import { collapseToast } from "react-toastify";
 
 const CodeEditor = () => {
-  const [code, setCode] = useState('');
-  const [theme, setTheme] = useState('vs-dark');
-  const [language, setLanguage] = useState('javascript');
+  const [code, setCode] = useState("");
+  const [theme, setTheme] = useState("vs-dark");
+  const [language, setLanguage] = useState("javascript");
 
   const editorOptions = {
     selectOnLineNumbers: true,
@@ -12,12 +13,12 @@ const CodeEditor = () => {
 
   const handleRunClick = () => {
     // Add your code compilation logic here
-    console.log('Code is running...');
+    console.log("Code is running...");
   };
 
   const handleSaveClick = () => {
     // Add your code saving logic here
-    console.log('Code is saved.');
+    console.log("Code is saved.");
   };
 
   const handleThemeChange = (event) => {
@@ -29,8 +30,8 @@ const CodeEditor = () => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '85vh' }}>
-      <div style={{ flex: '1' }}>
+    <div style={{ display: "flex", height: "85vh", color: "white" }}>
+      <div style={{ flex: "1" }}>
         <MonacoEditor
           width="100%"
           height="100%"
@@ -60,7 +61,7 @@ const CodeEditor = () => {
           </label>
         </div>
       </div>
-      <div style={{ position: 'absolute', bottom: '0', left: '0', right: '0' }}>
+      <div style={{ position: "absolute", bottom: "0", left: "0", right: "0" }}>
         {/* Render your toast containers here */}
         {/* Example: */}
         {/* <ToastContainer /> */}
@@ -69,18 +70,7 @@ const CodeEditor = () => {
   );
 };
 
-
-
 export default CodeEditor;
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from "react";
 
