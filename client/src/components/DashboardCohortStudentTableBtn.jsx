@@ -99,7 +99,9 @@ const CohortComponent = () => {
       if (response.status === 200) {
         setStudents((prevStudents) =>
           prevStudents.map((student) =>
-            student.student_id === editedStudent.student_id ? editedStudent : student
+            student.student_id === editedStudent.student_id
+              ? editedStudent
+              : student
           )
         );
         handleCloseModal();
@@ -149,8 +151,8 @@ const CohortComponent = () => {
         ))}
       </DropdownButton>
       <br />
-      <Table 
-      hover
+      <Table
+        hover
         style={{
           backgroundColor: "#ef6e47",
           borderStyle: "solid",
