@@ -22,6 +22,12 @@ const App = () => {
   return (
     <Router>
       <div>
+
+        {/* This is the navigation bar that will be on every page allowing access to each page without logging in
+        
+        REMINDER: THIS IS A SAFETY NET CODE. THIS WILL BE REMOVED ONCE WE HAVE A LOGIN PAGE WORKING 
+
+        */}
         <Nav variant="tabs">
           <Nav.Item>
             <Nav.Link as={Link} to="/">
@@ -53,11 +59,14 @@ const App = () => {
             </Nav.Link>
           </Nav.Item>
         
-          <Nav.Item>
+        {/* This link will take you to a blank test page where you can test out components 
+        you want to see and interact with before applying it to the main component/page it belongs to */}
+          {/* <Nav.Item>
             <Nav.Link as={Link} to="/test">
               Test
             </Nav.Link>
-          </Nav.Item>
+          </Nav.Item> */}
+
         </Nav>
       </div>
       <Routes>
