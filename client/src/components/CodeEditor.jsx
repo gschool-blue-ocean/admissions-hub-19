@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import MonacoEditor from "react-monaco-editor";
-import { collapseToast } from "react-toastify";
+import { ToastContainer, toast} from "react-toastify";
 
 const CodeEditor = () => {
   const [code, setCode] = useState("");
   const [theme, setTheme] = useState("vs-dark");
   const [language, setLanguage] = useState("javascript");
+  const [output, SetOutput] = useState("");
 
   const editorOptions = {
     selectOnLineNumbers: true,
@@ -61,10 +62,13 @@ const CodeEditor = () => {
           </label>
         </div>
       </div>
-      <div style={{ position: "absolute", bottom: "0", left: "0", right: "0" }}>
-        {/* Render your toast containers here */}
-        {/* Example: */}
-        {/* <ToastContainer /> */}
+      <div style={{ display: 'block', position: "absolute", bottom: "0", left: "0", right: "0" }}>
+        <h3>Output</h3>
+        <div style={{ display: 'flex', height: '50vh', width: '50vw', backgroundColor: '#1e1e1e' }}>
+          <pre style={{ color: '#fff', margin: '0', padding: '1rem', overflow: 'auto' }}>
+            {compilerOutput}
+          </pre>
+        </div>
       </div>
       <ToastContainer /> {/* ToastContainer from react-toastify */}
     </div>
