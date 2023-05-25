@@ -165,13 +165,15 @@ const InputNotes = ({ userid }) => {
   return (
     <div
       style={{
-        width: "100vw",
-        height: "100vh",
+        width: "97vw",
+        minHeight: "90vh",
         marginLeft: "auto",
         marginRight: "auto",
         position: "relative",
         display: "flex",
         flexWrap: "wrap",
+        backgroundColor: "rgb(2,3,129)",
+        backgroundSize: "cover",
       }}
     >
       <div
@@ -185,7 +187,15 @@ const InputNotes = ({ userid }) => {
         <CodingWindow />
       </div>
       <div style={{ width: "400px", height: "80vh" }}>
-        <Container className="interview-container">
+        <Container
+          className="interview-container"
+          style={{
+            backgroundColor: "#ef6e47",
+            borderStyle: "solid",
+            borderColor: "rgb(57,204,140)",
+            marginLeft: "10%",
+          }}
+        >
           {currentStudent.student_id ? (
             <h2>
               {currentStudent.first_name} {currentStudent.last_name},{" "}
