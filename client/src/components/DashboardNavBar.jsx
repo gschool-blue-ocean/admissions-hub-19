@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import baseurl from "../url";
+import Logo from '../Images/GSymbol.webp'
 
 function NavBar({ userid }) {
   const [userName, setUserName] = useState("");
@@ -43,7 +44,7 @@ function NavBar({ userid }) {
       <Container>
         <div>
           <img
-            src="../Images/GSymbol.webp"
+            src={Logo}
             alt="Logo"
             style={{ width: "50px", height: "50px", marginRight: "10px" }}
           />
