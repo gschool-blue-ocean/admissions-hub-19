@@ -4,6 +4,7 @@ import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import baseurl from "../url";
 import LoginCSS from "../css/LoginUI.module.css";
+import Logo from '../Images/GSymbol.webp'
 
 export const LoginUI = ({ handleUser }) => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const LoginUI = ({ handleUser }) => {
       <div className={LoginCSS.loginContainer} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div>
         <img
-        src="../Images/GSymbol.webp"
+        src={Logo}
         alt="Logo"
         style={{ display: "block", margin: "0 auto" }}
         />
