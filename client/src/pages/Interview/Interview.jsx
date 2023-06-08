@@ -1,6 +1,6 @@
 import React from "react";
-import InputNotes from "../components/InterviewInputNotes";
-import NavBar from "../components/DashboardNavBar";
+import InputNotes from "../../components/InterviewInputNotes";
+import NavBar from "../../components/DashboardNavBar";
 
 const Interview = ({ userid }) => {
   return (
