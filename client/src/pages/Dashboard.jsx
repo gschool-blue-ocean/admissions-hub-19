@@ -5,8 +5,9 @@ import DashboardHub from "../components/DashboardHub";
 const Dashboard = ({ userid }) => {
   return (
     <div>
-      <NavBar userid={userid} />
-      <DashboardHub />
+      <h1>Dashboard</h1>
+      {/* <NavBar userid={userid} /> */}
+      {/* <DashboardHub /> */}
     </div>
   );
 };
