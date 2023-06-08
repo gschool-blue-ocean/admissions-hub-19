@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // import { Nav } from "react-bootstrap";
 // import Login from "../pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import { Outlet, Link } from "react-router-dom";
 // import Edit_Profile from "../pages/Edit_Profile.jsx";
 // import Interview from "../pages/Interview.jsx";
 // import Signup from "../pages/SignUp.jsx";
@@ -19,8 +20,26 @@ const App = () => {
     setUserId(data);
   };
 
+  // Note: App will be used as a wrapper for all pages
   return (
-    <h1>App</h1>
+    <main>
+      <div className="header">
+        <h1>Galvanize Admissions</h1>
+      </div>
+      <div className="side-navbar">
+        <ul>
+          <li>MAIN MENU</li>
+          <li>
+            <Link to="/dashboard">DASHBOARD</Link>
+          </li>
+          <li>
+            <Link to="/interview">INTERVIEW</Link>
+          </li>
+        </ul>
+      </div>
+      <Outlet />
+    </main>
+
     // <Router>
     //   <div>
     //     <Nav variant="tabs">

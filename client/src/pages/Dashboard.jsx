@@ -6,8 +6,8 @@ const Dashboard = ({ userid }) => {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* <NavBar userid={userid} /> */}
-      {/* <DashboardHub /> */}
+      <NavBar userid={userid} />
+      <DashboardHub />
     </div>
   );
 };

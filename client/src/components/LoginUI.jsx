@@ -4,7 +4,7 @@ import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import baseurl from "../url";
 import LoginCSS from "../css/LoginUI.module.css";
-import Logo from '../Images/GSymbol.webp'
+import Logo from '../assets/GSymbol.webp'
 
 export const LoginUI = ({ handleUser }) => {
   const navigate = useNavigate();
