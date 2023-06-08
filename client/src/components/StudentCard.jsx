@@ -1,6 +1,10 @@
 import React from "react";
+import StudentCardCSS from "../css/StudentCard.module.css";
+import { useNavigate } from "react-router-dom";
 
 const StudentCard = () => {
+
+    const navigate = useNavigate();
 
     let studentData = {
         name: "Jon Snow",
@@ -17,5 +21,50 @@ const StudentCard = () => {
         }
     }
 
-    return StudentCard;
+    var statusStyle = "";
+
+    if(studentData.status == "Technical Interview"){
+        statusStyle = StudentCardCSS.interview;
+    }
+    if(studentData.status == "Coding Challenge"){
+        statusStyle = StudentCardCSS.challenge;
+    }
+    if(studentData.status == "Prep Work"){
+        statusStyle = StudentCardCSS.prep;
+    }
+    if(studentData.status == "Done"){
+        statusStyle = StudentCardCSS.done;
+    }
+
+    return (
+        <div className={StudentCardCSS.cardContainer}>
+            <div className={StudentCardCSS.studentInfoCard}>
+                <div className={StudentCardCSS.cardHeader}>
+                    <img className={StudentCardCSS.icon} src="https://img.icons8.com/?size=512&id=kDoeg22e5jUY&format=png"></img>
+                    <h3>{studentData.name}</h3>
+                </div>
+                <ul className={StudentCardCSS.studentInfoList}>
+                    <li className={StudentCardCSS.studentInfo}>Email: <b>{studentData.email}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Phone #: <b>{studentData.phone}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Cohort: <b>{studentData.cohort}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Status: <b className={statusStyle}>{studentData.status}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Created By: <b>{studentData.createdBy}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Technical Interview Data: <b>{studentData.interviewDate}</b></li>
+                </ul>
+                <button 
+                className={StudentCardCSS.interviewButton}
+                variant="primary"
+                onClick={() => navigate("/interview")}
+                >
+                    Begin Interview
+                </button>
+                <div className={StudentCardCSS.studentInfoCard}>
+                    <h3 className={StudentCardCSS.notesHeading}>Notes:</h3>
+                    
+                </div>
+            </div>
+        </div>
+    )
 }
+
+export default StudentCard;

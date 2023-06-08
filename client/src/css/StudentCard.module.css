@@ -1,0 +1,83 @@
+.cardContainer {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.studentInfoCard {
+    height: fit-content;
+    width: 300px;
+    border: 5px solid gray;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+    align-self: center;
+    margin: 0px 10px 0px;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 10px 10px;
+}
+
+.studentInfo {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 5px;
+    font-weight: bold;
+    color: gray;
+}
+
+li b {
+    font-weight: bold;
+    margin-left: 10px;
+    flex-wrap: wrap;
+    color: black;
+}
+
+.interview {
+    padding: 2px;
+    background-color: tan;
+    border-radius: 2px;
+}
+
+.challenge {
+    padding: 2px;
+    background-color: lightsalmon;
+    border-radius: 2px;
+}
+
+.prep {
+    padding: 2px;
+    background-color: lightskyblue;
+    border-radius: 2px;
+}
+
+.done {
+    padding: 2px;
+    background-color: lightgreen;
+    border-radius: 2px;
+}
+
+.interviewButton {
+    padding: 2px;
+    background-color: lightblue;
+    border: 0px none;
+    border-radius: 2px;
+    margin: 5px 20px 20px;
+    color: black;
+    font-weight: bold;
+}
+
+.notesHeading {
+    font-size: 20px;
+    text-decoration: underline;
+    color: gray;
+    margin: 10px 10px 10px;
+}

@@ -6,6 +6,7 @@ import CohortComponent from "./DashboardCohortStudentTableBtn";
 import AddCohortButton from "./DashboardAddCohortBtn";
 import AddStudentButton from "./DashboardAddStudentBtn";
 import DeleteCohortButton from "./DashboardDeleteCohortBtn";
+import StudentCard from "./StudentCard";
 
 const DashboardHub = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const DashboardHub = () => {
         <AddCohortButton />
         <DeleteCohortButton />
       </div>
+      <StudentCard />
     </div>
   );
 };
