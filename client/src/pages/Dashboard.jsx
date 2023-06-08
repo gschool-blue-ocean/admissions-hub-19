@@ -1,13 +1,15 @@
 import React from "react";
-import NavBar from "../components/DashboardNavBar";
-import DashboardHub from "../components/DashboardHub";
+// import NavBar from "../components/DashboardNavBar";
+// import DashboardHub from "../components/DashboardHub";
+import Layout from "./Layout";
 
 const Dashboard = ({ userid }) => {
   return (
-    <div>
-      <NavBar userid={userid} />
-      <DashboardHub />
-    </div>
+    <Layout>
+      <h1>Hello world</h1>
+      {/* <NavBar userid={userid} />
+      <DashboardHub /> */}
+    </Layout>
   );
 };
 
