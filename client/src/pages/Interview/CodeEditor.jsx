@@ -16,6 +16,7 @@ export default function CodeEditor() {
   const [firebaseApp, setFirebaseApp] = useState(initializeApp(config));
   const [db, setDb] = useState(getDatabase(firebaseApp));
 
+  console.log(db);
   // template for generating session keys
 
   // const getExampleRef = () => {
