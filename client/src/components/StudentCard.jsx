@@ -58,11 +58,12 @@ const StudentCard = () => {
                 >
                     Begin Interview
                 </button>
+            </div>
                 <div className={StudentCardCSS.studentInfoCard}>
                     <h3 className={StudentCardCSS.notesHeading}>Notes:</h3>
-                    
+                    <p className={StudentCardCSS.notesInfo}>Attempt {studentData.notes.attemptNum}: {studentData.notes.date}</p>
+                    <p className={StudentCardCSS.notesNarrative}>{studentData.notes.narrative}</p>
                 </div>
-            </div>
         </div>
     )
 }
