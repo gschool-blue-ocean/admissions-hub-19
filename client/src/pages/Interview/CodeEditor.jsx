@@ -1,8 +1,15 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref } from "firebase/database";
+// import "codemirror";
+// import Firepad, {
+//   IDatabaseAdapter,
+//   IEditorAdapter,
+//   IFirepadConstructorOptions,
+// } from "@hackerrank/firepad";
 
-export default function CodeEditor() {
+function CodeEditor() {
   const [config, setConfig] = useState({
     apiKey: import.meta.env.VITE_apiKey,
     authDomain: import.meta.env.VITE_authDomain,
@@ -15,12 +22,12 @@ export default function CodeEditor() {
   const [firepadRef, setFirePadRef] = useState(null);
   const [firebaseApp, setFirebaseApp] = useState(initializeApp(config));
   const [db, setDb] = useState(getDatabase(firebaseApp));
-
-  console.log(db);
+  const [dbRef, setDbRef] = useState(ref(db));
   // template for generating session keys
+  // console.log(dbRef);
 
   // const getExampleRef = () => {
-  //   var ref = getDatabase().ref();
+  // var ref = getDatabase().ref();
   //   var hash = window.location.hash.replace(/#/g, "");
   //   if (hash) {
   //     ref = ref.child(hash);
@@ -46,3 +53,5 @@ export default function CodeEditor() {
 // function replaceInvalidCharacters(str, replaceStr) {
 //   return str.replace(/[ ./#$[\] ]/g, replaceStr);
 // }
+
+export default CodeEditor;
