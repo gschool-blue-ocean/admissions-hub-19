@@ -1,17 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet, Link } from "react-router-dom";
 
 const App = () => {
-  // TODO: put this in a context provider or Zustand store
-  // TODO: move this logic to index.jsx
-  const [userId, setUserId] = useState(1);
-  if (userId) {
-    console.log("userId: " + userId);
-  }
-  const handleUser = (data) => {
-    setUserId(data);
-  };
-
   // Note: App will be used as a wrapper for all pages
   return (
     <main>
