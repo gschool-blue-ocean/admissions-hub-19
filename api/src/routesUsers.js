@@ -17,8 +17,8 @@ function generateHash(password) {
   const hash = crypto
     .pbkdf2Sync(password, salt, 10000, 64, 'sha512') // Perform the hashing algorithm (pbkdf2Sync)
     .toString('hex'); // Convert the hash to a hexadecimal string
-    console.log(salt); //for testing/troubleshooting
-    console.log(hash); //for testing/troubleshooting
+    // console.log(salt); //for testing/troubleshooting
+    // console.log(hash); //for testing/troubleshooting
   return { salt, hash };
 }
 // console.log(generateHash('password'))
