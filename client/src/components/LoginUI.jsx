@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import useUserStore from "../store/userStore";
 import baseurl from "../url";
 import Logo from '../assets/GSymbol.webp'
 
-export const LoginUI = ({ handleUser }) => {
+export const LoginUI = () => {
   const navigate = useNavigate();
+  const handleUser = useUserStore((state) => state.setUserId);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   

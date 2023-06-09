@@ -6,8 +6,10 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import baseurl from "../url";
 import Logo from '../assets/GSymbol.webp'
+import useUserStore from "../store/userStore";
 
-function NavBar({ userid }) {
+function NavBar() {
+  const userid = useUserStore((state) => state.userid);
   const [userName, setUserName] = useState("");
 
   const navigate = useNavigate();
