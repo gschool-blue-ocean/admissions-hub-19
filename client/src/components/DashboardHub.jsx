@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import "../css/DashboardHub.css";
 import { useNavigate } from "react-router-dom";
 import CohortComponent from "./DashboardCohortStudentTableBtn";
 import AddCohortButton from "./DashboardAddCohortBtn";

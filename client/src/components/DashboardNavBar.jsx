@@ -5,9 +5,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import baseurl from "../url";
-import Logo from '../Images/GSymbol.webp'
+import Logo from '../assets/GSymbol.webp'
+import useUserStore from "../store/userStore";
 
-function NavBar({ userid }) {
+function NavBar() {
+  const userid = useUserStore((state) => state.userid);
   const [userName, setUserName] = useState("");
 
   const navigate = useNavigate();
@@ -23,11 +25,7 @@ function NavBar({ userid }) {
   };
 
   const getUserName = () => {
-    fetch(`${baseurl}/user/${userid}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    })
+    fetch(`${baseurl}/user/${userid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("user data:", data);

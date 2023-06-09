@@ -11,19 +11,14 @@ const db = new pg.Pool({
 });
 
 function generateHash(password) {
-
-  const salt = crypto.randomBytes(16).toString('hex'); // Generate a random salt
-
   const hash = crypto
-    .pbkdf2Sync(password, salt, 10000, 64, 'sha512') // Perform the hashing algorithm (pbkdf2Sync)
+    .pbkdf2Sync(password, 'salt', 10000, 64, 'sha512') // Perform the hashing algorithm (pbkdf2Sync)
     .toString('hex'); // Convert the hash to a hexadecimal string
-  return { salt, hash };
+  return { hash };
 }
-console.log(generateHash('password'))
 
 async function findAll(_req, res, next) {
   const result = await db.query("SELECT * FROM users").catch(next);
-  //console.log("Result", result.rows);
   res.send(result.rows);
 }
 
@@ -37,7 +32,6 @@ async function findOne(req, res, next) {
     if (result.rows.length != 1) {
       res.sendStatus(404);
     } else {
-      //console.log("Result", result.rows[0]);
       res.send(result.rows[0]);
     }
   }
@@ -45,8 +39,8 @@ async function findOne(req, res, next) {
 
 async function create(req, res, next) {
   const { first_name, last_name, email, password } = req.body;
-  const keys = "first_name, last_name, email, salt, password_hash";
-  const {salt, hash} = generateHash(password)
+  const keys = "first_name, last_name, email, password_hash";
+  const {hash} = generateHash(password)
   //console.log("CREATE USER BODY:", req.body);
   if (
     first_name === undefined ||
@@ -68,11 +62,10 @@ async function create(req, res, next) {
       //   bcrypt.hash(password_hash, salt, function(err, hash) {
       //   return hash});
       //   })
-
       const result = await db
         .query(
-          `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-          [first_name, last_name, email, salt, hash]
+          `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4) RETURNING *`,
+          [first_name, last_name, email, hash]
         )
         .catch(next);
       res.send(result.rows[0]);
@@ -104,7 +97,6 @@ async function update(req, res, next) {
     "first_name",
     "last_name",
     "email",
-    "salt",
     "password_hash",
   ];
   for (let key in req.body) {
@@ -154,10 +146,8 @@ async function authenticate(req, res, next) {
   }
 
   const storedHash = result.rows[0].password_hash;
-  const storedSalt = result.rows[0].salt;
 
-  const inputHash = crypto.pbkdf2Sync(password, storedSalt, 10000, 64, 'sha512').toString('hex');
-
+  const inputHash = crypto.pbkdf2Sync(password, 'salt', 10000, 64, 'sha512').toString('hex');
   if (inputHash === storedHash) {
     const payload = 
     { email: result.rows[0].email,

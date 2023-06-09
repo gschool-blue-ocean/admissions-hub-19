@@ -2,10 +2,11 @@ import React from "react";
 import NavBar from "../components/DashboardNavBar";
 import DashboardHub from "../components/DashboardHub";
 
-const Dashboard = ({ userid }) => {
+const Dashboard = () => {
   return (
     <div>
-      <NavBar userid={userid} />
+      <h1>Dashboard</h1>
+      <NavBar />
       <DashboardHub />
     </div>
   );
