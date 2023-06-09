@@ -22,6 +22,6 @@ jobs:
     - run: npm ci --prefix=client
     - run: npm ci --prefix=api
     # - run: npm run test
-  # - run: npm run ci #This is for later when we figure out lint and prettier. Using just npm run test for now
+    # - run: npm run ci #This is for later when we figure out lint and prettier. Using just npm run test for now
     # - run: npm test --prefix=api
     - run: npm test --prefix=client
