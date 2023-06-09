@@ -4,7 +4,6 @@ import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import StarRating from "./InterviewStarRating";
 import StudentSelector from "./InterviewStudentSelector";
-import "../css/Interview.css";
 
 const InputNotes = ({ userid }) => {
   const [activeTab, setActiveTab] = useState("problem1");

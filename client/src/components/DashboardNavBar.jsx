@@ -23,11 +23,7 @@ function NavBar({ userid }) {
   };
 
   const getUserName = () => {
-    fetch(`${baseurl}/user/${userid}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    })
+    fetch(`${baseurl}/user/${userid}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("user data:", data);
