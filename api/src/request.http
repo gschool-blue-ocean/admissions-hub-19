@@ -1,0 +1,6 @@
+GET http://localhost:3000/user/10
+# Content-Type: application/json
+# {
+#   "email": "joe@email.com",
+#   "password": "Password1!"
+# }

@@ -17,9 +17,11 @@ function generateHash(password) {
   const hash = crypto
     .pbkdf2Sync(password, salt, 10000, 64, 'sha512') // Perform the hashing algorithm (pbkdf2Sync)
     .toString('hex'); // Convert the hash to a hexadecimal string
+    console.log(salt); //for testing/troubleshooting
+    console.log(hash); //for testing/troubleshooting
   return { salt, hash };
 }
-console.log(generateHash('password'))
+// console.log(generateHash('password'))
 
 async function findAll(_req, res, next) {
   const result = await db.query("SELECT * FROM users").catch(next);
@@ -72,7 +74,7 @@ async function create(req, res, next) {
       const result = await db
         .query(
           `INSERT INTO users (${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-          [first_name, last_name, email, salt, hash]
+          [first_name, last_name, email, Buffer.from(salt, 'hex'), hash]
         )
         .catch(next);
       res.send(result.rows[0]);
@@ -154,10 +156,12 @@ async function authenticate(req, res, next) {
   }
 
   const storedHash = result.rows[0].password_hash;
-  const storedSalt = result.rows[0].salt;
+  // console.log(storedHash);  //for testing/troubleshooting
+  const storedSalt = result.rows[0].salt.toString('hex');
+  // console.log(storedSalt);  //for testing/troubleshooting
 
-  const inputHash = crypto.pbkdf2Sync(password, storedSalt, 10000, 64, 'sha512').toString('hex');
-
+  const inputHash = crypto.pbkdf2Sync(password, Buffer.from(storedSalt), 10000, 64, 'sha512').toString('hex');
+  // console.log(inputHash);
   if (inputHash === storedHash) {
     const payload = 
     { email: result.rows[0].email,
