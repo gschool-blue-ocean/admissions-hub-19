@@ -5,7 +5,7 @@ import CohortComponent from "./DashboardCohortStudentTableBtn";
 import AddCohortButton from "./DashboardAddCohortBtn";
 import AddStudentButton from "./DashboardAddStudentBtn";
 import DeleteCohortButton from "./DashboardDeleteCohortBtn";
-import StudentCard from "./StudentCard";
+import StudentCard from "./StudentCard/StudentCard";
 
 const DashboardHub = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from "react";
-import StudentCardCSS from "../css/StudentCard.module.css";
+import StudentCardCSS from "./StudentCard.module.css";
 import { useNavigate } from "react-router-dom";
 
 const StudentCard = () => {
