@@ -1,6 +1,7 @@
 import React from "react";
 import StudentCardCSS from "./StudentCard.module.css";
 import { useNavigate } from "react-router-dom";
+import StatusTag from "../StatusTag/StatusTag";
 
 const StudentCard = () => {
 
@@ -28,21 +29,6 @@ const StudentCard = () => {
         ]
     }
 
-    var statusStyle = "";
-
-    if(studentData.status == "Technical Interview"){
-        statusStyle = StudentCardCSS.interview;
-    }
-    if(studentData.status == "Coding Challenge"){
-        statusStyle = StudentCardCSS.challenge;
-    }
-    if(studentData.status == "Prep Work"){
-        statusStyle = StudentCardCSS.prep;
-    }
-    if(studentData.status == "Done"){
-        statusStyle = StudentCardCSS.done;
-    }
-
     return (
         <div className={StudentCardCSS.cardContainer}>
             <div className={StudentCardCSS.studentInfoCard}>
@@ -54,7 +40,9 @@ const StudentCard = () => {
                     <li className={StudentCardCSS.studentInfo}>Email: <b>{studentData.email}</b></li>
                     <li className={StudentCardCSS.studentInfo}>Phone #: <b>{studentData.phone}</b></li>
                     <li className={StudentCardCSS.studentInfo}>Cohort: <b>{studentData.cohort}</b></li>
-                    <li className={StudentCardCSS.studentInfo}>Status: <b className={statusStyle}>{studentData.status}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Status: 
+                        <StatusTag studentStatus={studentData.status} />
+                    </li>
                     <li className={StudentCardCSS.studentInfo}>Created By: <b>{studentData.createdBy}</b></li>
                     <li className={StudentCardCSS.studentInfo}>Technical Interview Data: <b>{studentData.technicalInterviewDate}</b></li>
                 </ul>

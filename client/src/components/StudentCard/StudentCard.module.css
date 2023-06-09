@@ -43,30 +43,6 @@ li b {
     text-align: right;
 }
 
-.interview {
-    padding: 2px;
-    background-color: tan;
-    border-radius: 2px;
-}
-
-.challenge {
-    padding: 2px;
-    background-color: lightsalmon;
-    border-radius: 2px;
-}
-
-.prep {
-    padding: 2px;
-    background-color: lightskyblue;
-    border-radius: 2px;
-}
-
-.done {
-    padding: 2px;
-    background-color: lightgreen;
-    border-radius: 2px;
-}
-
 .interviewButton {
     padding: 2px;
     background-color: lightblue;
