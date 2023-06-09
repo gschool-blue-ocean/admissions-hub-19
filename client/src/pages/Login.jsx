@@ -2,10 +2,10 @@ import React from "react";
 import LoginUI from "../components/LoginUI";
 
 
-const Login = ({handleUser}) => {
+const Login = () => {
     return (
       <div>
-        <LoginUI handleUser={handleUser}/>
+        <LoginUI />
       </div>
     );
 };
