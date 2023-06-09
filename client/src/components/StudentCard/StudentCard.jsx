@@ -13,12 +13,19 @@ const StudentCard = () => {
         cohort: "MCSP-35",
         status: "Technical Interview",
         createdBy: "Rane Gray",
-        interviewDate: "June 6th, 2023 @ 10:00AM MST",
-        notes: {
-            attemptNum: 1,
-            date: "May 23rd, 2023",
-            narrative: "Jon performed decently on most topics. Struggled with accessing properties on an object"
-        }
+        technicalInterviewDate: "June 6th, 2023 @ 10:00AM MST",
+        notes: [
+            {
+                attemptNum: 1,
+                date: "May 23rd, 2023",
+                content: "Jon performed decently on most topics. Struggled with accessing properties on an object"
+            },
+            {
+                attemptNum: 2,
+                date: "June 9th, 2023",
+                content: "What kind of a name is Jon Snow anyway?"
+            }
+        ]
     }
 
     var statusStyle = "";
@@ -49,7 +56,7 @@ const StudentCard = () => {
                     <li className={StudentCardCSS.studentInfo}>Cohort: <b>{studentData.cohort}</b></li>
                     <li className={StudentCardCSS.studentInfo}>Status: <b className={statusStyle}>{studentData.status}</b></li>
                     <li className={StudentCardCSS.studentInfo}>Created By: <b>{studentData.createdBy}</b></li>
-                    <li className={StudentCardCSS.studentInfo}>Technical Interview Data: <b>{studentData.interviewDate}</b></li>
+                    <li className={StudentCardCSS.studentInfo}>Technical Interview Data: <b>{studentData.technicalInterviewDate}</b></li>
                 </ul>
                 <button 
                 className={StudentCardCSS.interviewButton}
@@ -61,8 +68,12 @@ const StudentCard = () => {
             </div>
                 <div className={StudentCardCSS.studentInfoCard}>
                     <h3 className={StudentCardCSS.notesHeading}>Notes:</h3>
-                    <p className={StudentCardCSS.notesInfo}>Attempt {studentData.notes.attemptNum}: {studentData.notes.date}</p>
-                    <p className={StudentCardCSS.notesNarrative}>{studentData.notes.narrative}</p>
+                    {studentData.notes.map((note,index) => (
+                        <div key={index}>
+                            <p className={StudentCardCSS.notesInfo}>Attempt {note.attemptNum}: {note.date}</p>
+                            <p className={StudentCardCSS.notesNarrative}>{note.content}</p>
+                        </div>
+                    ))}
                 </div>
         </div>
     )
