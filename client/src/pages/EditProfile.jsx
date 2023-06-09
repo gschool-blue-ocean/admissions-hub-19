@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import LoginCSS from "../css/LoginUI.module.css";
 import { Row, Col, Container } from "react-bootstrap";
 import baseurl from "../url";
 
-const Edit_Profile = ({ userid }) => {
+const EditProfile = ({ userid }) => {
   const navigate = useNavigate();
 
   const handleToDashBoard = () => {
@@ -291,4 +289,4 @@ const Edit_Profile = ({ userid }) => {
   );
 };
 
-export default Edit_Profile;
+export default EditProfile;
