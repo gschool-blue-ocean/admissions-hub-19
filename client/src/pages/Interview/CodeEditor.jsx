@@ -5,15 +5,16 @@ import { getDatabase, ref } from "firebase/database";
 import {
   SandpackProvider,
   SandpackLayout,
-  SandpackPreview,
   SandpackCodeEditor,
   SandpackConsole,
   useSandpack,
+  SandpackPreview,
 } from "@codesandbox/sandpack-react";
 
 function CodeEditor() {
   const files = {
     "/index.js": `console.log("test")`,
+    "/question1": `function test(a) {return a++} \n console.log(test(30))`,
   };
   // const handleChange = (input) => {
   //   console.log(input);
@@ -33,34 +34,33 @@ function CodeEditor() {
   // const [db, setDb] = useState(getDatabase(firebaseApp));
   // const [dbRef, setDbRef] = useState(ref(db));
 
-  const handleRefresh = () => {
-    const { dispatch, listen } = useSandpack();
-    dispatch({ type: "refresh" });
-  };
-  useEffect(() => {
-    // listens for any message dispatched between sandpack and the bundler
-    const stopListening = listen((msg) => console.log(msg));
+  // const handleRefresh = () => {
+  //   const { dispatch, listen } = useSandpack();
+  //   dispatch({ type: "refresh" });
+  // };
 
-    return () => {
-      // unsubscribe
-      stopListening();
-    };
-  }, [listen]);
+  // useEffect(() => {
+  //   const { executeCode } = useSandpack();
+
+  //   executeCode("/index.js");
+  // }, []);
   return (
-    <SandpackProvider>
+    <SandpackProvider files={files}>
       <SandpackLayout>
         <SandpackCodeEditor
           showTabs={true}
           showLineNumbers={true}
           template="vanilla"
-          files={files}
+          showRunButton={true}
         />
-        <SandpackPreview showRunButton={true} />
-        <SandpackConsole />
-        {/* <SandpackCodeEditor /> */}
-        <SandpackPreview />
+        <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
+        <SandpackCodeEditor
+          showTabs={true}
+          showLineNumbers={true}
+          template="vanilla"
+        />
+        <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
       </SandpackLayout>
-      {/* <ListenerIframeMessage /> */}
     </SandpackProvider>
   );
 }
