@@ -12,16 +12,10 @@ import {
 } from "@codesandbox/sandpack-react";
 import useCodeEditorStore from "../../store/CodeEditorStore";
 
-function CodeEditor() {
-  const { clientID, setClientID, content, setContent } = useCodeEditorStore();
+function ClientEditor() {
+  const { clientID, setClientID, content } = useCodeEditorStore();
   const { sandpack } = useSandpack();
-  console.log(sandpack);
-  const handleUpdates = () => {
-    sandpack.updateCurrentFile("// test");
-    setContent("hello");
-  };
-  // const newFiles = { "/index.js": "// hey" };
-
+  // const theBoi = useSandpackClient();
   // for the time being firebase will be out until websocket solution is made
   // const [config, setConfig] = useState({
   //   apiKey: import.meta.env.VITE_apiKey,
@@ -39,13 +33,11 @@ function CodeEditor() {
 
   useEffect(() => {
     const test = async () => {
-      sandpack.updateCurrentFile("// test");
-      // console.log(sandpack);
-      await setClientID(sandpack);
+      sandpack.updateCurrentFile(content);
     };
 
     test();
-  }, []);
+  }, [content]);
   return (
     <>
       <SandpackLayout>
@@ -63,9 +55,6 @@ function CodeEditor() {
         />
         <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
       </SandpackLayout>
-      <button type="button" onClick={handleUpdates}>
-        test
-      </button>
     </>
   );
 }
@@ -104,4 +93,4 @@ const ListenerIframeMessage = () => {
 //   return ref;
 // };
 
-export default CodeEditor;
+export default ClientEditor;

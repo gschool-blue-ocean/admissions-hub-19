@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 const App = () => {
+  // here's where we can retriueve the files with questions in the future
   // Note: App will be used as a wrapper for all pages
   return (
     <main>
