@@ -30,6 +30,7 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
+    "socket.io": "^4.6.2",
     "zustand": "^4.3.8"
   },
   "resolutions": {
