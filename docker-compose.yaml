@@ -39,5 +39,14 @@ services:
       # filesystem to the container's.
       - ./client/src:/code/src
     command: npm run dev
+  socket-server:
+    build: ./socketServer
+    ports:
+      - 3175:3175
+    volumes:
+      # This allows live reload inside a docker container by mapping your
+      # filesystem to the container's.
+      - ./socketServer/src:/code/src
+    command: npm run dev
 volumes:
   pg-data:
