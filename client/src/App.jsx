@@ -7,7 +7,7 @@ socket.on("connect", () => {
 });
 
 const App = () => {
-  // here's where we can retriueve the files with questions in the future
+  // here's where we can retrieve the files with questions in the future
   // Note: App will be used as a wrapper for all pages
   return (
     <main>
