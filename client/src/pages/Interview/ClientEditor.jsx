@@ -1,96 +1,64 @@
-import React, { useRef, useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref } from "firebase/database";
+import React, { useEffect, useState } from "react";
 import {
-  SandpackProvider,
   SandpackLayout,
   SandpackCodeEditor,
   SandpackConsole,
   useSandpack,
-  useSandpackClient,
-  Sandpack,
+  useActiveCode,
 } from "@codesandbox/sandpack-react";
-import useCodeEditorStore from "../../store/CodeEditorStore";
+import { io } from "socket.io-client";
+const socket = io("127.0.0.1:3175/");
 
 function ClientEditor() {
-  const { clientID, setClientID, content } = useCodeEditorStore();
-  const { sandpack } = useSandpack();
-  // const theBoi = useSandpackClient();
-  // for the time being firebase will be out until websocket solution is made
-  // const [config, setConfig] = useState({
-  //   apiKey: import.meta.env.VITE_apiKey,
-  //   authDomain: import.meta.env.VITE_authDomain,
-  //   databaseURL: import.meta.env.VITE_databaseURL,
-  //   projectId: import.meta.env.VITE_projectID,
-  //   storageBucket: import.meta.env.VITE_storageBucket,
-  //   messagingSenderId: import.meta.env.VITE_messagingSenderId,
-  //   appId: import.meta.env.VITE_appID,
-  // });
-  // const [firepadRef, setFirePadRef] = useState(null);
-  // const [firebaseApp, setFirebaseApp] = useState(initializeApp(config));
-  // const [db, setDb] = useState(getDatabase(firebaseApp));
-  // const [dbRef, setDbRef] = useState(ref(db));
+  // this is what goes into the editor
+  const [content, setContent] = useState(null);
+  //this decides when an emitter is sent to server
+  const [update, setUpdate] = useState(null);
+  // sandpack is general instances for the code editor, listen is a function that captures from the bundler
+  const { sandpack, listen } = useSandpack();
+  // this grabs the current code in the editor window
+  let activeCode = useActiveCode();
 
-  useEffect(() => {
-    const test = async () => {
-      sandpack.updateCurrentFile(content);
-    };
+  // maybe a little hacky -just flips bool values on update of codemirror instance
+  listen(() => {
+    setUpdate(!update);
+  });
 
-    test();
-  }, [content]);
-  return (
-    <>
-      <SandpackLayout>
-        <SandpackCodeEditor
-          // showTabs={true}
-          showLineNumbers={true}
-          template="vanilla"
-          showRunButton={true}
-        />
-        <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
-        <SandpackCodeEditor
-          showTabs={true}
-          showLineNumbers={true}
-          template="vanilla"
-        />
-        <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
-      </SandpackLayout>
-    </>
-  );
-}
+  socket.on("connect", () => {
+    console.log(socket.id);
+  });
 
-const ListenerIframeMessage = () => {
-  const { sandpack } = useSandpack();
+  // listener for when server decides to feed data
+  socket.on("content", (data) => {
+    setContent(data);
+  });
 
-  const sender = () => {
-    Object.values(sandpack.clients).forEach((client) => {
-      client.iframe.contentWindow.postMessage("Hello world", "*");
-    });
+  const getCode = () => {
+    setContent(activeCode.code);
   };
 
-  return <button onClick={sender}>Send message</button>;
-};
+  // when data is recieved from server, updateCurrentFile updates the terminal
+  useEffect(() => {
+    sandpack.updateCurrentFile(content);
+  }, [content]);
 
-// use this to validate input !
-
-// function replaceInvalidCharacters(str, replaceStr) {
-//   return str.replace(/[ ./#$[\] ]/g, replaceStr);
-// }
-
-// template for generating session keys
-// const getExampleRef = () => {
-// var ref = getDatabase().ref();
-//   var hash = window.location.hash.replace(/#/g, "");
-//   if (hash) {
-//     ref = ref.child(hash);
-//   } else {
-//     ref = ref.push(); // generate unique location.
-//     window.location = window.location + "#" + ref.key; // add it as a hash to the URL.
-//   }
-//   if (typeof console !== "undefined") {
-//     console.log("Firebase data: ", ref.toString());
-//   }
-//   return ref;
-// };
+  // when message is sent from bundler that something is happening in the editor,
+  // we capture the code and send it to the server to decide if it's important
+  useEffect(() => {
+    getCode();
+    socket.emit("update", content);
+  }, [update]);
+  // this is all very modular, its vanilla now but we can make it look good later
+  return (
+    <SandpackLayout>
+      <SandpackCodeEditor
+        showTabs={true}
+        showLineNumbers={true}
+        template="vanilla"
+      />
+      <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
+    </SandpackLayout>
+  );
+}
 
 export default ClientEditor;
