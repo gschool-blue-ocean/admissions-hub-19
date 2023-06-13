@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import StarRating from "./InterviewStarRating";
 import StudentSelector from "./InterviewStudentSelector";
 
-const InputNotes = ({ userid }) => {
+const InputNotes = () => {
   const [activeTab, setActiveTab] = useState("problem1");
   const [question1, setQuestion1] = useState({});
   const [question2, setQuestion2] = useState({});
@@ -161,36 +161,15 @@ const InputNotes = ({ userid }) => {
   const problems = ["Problem 1", "Problem 2", "Problem 3"];
 
   return (
-    <div
-      style={{
-        width: "97vw",
-        minHeight: "90vh",
-        marginLeft: "auto",
-        marginRight: "auto",
-        position: "relative",
-        display: "flex",
-        flexWrap: "wrap",
-        backgroundColor: "rgb(2,3,129)",
-        backgroundSize: "cover",
-      }}
-    >
-      <div
-        style={{
-          minWidth: "580px",
-          width: "60%",
-          height: "80vh",
-          marginRight: "20px",
-        }}
-      >
-      </div>
-      <div style={{ width: "400px", height: "80vh" }}>
+    <div className={{ display: "flex" }}>
+
+      {/* // Note: Right here is where we need to add the code editor component */}
+      
+      <div style={{ width: "400px" }}>
         <Container
           className="interview-container"
           style={{
-            backgroundColor: "#ef6e47",
-            borderStyle: "solid",
-            borderColor: "rgb(57,204,140)",
-            marginLeft: "10%",
+            border: "1px solid #ccc",
           }}
         >
           {currentStudent.student_id ? (
