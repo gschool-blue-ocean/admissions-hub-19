@@ -9,6 +9,9 @@ import {
 import { io } from "socket.io-client";
 const socket = io("127.0.0.1:3175/");
 
+// set the height for the editor here
+const editorHeight = "400px";
+
 function ClientEditor() {
   // this is what goes into the editor
   const [content, setContent] = useState(null);
@@ -50,13 +53,20 @@ function ClientEditor() {
   }, [update]);
   // this is all very modular, its vanilla now but we can make it look good later
   return (
-    <SandpackLayout>
+    <SandpackLayout style={{ height: editorHeight }}>
       <SandpackCodeEditor
         showTabs={true}
         showLineNumbers={true}
         template="vanilla"
+        // styling goes here:
+        style={{ height: editorHeight }}
       />
-      <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
+      <SandpackConsole
+        standalone={true}
+        resetOnPreviewRestart={true}
+        // styling goes here:
+        style={{ height: editorHeight }}
+      />
     </SandpackLayout>
   );
 }
