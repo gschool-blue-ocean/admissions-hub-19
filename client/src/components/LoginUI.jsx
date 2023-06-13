@@ -11,7 +11,6 @@ export const LoginUI = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -74,6 +73,8 @@ export const LoginUI = () => {
         <Form
           onSubmit={handleSubmit((data) => {
             if (!data.message) {
+              setEmail(data.email);
+              setPassword(data.password);
             }
           })}
         >
