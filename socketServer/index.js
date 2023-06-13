@@ -2,6 +2,9 @@ import express from "express";
 const app = express();
 import { createServer } from "http";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
+const port = process.env.PORT;
 const server = createServer(app);
 
 // create socket.io server instance to support websocket connection
@@ -25,8 +28,10 @@ let currentData = null;
 io.on("connection", (socket) => {
   // socket id is not good for key generation, we will need to use hashing
   console.log("a user connected", socket.id);
+  socket.broadcast.emit("User connected", socket.id);
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    socket.broadcast.emit("User disconnected");
   });
 
   // think of this as an event listener, when a client emits an "update" it forwards
@@ -40,6 +45,6 @@ io.on("connection", (socket) => {
 });
 
 // will need to set this via docker compose and env file
-server.listen(3175, () => {
-  console.log("socket server listening on 127.0.0.1:3175");
+server.listen(port, () => {
+  console.log(`socket server listening on 127.0.0.1:${port}`);
 });

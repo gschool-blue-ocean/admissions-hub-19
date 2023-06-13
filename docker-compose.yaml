@@ -30,6 +30,7 @@ services:
     environment:
       API_URL: http://api
       PORT: ${CLIENT_PORT}
+      VITE_SOCKET_SERVER_PORT: ${SOCKET_SERVER_PORT}
     depends_on:
       - api
     ports:
@@ -40,9 +41,11 @@ services:
       - ./client/src:/code/src
     command: npm run dev
   socket-server:
+    environment:
+      PORT: ${SOCKET_SERVER_PORT}
     build: ./socketServer
     ports:
-      - 3175:3175
+      - ${SOCKET_SERVER_PORT}:${SOCKET_SERVER_PORT}
     volumes:
       # This allows live reload inside a docker container by mapping your
       # filesystem to the container's.
