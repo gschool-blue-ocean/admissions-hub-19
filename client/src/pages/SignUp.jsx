@@ -3,8 +3,20 @@ import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../url";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const navigate = useNavigate();
 
   const handleCancel = () => {
@@ -44,7 +56,7 @@ const SignUp = () => {
     setPassword2(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmission = (event) => {
     event.preventDefault();
     let doFetch = false;
 
@@ -144,7 +156,7 @@ const SignUp = () => {
         }
         `}
           </style>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmission}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
                 <Form.Label
