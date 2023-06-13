@@ -16,31 +16,27 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "interview",
-        element: <Interview />,
-      },
-      {
-        path: "editprofile",
-        element: <EditProfile />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "signup",
-        element: <SignUp />,
-      },
-    ],
+        {
+          path: "dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "interview",
+          element: <Interview />,
+        },
+        {
+          path: "editprofile",
+          element: <EditProfile />,
+        },
+        {
+          path: "signup",
+          element: <SignUp />,
+        },
+      ],
   },
 ]);
 

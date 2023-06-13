@@ -11,13 +11,8 @@ const DashboardHub = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ 
-      background: "rgb(2,3,129)",
-      backgroundSize: "cover",
-      minHeight: "100vh",
-      }}
-      >
-      <br/>
+    <div>
+      <br />
       <div>
         <CohortComponent />
       </div>
@@ -30,14 +25,14 @@ const DashboardHub = () => {
         }}
       >
         <div>
-        <Button
-          className="LaunchInterviewBtn"
-          variant="primary"
-          onClick={() => navigate("/interview")}
-        >
-          Launch Interview
-        </Button>
-</div>
+          <Button
+            className="LaunchInterviewBtn"
+            variant="primary"
+            onClick={() => navigate("/interview")}
+          >
+            Launch Interview
+          </Button>
+        </div>
         <AddStudentButton />
         <AddCohortButton />
         <DeleteCohortButton />

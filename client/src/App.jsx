@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import SidebarNav from "./components/SidebarNav/SidebarNav";
 import { io } from "socket.io-client";
+import "./App.css";
+
 const socket = io("127.0.0.1:3175/");
 socket.on("connect", () => {
   console.log(`Websocket connected id:${socket.id}`);
@@ -11,30 +14,15 @@ const App = () => {
   // Note: App will be used as a wrapper for all pages
   return (
     <main>
-      <header>
-        <h1>Galvanize Admissions</h1>
-      </header>
-      <nav>
-        <ul>
-          <li>MAIN MENU</li>
-          <li>
-            <Link to="/dashboard">DASHBOARD</Link>
-          </li>
-          <li>
-            <Link to="/interview">INTERVIEW</Link>
-          </li>
-          <li>
-            <Link to="/edit-profile">EDIT PROFILE</Link>
-          </li>
-          <li>
-            <Link to="/login">LOGIN</Link>
-          </li>
-          <li>
-            <Link to="/signup">SIGN UP</Link>
-          </li>
-        </ul>
-      </nav>
-      <Outlet />
+      <SidebarNav />
+      <section>
+        <header>
+          <h3 className="m-0 p-4 fs-3">Dashboard</h3>
+        </header>
+
+        {/* // Note: Outlet will be used to render nested routes */}
+        <Outlet />
+      </section>
     </main>
   );
 };
