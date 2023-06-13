@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import ErrorPage from "./pages/errorPage";
+import ErrorPage from "./pages/ErrorPage";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Interview from "./pages/Interview";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Interview from "./pages/Interview/Interview";
+import "bootstrap/dist/css/bootstrap.min.css";
 import EditProfile from "./pages/EditProfile";
 
 const router = createBrowserRouter([

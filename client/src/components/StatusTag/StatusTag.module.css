@@ -1,0 +1,20 @@
+b {
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.interview {
+    background-color: tan;
+}
+
+.challenge {
+    background-color: lightsalmon;
+}
+
+.prep {
+    background-color: lightskyblue;
+}
+
+.done {
+    background-color: lightgreen;
+}
