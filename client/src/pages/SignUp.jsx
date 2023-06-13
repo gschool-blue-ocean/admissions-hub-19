@@ -5,8 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../url";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const navigate = useNavigate();
 
   const handleCancel = () => {
@@ -46,7 +58,7 @@ const SignUp = () => {
     setPassword2(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmission = (event) => {
     event.preventDefault();
     let doFetch = false;
 
@@ -158,7 +170,7 @@ const SignUp = () => {
         }
         `}
           </style>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmission}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
                 <Form.Label
