@@ -4,6 +4,8 @@ import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import StarRating from "./InterviewStarRating";
 import StudentSelector from "./InterviewStudentSelector";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InputNotes = () => {
   const [activeTab, setActiveTab] = useState("problem1");
@@ -114,7 +116,7 @@ const InputNotes = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        alert(
+        toast(
           `Thank you for your submittal for...\n   Student: ${currentStudent.first_name} ${currentStudent.last_name}\n   Notes: ${attemptNotes}\n   Score: ${totalRating}`
         );
         console.log("Submitted Attempt Info:", data);
@@ -162,9 +164,21 @@ const InputNotes = () => {
 
   return (
     <div className={{ display: "flex" }}>
-
       {/* // Note: Right here is where we need to add the code editor component */}
-      
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div style={{ width: "400px" }}>
         <Container
           className="interview-container"

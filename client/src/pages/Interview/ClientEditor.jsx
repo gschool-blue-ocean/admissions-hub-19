@@ -7,6 +7,8 @@ import {
   useActiveCode,
 } from "@codesandbox/sandpack-react";
 import { io } from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const socket = io("127.0.0.1:3175/");
 
 function ClientEditor() {
@@ -25,7 +27,16 @@ function ClientEditor() {
   });
 
   socket.on("connect", () => {
-    console.log(socket.id);
+    toast("Connected to web socket, you're live!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   });
 
   // listener for when server decides to feed data
@@ -48,16 +59,21 @@ function ClientEditor() {
     getCode();
     socket.emit("update", content);
   }, [update]);
+
   // this is all very modular, its vanilla now but we can make it look good later
   return (
-    <SandpackLayout>
-      <SandpackCodeEditor
-        showTabs={true}
-        showLineNumbers={true}
-        template="vanilla"
-      />
-      <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
-    </SandpackLayout>
+    <>
+      {/* Same as */}
+      <ToastContainer />
+      <SandpackLayout>
+        <SandpackCodeEditor
+          showTabs={true}
+          showLineNumbers={true}
+          template="vanilla"
+        />
+        <SandpackConsole standalone={true} resetOnPreviewRestart={true} />
+      </SandpackLayout>
+    </>
   );
 }
 
