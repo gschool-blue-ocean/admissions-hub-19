@@ -110,7 +110,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [userid]);
 
   return (
     <div
