@@ -1,0 +1,42 @@
+.cardContainer {
+    /* justify-content: center; */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 30px 0px;
+}
+
+.cardHeader {
+    border: 2px solid gray;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.interviewInfo {
+    margin: 10px 10px 10px;
+    font-weight: bold;
+    color: gray;
+}
+
+b {
+    font-weight: bold;
+    /* margin-right: 10px; */
+    flex-wrap: wrap;
+    color: black;
+    text-align: right;
+}
+
+.linkButton {
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    height: 35px;
+    margin: 5px 10px 0px
+}
