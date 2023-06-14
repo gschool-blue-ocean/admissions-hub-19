@@ -8,16 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
 
   const navigate = useNavigate();
 
@@ -58,7 +48,7 @@ const SignUp = () => {
     setPassword2(event.target.value);
   };
 
-  const handleSubmission = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     let doFetch = false;
 
@@ -170,7 +160,7 @@ const SignUp = () => {
         }
         `}
           </style>
-          <Form onSubmit={handleSubmission}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
                 <Form.Label
