@@ -7,6 +7,8 @@ import {
   useActiveCode,
 } from "@codesandbox/sandpack-react";
 import { connect, io } from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const socket = io(`127.0.0.1:${import.meta.env.VITE_SOCKET_SERVER_PORT}/`);
 
 // set the height for the editor here
@@ -29,7 +31,16 @@ function ClientEditor() {
   });
 
   socket.on("connect", () => {
-    console.log("connected to websocket");
+    toast("Connected to web socket, you're live!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   });
 
   // listener for when server decides to feed data
@@ -64,23 +75,28 @@ function ClientEditor() {
     getCode();
     socket.emit("update", content);
   }, [update]);
+
   // this is all very modular, its vanilla now but we can make it look good later
   return (
-    <SandpackLayout style={{ height: editorHeight }}>
-      <SandpackCodeEditor
-        showTabs={true}
-        showLineNumbers={true}
-        template="vanilla"
-        // styling goes here:
-        style={{ height: editorHeight }}
-      />
-      <SandpackConsole
-        standalone={true}
-        resetOnPreviewRestart={true}
-        // styling goes here:
-        style={{ height: editorHeight }}
-      />
-    </SandpackLayout>
+    <>
+      {/* Same as */}
+      <ToastContainer />
+      <SandpackLayout style={{ height: editorHeight }}>
+        <SandpackCodeEditor
+          showTabs={true}
+          showLineNumbers={true}
+          template="vanilla"
+          // styling goes here:
+          style={{ height: editorHeight }}
+        />
+        <SandpackConsole
+          standalone={true}
+          resetOnPreviewRestart={true}
+          // styling goes here:
+          style={{ height: editorHeight }}
+        />
+      </SandpackLayout>
+    </>
   );
 }
 

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import useUserStore from "../store/userStore";
 import baseurl from "../url";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -52,23 +54,23 @@ const EditProfile = () => {
     if (password1.length == 0 && password2.length == 0) {
       doFetch = true;
     } else if (password1 != password2) {
-      alert("Passwords do not match!\nPlease try again.\n\nNothing Updated");
+      toast("Passwords do not match!\nPlease try again.\n\nNothing Updated");
     } else if (password1.length > 0 && password1.length < 8) {
-      alert(
+      toast(
         "Password is not long enough!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[A-Z]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no capital letters!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[a-z]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no lowercase letters!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[0-9]+/.test(password1)) {
-      alert("Password has no numbers!\nPlease try again.\n\nNothing Updated");
+      toast("Password has no numbers!\nPlease try again.\n\nNothing Updated");
     } else if (!/[^A-Za-z0-9]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no special characters!\nPlease try again.\n\nNothing Updated"
       );
     } else {
@@ -86,8 +88,7 @@ const EditProfile = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          //console.log(data);
-          alert("Thank you for updating your data!");
+          toast("Updated!");
         })
         .catch((error) => console.error(error));
     }
@@ -101,7 +102,6 @@ const EditProfile = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("data:", data);
         setFirstName(data.first_name);
         setLastName(data.last_name);
         setEmail(data.email);
@@ -120,6 +120,18 @@ const EditProfile = () => {
         minHeight: "100vh",
       }}
     >
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div>
         <br />
         <h1
@@ -141,8 +153,8 @@ const EditProfile = () => {
             animation: "glow 1.5s ease-in-out infinite",
           }}
         >
-      <style>
-        {`
+          <style>
+            {`
         @keyframes glow {
           0% {
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); // Initial box shadow
@@ -155,7 +167,7 @@ const EditProfile = () => {
           }
         }
         `}
-      </style>
+          </style>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicFirstName">
               <Row className="justify-content-md-center">
@@ -177,9 +189,7 @@ const EditProfile = () => {
               </Row>
               <br />
             </Form.Group>
-            <Form.Group
-              controlId="formBasicLastName"
-            >
+            <Form.Group controlId="formBasicLastName">
               <Row className="justify-content-md-center">
                 <Form.Label
                   column
@@ -222,9 +232,7 @@ const EditProfile = () => {
               </Row>
               <br />
             </Form.Group>
-            <Form.Group
-              controlId="formBasicPassword"
-            >
+            <Form.Group controlId="formBasicPassword">
               <Row className="justify-content-md-center">
                 <Form.Label
                   column
@@ -244,9 +252,7 @@ const EditProfile = () => {
               </Row>
               <br />
             </Form.Group>
-            <Form.Group
-              controlId="formBasicConfirmPassword"
-            >
+            <Form.Group controlId="formBasicConfirmPassword">
               <Row className="justify-content-md-center">
                 <Form.Label
                   column

@@ -3,6 +3,8 @@ import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import baseurl from "../url";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
@@ -68,23 +70,23 @@ const SignUp = () => {
     };
 
     if (password1 != password2) {
-      alert("Passwords do not match!\nPlease try again.\n\nNothing Updated");
+      toast("Passwords do not match!\nPlease try again.\n\nNothing Updated");
     } else if (password1.length > 0 && password1.length < 8) {
-      alert(
+      toast(
         "Password is not long enough!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[A-Z]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no capital letters!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[a-z]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no lowercase letters!\nPlease try again.\n\nNothing Updated"
       );
     } else if (!/[0-9]+/.test(password1)) {
-      alert("Password has no numbers!\nPlease try again.\n\nNothing Updated");
+      toast("Password has no numbers!\nPlease try again.\n\nNothing Updated");
     } else if (!/[^A-Za-z0-9]+/.test(password1)) {
-      alert(
+      toast(
         "Password has no special characters!\nPlease try again.\n\nNothing Updated"
       );
     } else {
@@ -106,7 +108,7 @@ const SignUp = () => {
           setEmail("");
           setPassword1("");
           setPassword2("");
-          alert("Welcome to Galvanize!");
+          toast("Welcome to Galvanize!");
         })
         .catch((error) => console.error(error));
     }
@@ -120,6 +122,18 @@ const SignUp = () => {
         minHeight: "100vh",
       }}
     >
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div>
         <br />
         <h1

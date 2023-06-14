@@ -5,7 +5,8 @@ import axios from "axios";
 import useUserStore from "../store/userStore";
 import baseurl from "../url";
 import Logo from "../assets/GSymbol.webp";
-import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const LoginUI = () => {
   const {
@@ -47,7 +48,7 @@ export const LoginUI = () => {
       }
     } catch (error) {
       console.error(error);
-      alert("An error occurred during authentication.");
+      toast("An error occurred during authentication.");
     }
   };
 
@@ -63,6 +64,18 @@ export const LoginUI = () => {
         alignItems: "center",
       }}
     >
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div>
         <img
           src={Logo}
