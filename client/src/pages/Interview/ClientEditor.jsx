@@ -6,15 +6,16 @@ import {
   useSandpack,
   useActiveCode,
 } from "@codesandbox/sandpack-react";
-import { io } from "socket.io-client";
+import { connect, io } from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const socket = io("127.0.0.1:3175/");
+const socket = io(`127.0.0.1:${import.meta.env.VITE_SOCKET_SERVER_PORT}/`);
 
 // set the height for the editor here
 const editorHeight = "400px";
 
 function ClientEditor() {
+  const [userList, setUserList] = useState([]);
   // this is what goes into the editor
   const [content, setContent] = useState(null);
   //this decides when an emitter is sent to server
@@ -45,6 +46,18 @@ function ClientEditor() {
   // listener for when server decides to feed data
   socket.on("content", (data) => {
     setContent(data);
+  });
+
+  socket.on("User connected", (userID) => {
+    if (userList.indexOf(userID) != undefined) {
+      setUserList([...userList, userID]);
+      console.log(`User ${userID} connected`);
+    }
+  });
+
+  socket.on("User disconnected", (userID) => {
+    let newUserList = userList;
+    newUserList.splice(newUserList.indexOf(userID), 1);
   });
 
   const getCode = () => {
