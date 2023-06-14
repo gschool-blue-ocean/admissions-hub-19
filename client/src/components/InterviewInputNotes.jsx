@@ -187,10 +187,13 @@ const InputNotes = () => {
           }}
         >
           {currentStudent.student_id ? (
+            <div>
             <h2>
               {currentStudent.first_name} {currentStudent.last_name},{" "}
               {currentStudent.name}
             </h2>
+            <StudentSelector updateStudent={handleStudentUpdate} />
+            </div>
           ) : (
             <StudentSelector updateStudent={handleStudentUpdate} />
           )}
