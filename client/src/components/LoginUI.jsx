@@ -29,10 +29,11 @@ export const LoginUI = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        localStorage.setItem("userid", response.data.userId);
         handleUser(response.data.userId);
-        navigate("/Dashboard");
+        navigate("/dashboard");
       } else {
-        alert("Invalid email or password.");
+        toast("Invalid email or password.");
       }
     } catch (error) {
       console.error(error);
