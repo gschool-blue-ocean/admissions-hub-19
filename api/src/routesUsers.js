@@ -50,7 +50,7 @@ async function create(req, res, next) {
       res.statusMessage = "Recieved incorrect info";
       res.status(400).send("Recieved incorrect info");
     } else {
-    const {hash, salt} = generateHash(password)
+    const {hash} = generateHash(password)
     const result = await db
       .query("SELECT * FROM users WHERE email=$1", [email])
       .catch(next);
