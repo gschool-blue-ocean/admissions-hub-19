@@ -40,17 +40,17 @@ async function findOne(req, res, next) {
 async function create(req, res, next) {
   const { first_name, last_name, email, password } = req.body;
   const keys = "first_name, last_name, email, password_hash";
-  const {hash} = generateHash(password)
   //console.log("CREATE USER BODY:", req.body);
   if (
     first_name === undefined ||
     last_name === undefined ||
     email === undefined ||
     password === undefined
-  ) {
-    res.statusMessage = "Recieved incorrect info";
-    res.status(400).send("Recieved incorrect info");
-  } else {
+    ) {
+      res.statusMessage = "Recieved incorrect info";
+      res.status(400).send("Recieved incorrect info");
+    } else {
+    const {hash, salt} = generateHash(password)
     const result = await db
       .query("SELECT * FROM users WHERE email=$1", [email])
       .catch(next);
