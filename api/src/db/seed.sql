@@ -22,18 +22,32 @@ INSERT INTO questions (title, question, description) VALUES
 ('Question 3', 'Merge Two Sorted Lists', 'Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.');
 
 -- Seed data for students table
-INSERT INTO students (first_name, last_name, email, cohort_id, numAttempts, paid, paperwork)
+INSERT INTO students (first_name, last_name, email, start_date, status, score)
 VALUES
-  ('Jon', 'Snow', 'jonsnow@example.com', 1, 2, true, false),
-  ('Daenerys', 'Targaryen', 'daenerystargaryen@example.com', 2, 1, true, true),
-  ('Tyrion', 'Lannister', 'tyrionlannister@example.com', 2, 3, false, true),
-  ('Arya', 'Stark', 'aryastark@example.com', 1, 1, true, true),
-  ('Sansa', 'Stark', 'sansastark@example.com', 2, 2, true, false),
-  ('Cersei', 'Lannister', 'cerseilannister@example.com', 1, 1, false, true),
-  ('Jaime', 'Lannister', 'jaimelannister@example.com', 1, 3, true, false),
-  ('Bran', 'Stark', 'branstark@example.com', 2, 1, true, true),
-  ('Theon', 'Greyjoy', 'theongreyjoy@example.com', 2, 2, false, true),
-  ('Margaery', 'Tyrell', 'margaerytyrell@example.com', 1, 2, true, false);
+  ('John', 'Doe', 'johndoe@example.com', '2021-09-01', 1, NULL),
+  ('Jane', 'Doe', 'janedoe@example.com', '2021-09-01', 2, 85),
+  ('Bob', 'Smith', 'bobsmith@example.com', '2021-09-02', 3, NULL),
+  ('Alice', 'Johnson', 'alicejohnson@example.com', '2021-09-02', 4, 92),
+  ('Mike', 'Williams', 'mikewilliams@example.com', '2021-09-03', 2, 78),
+  ('Sara', 'Lee', 'saralee@example.com', '2021-09-03', 2, NULL),
+  ('David', 'Brown', 'davidbrown@example.com', '2021-09-04', 3, 80),
+  ('Emily', 'Davis', 'emilydavis@example.com', '2021-09-04', 2, 88),
+  ('Tom', 'Wilson', 'tomwilson@example.com', '2021-09-05', 4, NULL),
+  ('Amy', 'Taylor', 'amytaylor@example.com', '2021-09-05', 1, 95),
+  ('Chris', 'Anderson', 'chrisanderson@example.com', '2021-09-06', 2, 82),
+  ('Jessica', 'Martin', 'jessicamartin@example.com', '2021-09-06', 4, NULL),
+  ('Mark', 'Jackson', 'markjackson@example.com', '2021-09-07', 1, 90),
+  ('Karen', 'Lee', 'karenlee@example.com', '2021-09-07', 3, 75),
+  ('Steven', 'Harris', 'stevenharris@example.com', '2021-09-08', 3, NULL),
+  ('Laura', 'Clark', 'lauraclark@example.com', '2021-09-08', 1, 87),
+  ('Kevin', 'Young', 'kevinyoung@example.com', '2021-09-09', 2, 79),
+  ('Melissa', 'Allen', 'melissaallen@example.com', '2021-09-09', 4, 91),
+  ('Brian', 'King', 'brianking@example.com', '2021-09-10', 1, 93),
+  ('Rachel', 'Wright', 'rachelwright@example.com', '2021-09-10', 2, 84),
+  ('Eric', 'Scott', 'ericscott@example.com', '2021-09-11', 4, NULL),
+  ('Stephanie', 'Green', 'stephaniegreen@example.com', '2021-09-11', 1, 89),
+  ('Daniel', 'Baker', 'danielbaker@example.com', '2021-09-12', 3, 77),
+  ('Megan', 'Nelson', 'megannelson@example.com', '2021-09-12', 4, 86);
 
 
 -- Seed data for question_notes table

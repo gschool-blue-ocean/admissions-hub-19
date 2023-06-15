@@ -8,12 +8,8 @@ const db = new pg.Pool({
 });
 
 async function findAll(_req, res, next) {
-  const result = await db
-    .query(
-      "SELECT * FROM students INNER JOIN cohorts ON students.cohort_id=cohorts.cohort_id"
-    )
-    .catch(next);
-  //console.log("Result", result.rows);
+  const result = await db.query("SELECT * FROM students").catch(next);
+  // console.log("Result", result.rows);
   res.send(result.rows);
 }
 
@@ -22,10 +18,7 @@ async function findOne(req, res, next) {
     res.sendStatus(400);
   } else {
     const result = await db
-      .query(
-        "SELECT * FROM students INNER JOIN cohorts ON students.cohort_id=cohorts.cohort_id WHERE students.student_id = $1",
-        [req.params.id]
-      )
+      .query("SELECT * FROM students WHERE student_id = $1", [req.params.id])
       .catch(next);
     //console.log("Result", result.rows);
     if (result.rows.length != 1) {
@@ -55,51 +48,25 @@ async function findAllInCohort(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const {
-    first_name,
-    last_name,
-    email,
-    cohort_id,
-    numattempts,
-    paid,
-    paperwork,
-  } = req.body;
-  const keys =
-    "first_name, last_name, email, cohort_id, numattempts, paid, paperwork";
+  const { first_name, last_name, email, start_date, status } = req.body;
+  const keys = "first_name, last_name, email, start_date, status";
   if (
     first_name === undefined ||
     last_name === undefined ||
-    email === undefined ||
-    cohort_id === undefined ||
-    cohort_id === '' ||
-    numattempts === undefined ||
-    numattempts === '' ||
-    paid === undefined ||
-    paperwork === undefined ||
-    isNaN(cohort_id) ||
-    isNaN(numattempts)
+    email === undefined
   ) {
     res.status(400).send("Recieved incorrect info");
   } else {
     const result = await db
       .query("SELECT * FROM students WHERE email=$1", [email])
       .catch(next);
-    //console.log("STUDENTS RESULT ROWS", result.rows);
     if (result.rows.length != 0) {
       res.status(400).send("Student email already exists");
     } else {
       const result = await db
         .query(
-          `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-          [
-            first_name,
-            last_name,
-            email,
-            cohort_id,
-            numattempts,
-            paid,
-            paperwork,
-          ]
+          `INSERT INTO students(${keys}) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+          [first_name, last_name, email, start_date, status]
         )
         .catch(next);
       res.send(result.rows[0]);
@@ -121,7 +88,7 @@ async function remove(req, res, next) {
       await db
         .query("DELETE FROM students WHERE student_id = $1", [req.params.id])
         .catch(next);
-      res.sendStatus(204);
+      res.json({ message: "Student deleted" });
     }
   }
 }
@@ -164,6 +131,5 @@ async function update(req, res, next) {
     }
   }
 }
-
 
 export default { findAll, findOne, findAllInCohort, create, remove, update };

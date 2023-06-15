@@ -9,15 +9,11 @@ CREATE TABLE IF NOT EXISTS users(
   salt BYTEA 
 ); 
 
-
 CREATE TABLE IF NOT EXISTS cohorts (
   cohort_id serial PRIMARY KEY,
   name varchar(10),
   start_date date
 ); 
-
-
-
 
 CREATE TABLE IF NOT EXISTS questions (
   question_id serial PRIMARY KEY,
@@ -31,10 +27,9 @@ CREATE TABLE IF NOT EXISTS students (
   first_name varchar(30) NOT NULL,
   last_name varchar(50) NOT NULL,
   email varchar(150) UNIQUE NOT NULL,
-  cohort_id int REFERENCES cohorts(cohort_id),
-  numAttempts int,
-  paid boolean,
-  paperwork boolean
+  start_date varchar(50),
+  status int NOT NULL,
+  score int
 );
 
 CREATE TABLE IF NOT EXISTS question_notes (
@@ -43,11 +38,10 @@ CREATE TABLE IF NOT EXISTS question_notes (
   note text
 );
 
-
 CREATE TABLE IF NOT EXISTS attempts (
   attempt_id serial NOT NULL,
   date date,
-  student_id int REFERENCES users(user_id),
+  student_id int REFERENCES students(student_id),
   staff_id int REFERENCES users(user_id),
   question1_id int REFERENCES questions(question_id),
   answer1 text,
@@ -62,6 +56,3 @@ CREATE TABLE IF NOT EXISTS attempts (
   rating_score int,
   pass boolean
 );
-
-
-
