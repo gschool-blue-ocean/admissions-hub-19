@@ -62,6 +62,9 @@ const InterviewCard = () => {
         interviewData.questions[sel]
     };
     
+    useEffect(() => {
+        getAllQuestionsData();
+    }, []);
     const getAllQuestionsData = async () => {
         await fetch(`${routeHTTP}/questions`, {
           method: "GET",
@@ -76,9 +79,6 @@ const InterviewCard = () => {
           });
     };
 
-    // useEffect(() => {
-        getAllQuestionsData();
-    // }, []);
     
     return (
         

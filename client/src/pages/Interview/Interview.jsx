@@ -14,7 +14,7 @@ const Interview = () => {
     "/question-3": "// enter code here",
   };
 
-  // its critical that the SandpackProvider be one "level" above teh ClientEditor due to the interactions
+  // its critical that the SandpackProvider be one "level" above the ClientEditor due to the interactions
   // with the provider bundler
   return (
     <div className="d-flex flex-row-reverse w-full">
