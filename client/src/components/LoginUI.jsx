@@ -10,19 +10,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const LoginUI = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  // const onSubmit = (data) => console.log(data);
-  console.log(errors);
 
   const navigate = useNavigate();
   const handleUser = useUserStore((state) => state.setUserId);
@@ -30,7 +17,7 @@ export const LoginUI = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmission = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -42,10 +29,11 @@ export const LoginUI = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+        localStorage.setItem("userid", response.data.userId);
         handleUser(response.data.userId);
-        navigate("/Dashboard");
+        navigate("/dashboard");
       } else {
-        alert("Invalid email or password.");
+        toast("Invalid email or password.");
       }
     } catch (error) {
       console.error(error);
@@ -85,12 +73,7 @@ export const LoginUI = () => {
         />
         <h1>Welcome to Galvanize Admissions</h1>
         <Form
-          onSubmit={handleSubmit((data) => {
-            if (!data.message) {
-              setEmail(data.email);
-              setPassword(data.password);
-            }
-          })}
+
         >
           <Form.Group style={{ color: "black", fontWeight: "bold" }}>
             <Row>
@@ -102,25 +85,13 @@ export const LoginUI = () => {
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  // value={email}
+                  value={email}
                   // I'm not sure why they did this? if there's a good reason to capture this every change i can re-do our submission
-                  // onChange={(e) => setEmail(e.target.value)}
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Email is required",
-                    },
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Please enter a valid email",
-                    },
-                  })}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                {errors.email && (
-                  <Form.Text style={{ color: "black", fontWeight: "bold" }}>
-                    {errors.email.message}
-                  </Form.Text>
-                )}
+                <Form.Text style={{ color: "black", fontWeight: "bold" }}>
+                  Please use the email that you check most often.
+                </Form.Text>
               </Col>
             </Row>
           </Form.Group>
@@ -134,24 +105,13 @@ export const LoginUI = () => {
                 <Form.Control
                   type="password"
                   placeholder="Password"
-                  // value={password}
-                  // onChange={(e) => setPassword(e.target.value)}
-                  {...register("password", {
-                    required: {
-                      value: true,
-                      message: "Password is required",
-                    },
-                    pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                      message: "Please enter a valid password",
-                    },
-                  })}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                {errors.password && (
-                  <Form.Text style={{ color: "black", fontWeight: "bold" }}>
-                    {errors.password.message}
-                  </Form.Text>
-                )}
+                <Form.Text style={{ color: "black", fontWeight: "bold" }}>
+                  Password must be 8 characters long.<br></br>
+                  Must have a special character eg., @$#! <br></br>
+                </Form.Text>
               </Col>
             </Row>
           </Form.Group>
@@ -163,7 +123,7 @@ export const LoginUI = () => {
               className="btn"
               variant="primary"
               type="submit"
-              onClick={handleSubmission}
+              onClick={handleSubmit}
             >
               Login!
             </Button>
