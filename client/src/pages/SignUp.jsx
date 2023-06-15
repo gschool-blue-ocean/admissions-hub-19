@@ -101,7 +101,7 @@ const SignUp = () => {
           toast("Welcome to Galvanize! Redirecting to Login...");
           setTimeout(() => {
             navigate("/login"); // Route to the login page after delay
-          }, 7000);
+          }, 6000);
         })
         .catch((error) => console.error(error));
     }
