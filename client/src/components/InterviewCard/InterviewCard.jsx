@@ -30,10 +30,16 @@ const InterviewCard = () => {
         ]
     }
 
-    const [selectedQuestion, setSelectedQuestion] = useState('');
+    const [selectedQuestion, setSelectedQuestion] = useState(1);
+    const [selectedContent, setSelectedContent] = useState(interviewData.questions[0].content)
+    const [selectedTitle, setSelectedTitle] = useState(interviewData.questions[0].title)
+
+    var currentQuestion = interviewData.questions[0];
 
     const handleClick = (question) => {
-        setSelectedQuestion(question);
+        setSelectedQuestion(question.questNum);
+        setSelectedContent(question.content)
+        setSelectedTitle(question.title)
     };
 
         return (
@@ -50,7 +56,7 @@ const InterviewCard = () => {
                         {interviewData.questions.map((question) => (
                             <b
                             key={question.questNum}
-                            onClick={() => handleClick(question.questNum)}
+                            onClick={() => handleClick(question)}
                             className={question.questNum === selectedQuestion ? InterviewCardCSS.activeQuestion : ''}
                             >
                                 {console.log("Question " + selectedQuestion + " Selected!")}
@@ -66,7 +72,10 @@ const InterviewCard = () => {
                             .map((question) => (
                                 <h1>{question.title}</h1>
                     ))} */}
-                    <QuestionBlock title={interviewData.questions[0].title} content={interviewData.questions[0].content} />
+                    <QuestionBlock 
+                    title={selectedTitle} 
+                    content={selectedContent} 
+                    />
                 </div>
     
             </div>
