@@ -1,26 +1,32 @@
 import React from "react";
 import StatusTagCSS from "./StatusTag.module.css";
 
-const StatusTag = ( {studentStatus} ) => {
+const StatusTag = ({ studentStatus }) => {
+  let statusStyle = "";
+  let statusName = "";
 
-    var statusStyle = "";
+  if (studentStatus == 3) {
+    statusStyle = StatusTagCSS.interview;
+    statusName = "Technical interview";
+  }
+  if (studentStatus == 2) {
+    statusStyle = StatusTagCSS.challenge;
+    statusName = "Code challenge";
+  }
+  if (studentStatus == 1) {
+    statusStyle = StatusTagCSS.prep;
+    statusName = "Prep work";
+  }
+  if (studentStatus == 4) {
+    statusStyle = StatusTagCSS.done;
+    statusName = "Finished";
+  }
 
-    if(studentStatus == "Technical Interview"){
-        statusStyle = StatusTagCSS.interview;
-    }
-    if(studentStatus == "Coding Challenge"){
-        statusStyle = StatusTagCSS.challenge;
-    }
-    if(studentStatus == "Prep Work"){
-        statusStyle = StatusTagCSS.prep;
-    }
-    if(studentStatus == "Done"){
-        statusStyle = StatusTagCSS.done;
-    }
-
-    return (
-        <b className={statusStyle}>{studentStatus}</b>
-    )
-}
+  return (
+    <div className={statusStyle}>
+      <div>{statusName}</div>
+    </div>
+  );
+};
 
 export default StatusTag;
