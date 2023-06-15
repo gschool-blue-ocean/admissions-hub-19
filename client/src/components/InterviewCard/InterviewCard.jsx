@@ -62,8 +62,8 @@ const InterviewCard = () => {
         interviewData.questions[sel]
     };
     
-    const getAllQuestionsData = () => {
-        fetch(`${routeHTTP}/questions`, {
+    const getAllQuestionsData = async () => {
+        await fetch(`${routeHTTP}/questions`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           mode: "cors",
@@ -71,13 +71,14 @@ const InterviewCard = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("data:", data);
-            setInterviewQuestions(data);
+            // setInterviewQuestions(data);
+            // console.log(interviewQuestions)
           });
     };
 
-    useEffect(() => {
+    // useEffect(() => {
         getAllQuestionsData();
-    }, []);
+    // }, []);
     
     return (
         
