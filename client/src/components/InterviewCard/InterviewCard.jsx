@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InterviewCardCSS from "./InterviewCard.module.css";
 import QuestionBlock from "./QuestionBlock";
+import baseurl from "../../url.js";
 
 const InterviewCard = () => {
 
+    const routeHTTP = `${baseurl}`;
+
+    
     let interviewData = {
         interviewee: "Jon Sno",
         attempt: 1,
@@ -30,20 +34,19 @@ const InterviewCard = () => {
         ]
     }
 
+    const [interviewQuestions, setInterviewQuestions] = useState();
     const [selectedQuestion, setSelectedQuestion] = useState(1);
     const [selectedContent, setSelectedContent] = useState(interviewData.questions[0].content)
     const [selectedTitle, setSelectedTitle] = useState(interviewData.questions[0].title)
     const [note, setNote] = useState(interviewData.questions[0].note)
-
-    var currentQuestion = interviewData.questions[0];
-
+     
     const handleClick = (question) => {
         setSelectedQuestion(question.questNum);
         setSelectedContent(question.content)
         setSelectedTitle(question.title)
         setNote(question.note)
     };
-
+    
     const handleNoteChange = (event) => {
         setNote(event.target.value);
     };
@@ -58,9 +61,26 @@ const InterviewCard = () => {
         console.log('Saving note:', note);
         interviewData.questions[sel]
     };
-
-        return (
     
+    const getAllQuestionsData = () => {
+        fetch(`${routeHTTP}/questions`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          mode: "cors",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data:", data);
+            setInterviewQuestions(data);
+          });
+    };
+
+    useEffect(() => {
+        getAllQuestionsData();
+    }, []);
+    
+    return (
+        
             <div className={InterviewCardCSS.cardContainer}>
                 <div className={InterviewCardCSS.cardHeader}>
                     <div className={InterviewCardCSS.flexRow}>
