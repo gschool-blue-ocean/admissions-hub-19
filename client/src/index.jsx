@@ -16,27 +16,34 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-        {
-          path: "dashboard",
-          element: <Dashboard />,
-        },
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "interview",
-          element: <Interview />,
-        },
-        {
-          path: "editprofile",
-          element: <EditProfile />,
-        },
-        {
-          path: "signup",
-          element: <SignUp />,
-        },
-      ],
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "interview",
+        element: <Interview />,
+      },
+      {
+        path: "editprofile",
+        element: <EditProfile />,
+      },
+    ],
+    loader: async () => {
+      const token = localStorage.getItem("token");
+      const userid = localStorage.getItem("userid");
+      return [token, userid];
+    },
+  },
+  // we're removing login and signup elements from "App" because when we "start up" the app, we don't want to see login and signup elements.
+  // we want to see the login and signup elements at the initial page load, before logging in.
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);
 

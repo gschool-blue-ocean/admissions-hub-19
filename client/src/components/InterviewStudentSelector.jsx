@@ -8,6 +8,7 @@ function StudentSelector({ updateStudent }) {
   const [allStudents, setAllStudents] = useState([]);
   const [cohort, setCohort] = useState(0);
   const [student, setStudent] = useState(0);
+  const [cohortName, setCohortName] = useState("Select Cohort");
 
   const getAllCohorts = () => {
     fetch(`${baseurl}/cohorts`, {
@@ -46,8 +47,9 @@ function StudentSelector({ updateStudent }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          //console.log("data:", data);
+          // console.log("data:", data);
           setAllStudents(data);
+          setCohortName(data[0].name);
         });
     } else {
       getAllStudents();
@@ -114,7 +116,7 @@ function StudentSelector({ updateStudent }) {
       </div>
       */}
       <Dropdown>
-        <Dropdown.Toggle variant="primary">Select Cohort</Dropdown.Toggle>
+        {cohort ? (<Dropdown.Toggle variant="primary">{cohortName}</Dropdown.Toggle>) : (<Dropdown.Toggle variant="primary">Select Cohort</Dropdown.Toggle>)}
         <Dropdown.Menu>
           <Dropdown.Item key={0} target={0} onClick={handleCohortSelection}>
             All Cohorts
