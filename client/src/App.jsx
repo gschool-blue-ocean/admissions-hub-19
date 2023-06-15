@@ -1,7 +1,8 @@
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, Link, useNavigate, useLoaderData } from "react-router-dom";
 import SidebarNav from "./components/SidebarNav/SidebarNav";
 import { io } from "socket.io-client";
+import useUserStore from "./store/userStore";
 import "./App.css";
 
 const socket = io("127.0.0.1:3175/");
@@ -12,6 +13,20 @@ socket.on("connect", () => {
 const App = () => {
   // here's where we can retrieve the files with questions in the future
   // Note: App will be used as a wrapper for all pages
+
+    //Loader data is from the index.jsx file
+    const [token, userid] = useLoaderData();
+    const navigate = useNavigate();
+    const setUserId = useUserStore((state) => state.setUserId);
+  
+    useEffect(() => {
+      if (!token) navigate("/login");
+      if (!userid) {
+        navigate("/login");
+      } else {
+        setUserId(userid);
+      }
+    });
   return (
     <main>
       <SidebarNav />
