@@ -33,6 +33,7 @@ const InterviewCard = () => {
     const [selectedQuestion, setSelectedQuestion] = useState(1);
     const [selectedContent, setSelectedContent] = useState(interviewData.questions[0].content)
     const [selectedTitle, setSelectedTitle] = useState(interviewData.questions[0].title)
+    const [note, setNote] = useState(interviewData.questions[0].note)
 
     var currentQuestion = interviewData.questions[0];
 
@@ -40,6 +41,22 @@ const InterviewCard = () => {
         setSelectedQuestion(question.questNum);
         setSelectedContent(question.content)
         setSelectedTitle(question.title)
+        setNote(question.note)
+    };
+
+    const handleNoteChange = (event) => {
+        setNote(event.target.value);
+    };
+    
+    const handleBlur = () => {
+        // Save the note when the input field loses focus
+        saveNote();
+    };
+    
+    const saveNote = () => {
+        // Implement your save logic here, e.g., make an API call, update state, etc.
+        console.log('Saving note:', note);
+        interviewData.questions[sel]
     };
 
         return (
@@ -59,25 +76,31 @@ const InterviewCard = () => {
                             onClick={() => handleClick(question)}
                             className={question.questNum === selectedQuestion ? InterviewCardCSS.activeQuestion : ''}
                             >
-                                {console.log("Question " + selectedQuestion + " Selected!")}
+                                {/* {console.log("Question " + selectedQuestion + " Selected!")} */}
                                 Question {question.questNum}
                             </b>
                         ))}
                     </div>
                 </div>
                 <div className={InterviewCardCSS.cardContainer}>
-                    {/* {selectedQuestion &&
-                        interviewData
-                            .filter((question) => question.questNum === selectedQuestion)
-                            .map((question) => (
-                                <h1>{question.title}</h1>
-                    ))} */}
                     <QuestionBlock 
                     title={selectedTitle} 
                     content={selectedContent} 
                     />
                 </div>
-    
+                <div className={InterviewCardCSS.cardHeader}>
+                    <h3>Notes:</h3>
+                    <div className={InterviewCardCSS.notesBlock}>
+                        <textarea 
+                            className={InterviewCardCSS.notesInput}
+                            value={note}
+                            onChange={handleNoteChange}
+                            onBlur={handleBlur}
+                            placeholder={'Notes, thoughts, strengths, weaknesses of student...'}
+                        >
+                        </textarea>
+                    </div>
+                </div>
             </div>
         )
     }

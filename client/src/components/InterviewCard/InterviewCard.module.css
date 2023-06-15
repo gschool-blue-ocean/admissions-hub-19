@@ -44,3 +44,27 @@ b {
 .activeQuestion {
     color: lightskyblue;
 }
+
+.notesBlock {
+    width: 260px;
+    margin: 10px 20px 10px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    max-height: 300px;
+}
+
+.notesInput {
+    width: 240px;
+    margin: 10px 10px 10px;
+    color: gray;
+    border: none;
+    outline: none;
+    resize: vertical auto;
+    overflow: auto;
+    height: 260px;
+    /* height: fit-content; */
+}
+
+h3 {
+    margin-left: 20px;
+}
