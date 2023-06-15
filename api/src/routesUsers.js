@@ -1,6 +1,6 @@
 import pg from "pg";
 import crypto from "crypto"
-import  jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
