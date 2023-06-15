@@ -1,5 +1,5 @@
 import React from "react";
-import InputNotes from "../../components/InterviewInputNotes";
+import InterviewCard from "../../components/InterviewCard/InterviewCard";
 // import NavBar from "../../components/DashboardNavBar";
 import { SandpackProvider } from "@codesandbox/sandpack-react";
 import { nightOwl } from "@codesandbox/sandpack-themes";
@@ -18,7 +18,7 @@ const Interview = () => {
   // with the provider bundler
   return (
     <div className="d-flex flex-row-reverse w-full">
-      <InputNotes />
+      <InterviewCard />
       <SandpackProvider
         files={files}
         className="w-75"
