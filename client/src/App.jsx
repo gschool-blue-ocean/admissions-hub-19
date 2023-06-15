@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Link, useNavigate, useLoaderData } from "react-router-dom";
 import SidebarNav from "./components/SidebarNav/SidebarNav";
 import { io } from "socket.io-client";
 import useUserStore from "./store/userStore";
 import "./App.css";
+import baseurl from "../src/url";
 
 const socket = io("127.0.0.1:3175/");
 socket.on("connect", () => {
@@ -18,6 +19,7 @@ const App = () => {
     const [token, userid] = useLoaderData();
     const navigate = useNavigate();
     const setUserId = useUserStore((state) => state.setUserId);
+    const [userName, setUserName] = useState("");
   
     useEffect(() => {
       if (!token) navigate("/login");
@@ -27,14 +29,24 @@ const App = () => {
         setUserId(userid);
       }
     });
+    
+    // Performing a fetch to get the userName onto the dashboard
+    useEffect(() => {
+      const fetchUserData = async () => {
+        fetch(`${baseurl}/user/${userid}`).then(response => response.json()).then(data => {
+          // console.log(data.first_name);
+          setUserName(data.first_name)}
+        )};
+      fetchUserData();
+    }, []);
+
   return (
     <main>
       <SidebarNav />
       <section>
         <header>
-          <h3 className="m-0 p-4 fs-3">Dashboard</h3>
+          <h3 className="m-0 p-4 fs-3">{`${userName}'s`} Dashboard</h3>
         </header>
-
         {/* // Note: Outlet will be used to render nested routes */}
         <Outlet />
       </section>

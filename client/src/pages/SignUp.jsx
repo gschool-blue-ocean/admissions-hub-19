@@ -98,7 +98,10 @@ const SignUp = () => {
           setEmail("");
           setPassword1("");
           setPassword2("");
-          toast("Welcome to Galvanize!");
+          toast("Welcome to Galvanize! Redirecting to Login...");
+          setTimeout(() => {
+            navigate("/login"); // Route to the login page after delay
+          }, 6000);
         })
         .catch((error) => console.error(error));
     }
