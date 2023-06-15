@@ -1,6 +1,6 @@
 import pg from "pg";
-import crypto from "crypto"
-import  jwt  from "jsonwebtoken";
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -11,10 +11,11 @@ const db = new pg.Pool({
 });
 
 function generateHash(password) {
+  const salt = crypto.randomBytes(16).toString("hex"); // Generate a random salt
   const hash = crypto
-    .pbkdf2Sync(password, 'salt', 10000, 64, 'sha512') // Perform the hashing algorithm (pbkdf2Sync)
-    .toString('hex'); // Convert the hash to a hexadecimal string
-  return { hash };
+    .pbkdf2Sync(password, salt, 10000, 64, "sha512") // Perform the hashing algorithm (pbkdf2Sync)
+    .toString("hex"); // Convert the hash to a hexadecimal string
+  return { hash, salt };
 }
 
 async function findAll(_req, res, next) {
@@ -40,17 +41,17 @@ async function findOne(req, res, next) {
 async function create(req, res, next) {
   const { first_name, last_name, email, password } = req.body;
   const keys = "first_name, last_name, email, password_hash";
-  const {hash} = generateHash(password)
-  //console.log("CREATE USER BODY:", req.body);
+  console.log("CREATE USER BODY:", req.body);
   if (
     first_name === undefined ||
     last_name === undefined ||
     email === undefined ||
     password === undefined
-  ) {
-    res.statusMessage = "Recieved incorrect info";
-    res.status(400).send("Recieved incorrect info");
-  } else {
+    ) {
+      res.statusMessage = "Recieved incorrect info";
+      res.status(400).send("Recieved incorrect info");
+    } else { 
+    const { hash, salt } = generateHash(password);
     const result = await db
       .query("SELECT * FROM users WHERE email=$1", [email])
       .catch(next);
@@ -93,12 +94,7 @@ async function remove(req, res, next) {
 
 async function update(req, res, next) {
   let haveKeys = true;
-  const expectedKeys = [
-    "first_name",
-    "last_name",
-    "email",
-    "password_hash",
-  ];
+  const expectedKeys = ["first_name", "last_name", "email", "password_hash"];
   for (let key in req.body) {
     if (!expectedKeys.includes(key)) {
       haveKeys = false;
@@ -137,7 +133,8 @@ async function authenticate(req, res, next) {
     return;
   }
 
-  const result = await db.query("SELECT * FROM users WHERE email=$1", [email])
+  const result = await db
+    .query("SELECT * FROM users WHERE email=$1", [email])
     .catch(next);
   if (result.rows.length === 0) {
     res.statusMessage = "User not found";
@@ -147,21 +144,22 @@ async function authenticate(req, res, next) {
 
   const storedHash = result.rows[0].password_hash;
 
-  const inputHash = crypto.pbkdf2Sync(password, 'salt', 10000, 64, 'sha512').toString('hex');
+  const inputHash = crypto
+    .pbkdf2Sync(password, "salt", 10000, 64, "sha512")
+    .toString("hex");
   if (inputHash === storedHash) {
-    const payload = 
-    { email: result.rows[0].email,
-      userId: result.rows[0].user_id
+    const payload = {
+      email: result.rows[0].email,
+      userId: result.rows[0].user_id,
     };
-    const secretKey = crypto.randomBytes(30).toString('hex');
-    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' })
-    res.send(
-      {
-        message: "Authentication successful", 
-        token: token,
-        email: payload.email,
-        userId: payload.userId
-      }); 
+    const secretKey = crypto.randomBytes(30).toString("hex");
+    const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
+    res.send({
+      message: "Authentication successful",
+      token: token,
+      email: payload.email,
+      userId: payload.userId,
+    });
   } else {
     res.statusMessage = "Incorrect password";
     res.status(401).send("Incorrect password");
