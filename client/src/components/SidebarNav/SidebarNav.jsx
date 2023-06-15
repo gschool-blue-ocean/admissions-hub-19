@@ -2,6 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SidebarNav = () => {
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userid");
+  };
+
+
   return (
     <nav className="p-4">
         <div className="d-flex justify-content-center align-items-center">
@@ -21,6 +28,9 @@ const SidebarNav = () => {
         </li>
         <li>
           <Link to="/editprofile">EDIT PROFILE</Link>
+        </li>
+        <li>
+          <Link to="/login" onClick={handleLogout}>LOGOUT</Link>
         </li>
       </ul>
     </nav>
