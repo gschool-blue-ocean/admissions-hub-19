@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import Interview from "./pages/Interview/Interview";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditProfile from "./pages/EditProfile";
+import StudentInterview from "./pages/StudentInterview";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "studentinterview",
+    element: <StudentInterview />,
   },
 ]);
 
