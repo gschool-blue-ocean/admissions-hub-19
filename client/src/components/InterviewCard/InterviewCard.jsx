@@ -9,7 +9,7 @@ const InterviewCard = () => {
   const routeHTTP = `${baseurl}`;
 
   let interviewData = {
-    interviewee: "Jon Sno",
+    interviewee: "Jon Snow",
     attempt: 1,
     currentScore: 0,
     questions: [
