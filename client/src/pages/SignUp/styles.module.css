@@ -1,0 +1,32 @@
+.cardWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+}
+
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+}
+
+.loginWrapper {
+    display: flex;
+    margin-top: 8px;
+    gap: 4px;
+}
