@@ -57,6 +57,13 @@ INSERT INTO question_notes (question_id, note) VALUES
 (3, 'Input: 1->2->4, 1->3->4 | Output: 1->1->2->3->4->4');
 
 -- Seed data for attempts table
-INSERT INTO attempts (date, student_id, staff_id, question1_id, answer1, rating1, question2_id, answer2, rating2, question3_id, answer3, rating3, notes, rating_score, pass) VALUES
-('2023-01-02', 1, 2, 1, 'John Doe', 4, 2, 'Blue', 3, 3, 'Pizza', 5, 'Good job!', 12, true);
-
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES('2023-01-01', 1, 1, 1, 4, 2, 3, 3, 5, 'Good job!', 12);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES('2023-02-02', 1, 2, 1, 1, 2, 3, 3, 2, 'Terrible', 6);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES('2023-03-03', 1, 3, 1, 3, 2, 3, 3, 3, 'Meh', 9);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-04-04', 2, 1, 1, 5, 2, 4, 3, 3, 'Great work!', 12);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-05-05', 2, 2, 1, 2, 2, 3, 3, 4, 'Improvement needed', 9);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-06-06', 3, 1, 1, 4, 2, 5, 3, 4, 'Keep up the good work!', 13);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-07-07', 3, 3, 1, 3, 2, 3, 3, 5, 'Impressive!', 11);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-08-08', 4, 2, 1, 5, 2, 5, 3, 5, 'Excellent performance!', 15);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-09-09', 4, 3, 1, 3, 2, 4, 3, 4, 'Good effort!', 11);
+INSERT INTO attempts (date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score) VALUES ('2023-10-10', 5, 1, 1, 2, 2, 3, 3, 3, 'Crappy performance', 8);

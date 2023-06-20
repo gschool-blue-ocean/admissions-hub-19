@@ -38,21 +38,36 @@ CREATE TABLE IF NOT EXISTS question_notes (
   note text
 );
 
+-- CREATE TABLE IF NOT EXISTS attempts (
+--   attempt_id serial NOT NULL,
+--   date date,
+--   student_id int REFERENCES students(student_id),
+--   staff_id int REFERENCES users(user_id),
+--   question1_id int REFERENCES questions(question_id),
+--   answer1 text,
+--   rating1 int,
+--   question2_id int REFERENCES questions(question_id),
+--   answer2 text,
+--   rating2 int,
+--   question3_id int REFERENCES questions(question_id),
+--   answer3 text,
+--   rating3 int,
+--   notes text,
+--   rating_score int,
+--   pass boolean
+-- );
+
 CREATE TABLE IF NOT EXISTS attempts (
   attempt_id serial NOT NULL,
   date date,
   student_id int REFERENCES students(student_id),
   staff_id int REFERENCES users(user_id),
   question1_id int REFERENCES questions(question_id),
-  answer1 text,
   rating1 int,
   question2_id int REFERENCES questions(question_id),
-  answer2 text,
   rating2 int,
   question3_id int REFERENCES questions(question_id),
-  answer3 text,
   rating3 int,
   notes text,
-  rating_score int,
-  pass boolean
+  rating_score int
 );
