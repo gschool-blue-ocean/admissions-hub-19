@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
+import useRatingStore from "../store/ratingStore";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-const StarRating = ({ onchange, title, rating, setRating }) => {
+const StarRating = ({ rating, setRating }) => {
 
   return (
     <div>
@@ -12,7 +13,6 @@ const StarRating = ({ onchange, title, rating, setRating }) => {
 
         const handleClick = () => {
           setRating(index);
-          // onchange(index);
         };
 
         return (

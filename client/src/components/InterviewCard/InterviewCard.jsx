@@ -3,6 +3,8 @@ import InterviewCardCSS from "./InterviewCard.module.css";
 import QuestionBlock from "./QuestionBlock";
 import baseurl from "../../url.js";
 import { toast } from "react-toastify";
+import useRatingStore from "../../store/ratingStore";
+import useUserStore from "../../store/userStore";
 
 const InterviewCard = () => {
   const routeHTTP = `${baseurl}`;
@@ -46,8 +48,20 @@ const InterviewCard = () => {
   );
   const [note, setNote] = useState(interviewData.questions[0].note);
 
+  //importing state from ratingStore(zustand)
+  const studentId = useUserStore((state) => state.studentId);
+  const rating1 = useRatingStore((state) => state.rating1);
+  const rating2 = useRatingStore((state) => state.rating2);
+  const rating3 = useRatingStore((state) => state.rating3);
+  const setRating1 = useRatingStore((state) => state.setRating1);
+  const setRating2 = useRatingStore((state) => state.setRating2);
+  const setRating3 = useRatingStore((state) => state.setRating3);
+
+  const [step, setStep] = useState(1);
+
   const handleClick = (question) => {
     setSelectedQuestion(question.questNum);
+    setStep(question.questNum);
     setSelectedContent(question.content);
     setSelectedTitle(question.title);
     setNote(question.note);
@@ -77,7 +91,10 @@ const InterviewCard = () => {
 
   useEffect(() => {
     getAllQuestionsData();
+    // setRating1(4);
+    // console.log(rating1);
   }, []);
+
   const getAllQuestionsData = async () => {
     await fetch(`${routeHTTP}/questions`)
       .then((response) => response.json())
@@ -120,7 +137,18 @@ const InterviewCard = () => {
           </div>
         </div>
 
-        <QuestionBlock title={selectedTitle} content={selectedContent} />
+        <QuestionBlock
+          step={step}
+          title={selectedTitle}
+          content={selectedContent}
+          selectedQuestion={selectedQuestion}
+          rating1={rating1}
+          rating2={rating2}
+          rating3={rating3}
+          setRating1={setRating1}
+          setRating2={setRating2}
+          setRating3={setRating3}
+        />
 
         <div className={InterviewCardCSS.cardHeader}>
           <h4>Notes:</h4>
