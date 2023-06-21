@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import StarRating from "../InterviewStarRating";
-import QuestionBlockCSS from "./QuestionBlock.module.css";
+import styles from "./QuestionBlock.module.css";
 
-const QuestionBlock = (props) => {
+const QuestionBlock = ({ title, content }) => {
+  const [rating, setRating] = useState(0);
 
-    const {title, content} = props;
-
-    return (
-            <div className={QuestionBlockCSS.questionBlock}>
-                <h3>{title}</h3>
-                <p>{content}</p>
-                <StarRating />
-            </div>
-    )
-}
+  return (
+    <div className={styles.questionBlock}>
+      <p className={styles.title}>{title}</p>
+      <p>{content}</p>
+      <StarRating rating={rating} setRating={setRating} />
+    </div>
+  );
+};
 
 export default QuestionBlock;
