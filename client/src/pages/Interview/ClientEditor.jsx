@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 const socket = io(`127.0.0.1:${import.meta.env.VITE_SOCKET_SERVER_PORT}/`);
 
 // set the height for the editor here
-const editorHeight = "400px";
+const editorHeight = "800px";
 
 function ClientEditor() {
   const [userList, setUserList] = useState([]);
@@ -33,7 +33,7 @@ function ClientEditor() {
   socket.on("connect", () => {
     toast("Connected to web socket, you're live!", {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -81,7 +81,7 @@ function ClientEditor() {
     <>
       {/* Same as */}
       <ToastContainer />
-      <SandpackLayout style={{ height: editorHeight }}>
+      <SandpackLayout style={{ height: editorHeight, width: '100%' }}>
         <SandpackCodeEditor
           showTabs={true}
           showLineNumbers={true}

@@ -4,12 +4,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
 import Interview from "./pages/Interview/Interview";
-import "bootstrap/dist/css/bootstrap.min.css";
 import EditProfile from "./pages/EditProfile";
 import StudentInterview from "./pages/StudentInterview";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {

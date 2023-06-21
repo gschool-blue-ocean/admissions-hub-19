@@ -32,11 +32,13 @@ const StudentCard = () => {
   // }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/student/${studentId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setStudentData(data);
-      });
+    if (studentId) {
+      fetch(`http://localhost:3000/student/${studentId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setStudentData(data);
+        });
+    }
   }, [studentId]);
 
   if (!studentData) {
