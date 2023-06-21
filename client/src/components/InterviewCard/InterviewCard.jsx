@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import InterviewCardCSS from "./InterviewCard.module.css";
 import QuestionBlock from "./QuestionBlock";
 import baseurl from "../../url.js";
-import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const InterviewCard = () => {
   const routeHTTP = `${baseurl}`;
@@ -37,7 +36,7 @@ const InterviewCard = () => {
     ],
   };
 
-  const [interviewQuestions, setInterviewQuestions] = useState();
+  // const [interviewQuestions, setInterviewQuestions] = useState();
   const [selectedQuestion, setSelectedQuestion] = useState(1);
   const [selectedContent, setSelectedContent] = useState(
     interviewData.questions[0].content
@@ -54,17 +53,24 @@ const InterviewCard = () => {
     setNote(question.note);
   };
 
+  const copyLink = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/studentinterview`);
+    toast("Copied link to clipboard!", {
+      position: "bottom-right",
+    });
+  };
+
   const handleNoteChange = (event) => {
     setNote(event.target.value);
   };
 
   const handleBlur = () => {
-    // Save the note when the input field loses focus
+    // TODO Save the note when the input field loses focus
     saveNote();
   };
 
   const saveNote = () => {
-    // Implement your save logic here, e.g., make an API call, update state, etc.
+    // TODO Implement your save logic here, e.g., make an API call, update state, etc.
     console.log("Saving note:", note);
     interviewData.questions[sel];
   };
@@ -73,11 +79,7 @@ const InterviewCard = () => {
     getAllQuestionsData();
   }, []);
   const getAllQuestionsData = async () => {
-    await fetch(`${routeHTTP}/questions`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      mode: "cors",
-    })
+    await fetch(`${routeHTTP}/questions`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data:", data);
@@ -88,61 +90,59 @@ const InterviewCard = () => {
 
   return (
     <div className={InterviewCardCSS.cardContainer}>
-      <div className={InterviewCardCSS.cardHeader}>
-        <div className={InterviewCardCSS.flexRow}>
+      <div className={InterviewCardCSS.cardWrapper}>
+        <div>
           <p className={InterviewCardCSS.interviewInfo}>
             Interviewee: <b>{interviewData.interviewee}</b>
           </p>
-          <button
-            className={InterviewCardCSS.linkButton}
-            onClick={() => {
-              navigator.clipboard.writeText(
-                `${window.location.origin}/studentinterview`
-              );
-              toast("Copied link to clipboard!", {
-                position: "bottom-right",
-              });
-            }}
-          >
-            Invite Link
-          </button>
+
+          <p className={InterviewCardCSS.interviewInfo}>
+            Attempt #: <b>{interviewData.attempt}</b>
+          </p>
+          <p className={InterviewCardCSS.interviewInfo}>
+            Current Score: <b>{interviewData.currentScore}</b>
+          </p>
+          <div className={InterviewCardCSS.flexRow}>
+            {interviewData.questions.map((question) => (
+              <b
+                key={question.questNum}
+                onClick={() => handleClick(question)}
+                className={
+                  question.questNum === selectedQuestion
+                    ? InterviewCardCSS.activeQuestion
+                    : ""
+                }
+              >
+                {/* {console.log("Question " + selectedQuestion + " Selected!")} */}
+                Question {question.questNum}
+              </b>
+            ))}
+          </div>
         </div>
-        <p className={InterviewCardCSS.interviewInfo}>
-          Attempt #: <b>{interviewData.attempt}</b>
-        </p>
-        <p className={InterviewCardCSS.interviewInfo}>
-          Current Score: <b>{interviewData.currentScore}</b>
-        </p>
-        <div className={InterviewCardCSS.flexRow}>
-          {interviewData.questions.map((question) => (
-            <b
-              key={question.questNum}
-              onClick={() => handleClick(question)}
-              className={
-                question.questNum === selectedQuestion
-                  ? InterviewCardCSS.activeQuestion
-                  : ""
-              }
-            >
-              {/* {console.log("Question " + selectedQuestion + " Selected!")} */}
-              Question {question.questNum}
-            </b>
-          ))}
-        </div>
-      </div>
-      <div className={InterviewCardCSS.cardContainer}>
+
         <QuestionBlock title={selectedTitle} content={selectedContent} />
-      </div>
-      <div className={InterviewCardCSS.cardHeader}>
-        <h3>Notes:</h3>
-        <div className={InterviewCardCSS.notesBlock}>
-          <textarea
-            className={InterviewCardCSS.notesInput}
-            value={note}
-            onChange={handleNoteChange}
-            onBlur={handleBlur}
-            placeholder={"Notes, thoughts, strengths, weaknesses of student..."}
-          ></textarea>
+
+        <div className={InterviewCardCSS.cardHeader}>
+          <h4>Notes:</h4>
+          <div className={InterviewCardCSS.notesBlock}>
+            <textarea
+              className={InterviewCardCSS.notesInput}
+              value={note}
+              onChange={handleNoteChange}
+              onBlur={handleBlur}
+              placeholder={
+                "Notes, thoughts, strengths, weaknesses of student..."
+              }
+            ></textarea>
+          </div>
+          <div className={InterviewCardCSS.buttonWrapper}>
+            <button className={InterviewCardCSS.linkButton} onClick={copyLink}>
+              Invite link
+            </button>
+            <button className={InterviewCardCSS.endButton}>
+              End interview
+            </button>
+          </div>
         </div>
       </div>
     </div>

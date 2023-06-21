@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { test, expect, describe, it } from "vitest";
-import SignUp from "../pages/SignUp.jsx";
+import SignUp from "../pages/SignUp/SignUp";
 
 test("SignUp", () => {
   it("redirects to login page after successful signup", async () => {

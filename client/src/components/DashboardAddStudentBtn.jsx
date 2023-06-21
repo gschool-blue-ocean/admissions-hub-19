@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import baseurl from "../url";
 import { Modal, Button, Form } from "react-bootstrap";
 
 const AddStudentButton = () => {
   const routeHTTPPost = `${baseurl}/student`;
-  // const routeHTTPGet = `${baseurl}/cohorts`;
 
   const [showModal, setShowModal] = useState(false);
   const [studentData, setStudentData] = useState({
@@ -14,32 +13,10 @@ const AddStudentButton = () => {
     status: "",
     start_date: "",
   });
-  // const [cohorts, setCohorts] = useState([]);
-
-  // useEffect(() => {
-  //   fetchCohorts();
-  // }, []);
-
-  // const fetchCohorts = async () => {
-  //   try {
-  //     const response = await fetch(routeHTTPGet);
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch cohorts");
-  //     }
-  //     const data = await response.json();
-  //     setCohorts(data);
-  //   } catch (error) {
-  //     console.error("Error fetching cohorts:", error);
-  //   }
-  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setStudentData((prevData) => ({ ...prevData, [name]: value }));
-
-    // if (name === "cohort_id") {
-    //   console.log("Selected Cohort ID:", value);
-    // }
   };
 
   const handleAddStudent = async () => {
