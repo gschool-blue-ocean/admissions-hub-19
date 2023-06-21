@@ -13,7 +13,7 @@ POST http://localhost:3000/user/
 GET http://localhost:3000/attempts
 
 ###
-GET http://localhost:3000/attempt/11
+GET http://localhost:3000/attempt/12
 
 ###
 GET http://localhost:3000/attempts/student/3
@@ -43,7 +43,7 @@ Content-Type: application/json
 DELETE http://localhost:3000/attempt/11
 
 ###
-PATCH http://localhost:3000/attempt/10
+PATCH http://localhost:3000/attempt/14
 Content-Type: application/json
 
 {
