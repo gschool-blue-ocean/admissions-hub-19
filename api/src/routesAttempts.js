@@ -117,7 +117,11 @@ async function create(req, res, next) {
           rating_score,
         ]
       )
-      .catch(next);
+      .catch(err => {
+        if(err) {
+          res.send(err)
+        }
+      });
     res.send(result.rows[0]);
   }
 }

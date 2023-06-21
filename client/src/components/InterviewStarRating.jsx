@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
-import useRatingStore from "../store/ratingStore";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const StarRating = ({ rating, setRating }) => {
