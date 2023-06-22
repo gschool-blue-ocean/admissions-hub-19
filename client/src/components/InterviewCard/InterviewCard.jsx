@@ -5,11 +5,9 @@ import baseurl from "../../url.js";
 import { toast } from "react-toastify";
 import useRatingStore from "../../store/ratingStore";
 import useUserStore from "../../store/userStore";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const InterviewCard = () => {
-  const routeHTTP = `${baseurl}`;
-
   //importing state from ratingStore(zustand)
   const [note, setNote] = useState("");
   const [step, setStep] = useState(1);
@@ -94,11 +92,11 @@ const InterviewCard = () => {
       student_id: studentId,
       staff_id: userId,
       question1_id: 1,
-      rating1: rating1 || 3,
+      rating1: rating1 || 0,
       question2_id: 2,
-      rating2: rating2 || 3,
+      rating2: rating2 || 0,
       question3_id: 3,
-      rating3: rating3 || 3,
+      rating3: rating3 || 0,
       notes: note,
       rating_score: rating1 + rating2 + rating3,
     };
