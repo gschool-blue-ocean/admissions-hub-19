@@ -20,6 +20,7 @@ const QuestionBlock = ({ step, rating1, rating2, rating3, setRating1, setRating2
 
   return (
     <div className={styles.questionBlock}>
+      {/* questions is an array of objects and step is initialized to 1, but we want index 0, so we need to use "step-1" to access the first index */}
       <p className={styles.title}>{questions[step-1].name}</p>
       <p>{questions[step-1].prompt}</p>
       {step === 1 ? <StarRating rating={rating1} setRating={setRating1} /> : null}
