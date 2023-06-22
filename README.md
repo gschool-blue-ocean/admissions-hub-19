@@ -4,15 +4,19 @@ Agile group project to rework an ***admissions hub***  to track incoming student
 
 ## Table of Contents
 
-- [General Information](#general-information)
-  - [Technologies Used](#technologies-used)
-  - [Features](#features)
-  - [Screenshots](#screenshots)
-  - [Setup](#setup)
-  - [Usage](#usage)
-  - [Current Status](#current-status)
-- [Room For Improvement](#room-for-improvement)
-- [Acknowledgements](#acknowledgements)
+- [General Information 📄](#general-information)
+  - [Technologies Used 💿](#technologies-used)
+  - [Features ☑️](#features)
+  - [Architecture 🏛️](#architecture)
+  - [Project Screenshots 📸 ](#progress-screenshots-🧱)
+      - [Inhereted project state 🧰](#project-at-the-time-we-took-it-over)
+      - [Sprint 1 Completeion ⏳](#sprint-1-completion)
+      - [Sprint 2 Completeion 🏁](#sprint-2-completion-🏁)
+  - [Setup ⚙️](#setup)
+  - [Usage ✍️](#usage)
+  - [Current Status 🟥🟨🟩](#current-status)
+- [Room For Improvement ](#room-for-improvement)
+- [Acknowledgements 🙏](#acknowledgements)
 ___
 
 ![GitHub](https://img.shields.io/github/last-commit/gschool-blue-ocean/admissions-hub-20/main)
@@ -26,7 +30,7 @@ This project is the culmination of months of **🚀 hard work 🚀** growing our
 -  👨🏻‍🎨 🖼️ UI Manager: Rane Gray (pri), Daniel Purdy (alt)
 -  👷🏻‍♂️ 🏗️ Architecture Manager: Joe Goralczyk (pri), Jordan Carlson (alt)
 
-Working together as an Agile group, we worked hard to redesign this application visually and functionally per our client's needs. We've reworked the authentication system that correctly stores hashed passwords in the database and keeps the user logged in, a dashboard with an interactive table element that allows for tracking prospective stuents, and an interview page that implements a usable coding space to collaborate between admissions personnel and students.
+Working together as an Agile group, we worked hard to redesign this application visually and functionally per our client's needs. We refactored authentication to add protected routes and JSON Web Tokens (JWT) along with hashed password storage, a dashboard with an interactive table element that allows for tracking prospective stuents, and an interview page that implements a usable coding space to collaborate between admissions personnel and students.
 
 - Components each member worked on.
   - Chris - testing, authentication
@@ -55,6 +59,7 @@ ___
   [![Express.js](https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)
   [![Supabase](https://img.shields.io/badge/-Supabase-3FCF8E?style=flat&logo=supabase&logoColor=black)](https://supabase.com/)
   [![Code Sandbox](https://img.shields.io/badge/Code%20Sandbox-Live%20code%20editor-blue?style=plastic&logo=codesandbox)](https://codesandbox.io/?from-app=1)
+  [![JSON Web Tokens](https://img.shields.io/badge/JSON%20Web%20Tokens-blue?style=plastic&logo=jsonwebtokens)](https://jwt.io/)
 
 
   [![Git](https://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=black)](https://git-scm.com/)
@@ -78,24 +83,44 @@ ___
 - [x] Central hub to view and manage all incoming students and cohorts/classes
 - [x] Code Editor to knowledge-test incoming students to verify they have basic JS understanding.
 ___
+
+## Architecture
+
+### UPDATE ME AFTER SECOND SPRINT.
+___
 ___
 
-## Screenshots
+## Progress Screenshots 🧱
 
-### Login
+### Project at the time we took it over
+#### Login
+![Login](/documentation/images/mcsp-19/mcsp-19_login.png)
+#### Dashboard
+![Create_Account](/documentation/images/mcsp-19/mcsp-19_Edit_Profile.png)
+#### Interview
+![Interview](/documentation/images/mcsp-19/mcsp-19_Interview.png)
+
+### Sprint 1 Completion
+
+#### Login
 
 ![Login](/documentation/images/mcsp-20/login.png)
 ![Create_Account](/documentation/images/mcsp-20/create_account.png)
 ___
 
-### Dashboard
+#### Dashboard
 
 ![Dashboard](/documentation/images/mcsp-20/dashboard.png)
 ___
 
-### Interview
+#### Interview
 
 ![Interview](/documentation/images/mcsp-20/interview.png)
+
+## | Sprint 2 Completion 🏁
+#### Login
+#### Dashboard
+#### Interview
 ___
 ___
 ## Setup
