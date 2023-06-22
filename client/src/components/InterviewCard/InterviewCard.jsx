@@ -5,10 +5,11 @@ import baseurl from "../../url.js";
 import { toast } from "react-toastify";
 import useRatingStore from "../../store/ratingStore";
 import useUserStore from "../../store/userStore";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const InterviewCard = () => {
   const routeHTTP = `${baseurl}`;
-  
+
   //importing state from ratingStore(zustand)
   const [note, setNote] = useState("");
   const [step, setStep] = useState(1);
@@ -19,6 +20,41 @@ const InterviewCard = () => {
   const setRating2 = useRatingStore((state) => state.setRating2);
   const setRating3 = useRatingStore((state) => state.setRating3);
   const studentId = useUserStore((state) => state.studentId);
+  const setAttempts = useUserStore((state) => state.setAttempts);
+  const attempts = useUserStore((state) => state.attempts);
+  const studentName = useUserStore((state) => state.studentName);
+  const userId = parseInt(localStorage.getItem("userid"));
+  const navigate = useNavigate();
+
+  const setAttemptNumber = () => {
+    if (!studentId) {
+      console.log("StudentId not generated yet");
+      return;
+    }
+    fetch(`http://localhost:3000/attempts/student/${studentId}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.status === 404) {
+          setAttempts(0);
+        } else {
+          res.json().then((data) => {
+            let attemptsNum = data.length;
+            setAttempts(attemptsNum);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    setAttemptNumber();
+    setRating1(0);
+    setRating2(0);
+    setRating3(0);
+  }, []);
 
   const handleClick = (question) => {
     setStep(question);
@@ -36,12 +72,27 @@ const InterviewCard = () => {
   };
 
   const endInterview = () => {
-    let date = new Date()
-    let months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    let date = new Date();
+    let months = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ];
     const data = {
-      date: `${date.getFullYear()}-${months[date.getMonth()]}-${date.getDate()}`,
+      date: `${date.getFullYear()}-${
+        months[date.getMonth()]
+      }-${date.getDate()}`,
       student_id: studentId,
-      staff_id: 1,
+      staff_id: userId,
       question1_id: 1,
       rating1: rating1 || 3,
       question2_id: 2,
@@ -49,40 +100,65 @@ const InterviewCard = () => {
       question3_id: 3,
       rating3: rating3 || 3,
       notes: note,
-      rating_score: (rating1 + rating2+ rating3),
-    }
-    console.log(data)
+      rating_score: rating1 + rating2 + rating3,
+    };
+    console.log(data);
 
     fetch(`${baseurl}/attempt`, {
-      method:"POST",
+      method: "POST",
       // mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(() => 
-      toast("sent attempt"))
-
-  }
+    }).then(() =>
+      toast("Interview Attempt saved. Redirecting...", { autoClose: 3000 })
+    );
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 3000);
+  };
 
   return (
     <div className={InterviewCardCSS.cardContainer}>
       <div className={InterviewCardCSS.cardWrapper}>
         <div>
           <p className={InterviewCardCSS.interviewInfo}>
-            Interviewee: <b>{studentId}</b>
+            Interviewee: <b>{studentName}</b>
           </p>
 
+          {attempts != null ? (
+            <p className={InterviewCardCSS.interviewInfo}>
+              Attempt #: <b>{attempts + 1}</b>
+            </p>
+          ) : (
+            <p className={InterviewCardCSS.interviewInfo}>
+              Attempt #: <b>loading...</b>
+            </p>
+          )}
+
           <p className={InterviewCardCSS.interviewInfo}>
-            Attempt #: <b>1 (attempts.length+1)</b>
-          </p>
-          <p className={InterviewCardCSS.interviewInfo}>
-            Current Score: <b>{rating1+rating2+rating3}</b>
+            Current Score: <b>{rating1 + rating2 + rating3}</b>
           </p>
           <div className={InterviewCardCSS.flexRow}>
-            <p className={step === 1 ? InterviewCardCSS.activeQuestion : null} onClick={() => handleClick(1)}>Question 1</p>
-            <p className={step === 2 ? InterviewCardCSS.activeQuestion : null} onClick={() => handleClick(2)}>Question 2</p>
-            <p className={step === 3 ? InterviewCardCSS.activeQuestion : null} onClick={() => handleClick(3)}>Question 3</p>
+            <p
+              className={step === 1 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(1)}
+            >
+              Question 1
+            </p>
+            <p
+              className={step === 2 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(2)}
+            >
+              Question 2
+            </p>
+            <p
+              className={step === 3 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(3)}
+            >
+              Question 3
+            </p>
           </div>
         </div>
 
@@ -114,7 +190,10 @@ const InterviewCard = () => {
             <button className={InterviewCardCSS.linkButton} onClick={copyLink}>
               Invite link
             </button>
-            <button className={InterviewCardCSS.endButton} onClick={endInterview}>
+            <button
+              className={InterviewCardCSS.endButton}
+              onClick={endInterview}
+            >
               End interview
             </button>
           </div>

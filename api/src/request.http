@@ -7,6 +7,8 @@ DELETE http://localhost:3000/user/13
 ###
 POST http://localhost:3000/user/
 
+###
+GET http://localhost:3000/attempts/student/9
 
 
 ###Testing Attempts table routes:
@@ -16,7 +18,7 @@ GET http://localhost:3000/attempts
 GET http://localhost:3000/attempt/12
 
 ###
-GET http://localhost:3000/attempts/student/3
+GET http://localhost:3000/attempts/student/2
 
 ###
 GET http://localhost:3000/attempts/staff/1

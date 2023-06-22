@@ -2,11 +2,13 @@ import { create } from "zustand";
 
 const useUserStore = create((set) => ({
   userid: null,
+  setUserId: (num) => set(() => ({ userid: num })),
   studentId: null,
   setStudentId: (num) => set(() => ({ studentId: num })),
-  setUserId: (num) => set(() => ({ userid: num })),
+  studentName: null,
+  setStudentName:(string) => set(() => ({ studentName: string })),
   attempts: null,
-  setAttempts: (num) => set(() => ({ userid: num })),
+  setAttempts: (num) => set(() => ({ attempts: num })),
 }));
 
 export default useUserStore;

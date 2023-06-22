@@ -4,21 +4,13 @@ import useUserStore from "../../store/userStore";
 import StatusTag from "../StatusTag/StatusTag";
 import StudentCardCSS from "./StudentCard.module.css";
 
+
 const StudentCard = () => {
   const studentId = useUserStore((state) => state.studentId);
   const [studentData, setStudentData] = useState(null);
+  const setStudentName = useUserStore((state) => state.setStudentName);
   const navigate = useNavigate();
-  const setAttempts = useUserStore((state) => state.setAttempts);
 
-  const setAttemptNumber = () => {
-    fetch(`http://localhost:3000//attempts/student/${studentId}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
 
   // let studentData = {
   //     name: "Jon Snow",
@@ -48,6 +40,7 @@ const StudentCard = () => {
         .then((res) => res.json())
         .then((data) => {
           setStudentData(data);
+          setStudentName(`${data.first_name} ${data.last_name}`);
         });
     }
   }, [studentId]);
@@ -92,7 +85,6 @@ const StudentCard = () => {
           variant="primary"
           onClick={() => {
             navigate("/interview");
-            setAttemptNumber();
           }}
         >
           Start new interview
