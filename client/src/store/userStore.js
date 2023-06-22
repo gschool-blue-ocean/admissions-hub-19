@@ -5,6 +5,8 @@ const useUserStore = create((set) => ({
   studentId: null,
   setStudentId: (num) => set(() => ({ studentId: num })),
   setUserId: (num) => set(() => ({ userid: num })),
+  attempts: null,
+  setAttempts: (num) => set(() => ({ userid: num })),
 }));
 
 export default useUserStore;

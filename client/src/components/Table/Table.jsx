@@ -48,6 +48,7 @@ export default function Table() {
   const [rows, setRows] = React.useState([]);
   const setStudentId = useUserStore((state) => state.setStudentId);
 
+
   React.useEffect(() => {
     fetch("http://localhost:3000/students")
       .then((res) => res.json())

@@ -8,6 +8,7 @@ import useUserStore from "../store/userStore";
 const Dashboard = () => {
   const studentId = useUserStore((state) => state.studentId);
 
+
   const handleRemoveStudent = () => {
     fetch(`http://localhost:3000/student/${studentId}`, {
       method: "DELETE",
@@ -20,6 +21,8 @@ const Dashboard = () => {
         window.location.reload();
       });
   };
+
+
 
   return (
     <div className="d-flex">

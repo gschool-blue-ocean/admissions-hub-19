@@ -8,15 +8,6 @@ import useUserStore from "../../store/userStore";
 
 const InterviewCard = () => {
   const routeHTTP = `${baseurl}`;
-
-  // const [interviewQuestions, setInterviewQuestions] = useState();
-  // const [selectedQuestion, setSelectedQuestion] = useState(1);
-  // const [selectedContent, setSelectedContent] = useState(
-  //   interviewData.questions[0].content
-  // );
-  // const [selectedTitle, setSelectedTitle] = useState(
-  //   interviewData.questions[0].title
-  // );
   
   //importing state from ratingStore(zustand)
   const [note, setNote] = useState("");
@@ -43,17 +34,6 @@ const InterviewCard = () => {
   const handleNoteChange = (event) => {
     setNote(event.target.value);
   };
-
-  // const handleBlur = () => {
-  //   // TODO Save the note when the input field loses focus
-  //   saveNote();
-  // };
-
-  // const saveNote = () => {
-  //   // TODO Implement your save logic here, e.g., make an API call, update state, etc.
-  //   console.log("Saving note:", note);
-  //   interviewData.questions[sel];
-  // };
 
   const endInterview = () => {
     let date = new Date()

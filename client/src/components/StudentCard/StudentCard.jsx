@@ -8,6 +8,17 @@ const StudentCard = () => {
   const studentId = useUserStore((state) => state.studentId);
   const [studentData, setStudentData] = useState(null);
   const navigate = useNavigate();
+  const setAttempts = useUserStore((state) => state.setAttempts);
+
+  const setAttemptNumber = () => {
+    fetch(`http://localhost:3000//attempts/student/${studentId}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   // let studentData = {
   //     name: "Jon Snow",
@@ -79,7 +90,10 @@ const StudentCard = () => {
         <button
           className={StudentCardCSS.interviewButton}
           variant="primary"
-          onClick={() => navigate("/interview")}
+          onClick={() => {
+            navigate("/interview");
+            setAttemptNumber();
+          }}
         >
           Start new interview
         </button>
