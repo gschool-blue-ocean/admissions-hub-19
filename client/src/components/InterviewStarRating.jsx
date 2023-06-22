@@ -1,18 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
-const StarRating = ({ onchange, title, rating, setRating }) => {
-
+const StarRating = ({ rating, setRating }) => {
   return (
     <div>
-      {/* {title} */}
       {[...Array(5)].map((_, index) => {
         index += 1;
 
         const handleClick = () => {
           setRating(index);
-          // onchange(index);
         };
 
         return (

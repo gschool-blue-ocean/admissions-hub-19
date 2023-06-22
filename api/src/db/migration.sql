@@ -1,4 +1,9 @@
-DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS attempts;
+DROP TABLE IF EXISTS question_notes;
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS cohorts;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users(
   user_id serial PRIMARY KEY,
@@ -6,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users(
   last_name varchar(50) NOT NULL,
   email varchar(150) UNIQUE NOT NULL,
   password_hash varchar(10000) NOT NULL,
-  salt BYTEA 
+  salt BYTEA
 ); 
 
 CREATE TABLE IF NOT EXISTS cohorts (
@@ -44,15 +49,11 @@ CREATE TABLE IF NOT EXISTS attempts (
   student_id int REFERENCES students(student_id),
   staff_id int REFERENCES users(user_id),
   question1_id int REFERENCES questions(question_id),
-  answer1 text,
   rating1 int,
   question2_id int REFERENCES questions(question_id),
-  answer2 text,
   rating2 int,
   question3_id int REFERENCES questions(question_id),
-  answer3 text,
   rating3 int,
   notes text,
-  rating_score int,
-  pass boolean
+  rating_score int
 );

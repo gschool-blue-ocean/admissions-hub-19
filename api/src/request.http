@@ -6,3 +6,73 @@ DELETE http://localhost:3000/user/13
 
 ###
 POST http://localhost:3000/user/
+
+###
+GET http://localhost:3000/students
+
+###
+GET http://localhost:3000/attempts/student/9
+
+
+###Testing Attempts table routes:
+GET http://localhost:3000/attempts
+
+###
+GET http://localhost:3000/attempt/12
+
+###
+GET http://localhost:3000/attempts/student/2
+
+###
+GET http://localhost:3000/attempts/staff/1
+
+###
+POST http://localhost:3000/attempt
+Content-Type: application/json
+
+{
+    "date": "2023-06-20",
+    "student_id": 5,
+    "staff_id": 1,
+    "question1_id": 1,
+    "rating1": 5,
+    "question2_id": 2,
+    "rating2": 5,
+    "question3_id": 3,
+    "rating3": 4,
+    "notes": "some notes",
+    "rating_score": 14
+}
+
+###
+DELETE http://localhost:3000/attempt/11
+
+###
+PATCH http://localhost:3000/attempt/14
+Content-Type: application/json
+
+{
+    "date": "2023-06-20",
+    "student_id": 5,
+    "staff_id": 1,
+    "question1_id": 1,
+    "rating1": 2,
+    "question2_id": 2,
+    "rating2": 1,
+    "question3_id": 3,
+    "rating3": 1,
+    "notes": "some more notes on this crappy performance",
+    "rating_score": 4
+}
+
+
+###
+PATCH http://localhost:3000/student/1
+Content-Type: application/json
+
+{
+    "score": 10
+}
+
+###
+GET http://localhost:3000/student/1

@@ -4,12 +4,13 @@ import AddStudentButton from "../components/DashboardAddStudentBtn";
 import StudentCard from "../components/StudentCard/StudentCard";
 import Table from "../components/Table/Table";
 import useUserStore from "../store/userStore";
+import baseurl from "../url";
 
 const Dashboard = () => {
   const studentId = useUserStore((state) => state.studentId);
 
   const handleRemoveStudent = () => {
-    fetch(`http://localhost:3000/student/${studentId}`, {
+    fetch(`${baseurl}/student/${studentId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

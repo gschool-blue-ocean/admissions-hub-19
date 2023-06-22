@@ -9,7 +9,6 @@ const db = new pg.Pool({
 
 async function findAll(_req, res, next) {
   const result = await db.query("SELECT * FROM students").catch(next);
-  // console.log("Result", result.rows);
   res.send(result.rows);
 }
 
@@ -20,7 +19,6 @@ async function findOne(req, res, next) {
     const result = await db
       .query("SELECT * FROM students WHERE student_id = $1", [req.params.id])
       .catch(next);
-    //console.log("Result", result.rows);
     if (result.rows.length != 1) {
       res.sendStatus(404);
     } else {
@@ -81,7 +79,6 @@ async function remove(req, res, next) {
     const result = await db
       .query("SELECT * FROM students WHERE student_id = $1", [req.params.id])
       .catch(next);
-    //console.log("DELETE RESULT", result.rows);
     if (result.rows.length != 1) {
       res.sendStatus(404);
     } else {
@@ -93,43 +90,24 @@ async function remove(req, res, next) {
   }
 }
 
-async function update(req, res, next) {
-  let haveKeys = true;
-  const expectedKeys = [
-    "first_name",
-    "last_name",
-    "email",
-    "cohort_id",
-    "numattempts",
-    "paid",
-    "paperwork",
-  ];
-  for (let key in req.body) {
-    if (!expectedKeys.includes(key)) {
-      haveKeys = false;
-    }
-  }
-  if (!haveKeys) {
-    res.status(400).send("Recieved incorrect info");
-  } else if (Number.isNaN(parseInt(req.params.id))) {
-    res.sendStatus(400);
-  } else {
-    const result = await db
-      .query("SELECT * FROM students WHERE student_id=$1", [req.params.id])
-      .catch(next);
-    if (result.rows.length != 1) {
-      res.sendStatus(404);
-    } else {
-      // Perform the update for each key value requested
-      const request = { id: req.params.id };
-      for (let key in req.body) {
-        let queryText = `UPDATE students SET ${key}=$1 WHERE student_id = $2`;
-        await db.query(queryText, [req.body[key], req.params.id]).catch(next);
-        request[key] = req.body[key];
-      }
-      res.send(request);
-    }
+function update(req, res, next) {
+  try {
+    db.query(`UPDATE students SET
+    first_name=coalesce($1, first_name),
+    last_name=coalesce($2, last_name),
+    email=coalesce($3, email),
+    start_date=coalesce($4, start_date),
+    status=coalesce($5, status),
+    score=coalesce($6, score)
+    WHERE student_id=$7
+    `, [req.body.first_name, req.body.last_name, req.body.email, req.body.start_date, req.body.status, req.body.score, req.params.id])
+    res.status(200).send("Updated!")
+  } catch (err) {
+    console.error(err)
+    res.status(400).send("bad request")
   }
 }
+
+
 
 export default { findAll, findOne, findAllInCohort, create, remove, update };

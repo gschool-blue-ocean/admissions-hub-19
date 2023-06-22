@@ -22,6 +22,8 @@ function ClientEditor() {
   const [update, setUpdate] = useState(null);
   // sandpack is general instances for the code editor, listen is a function that captures from the bundler
   const { sandpack, listen } = useSandpack();
+  // stop toast from sending like 100 notifs
+  const [ isNotified, setIsNotified ] = useState(false)
   // this grabs the current code in the editor window
   let activeCode = useActiveCode();
 

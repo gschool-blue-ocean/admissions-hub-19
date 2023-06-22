@@ -3,54 +3,59 @@ import InterviewCardCSS from "./InterviewCard.module.css";
 import QuestionBlock from "./QuestionBlock";
 import baseurl from "../../url.js";
 import { toast } from "react-toastify";
+import useRatingStore from "../../store/ratingStore";
+import useUserStore from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const InterviewCard = () => {
-  const routeHTTP = `${baseurl}`;
+  //importing state from ratingStore(zustand)
+  const [note, setNote] = useState("");
+  const [step, setStep] = useState(1);
+  const rating1 = useRatingStore((state) => state.rating1);
+  const rating2 = useRatingStore((state) => state.rating2);
+  const rating3 = useRatingStore((state) => state.rating3);
+  const setRating1 = useRatingStore((state) => state.setRating1);
+  const setRating2 = useRatingStore((state) => state.setRating2);
+  const setRating3 = useRatingStore((state) => state.setRating3);
+  const studentId = useUserStore((state) => state.studentId);
+  const setAttempts = useUserStore((state) => state.setAttempts);
+  const attempts = useUserStore((state) => state.attempts);
+  const studentName = useUserStore((state) => state.studentName);
+  const userId = parseInt(localStorage.getItem("userid"));
+  const navigate = useNavigate();
 
-  let interviewData = {
-    interviewee: "Jon Snow",
-    attempt: 1,
-    currentScore: 0,
-    questions: [
-      {
-        questNum: 1,
-        title: "Sort Array",
-        content:
-          "Given an array of numbers, write a function that sorts the number from smallest to largest.",
-        note: "",
-      },
-      {
-        questNum: 2,
-        title: "Tree in the woods",
-        content:
-          "If a tree falls in the woods and nobody is around to hear it, what is the circumference of the sun?",
-        note: "",
-      },
-      {
-        questNum: 3,
-        title: "Apples and oranges",
-        content:
-          "Jimmy has one apple and Susie has two apples, how many oranges do they have together?",
-        note: "",
-      },
-    ],
+  const setAttemptNumber = () => {
+    if (!studentId) {
+      console.error("StudentId not generated yet");
+      return;
+    }
+    fetch(`${baseurl}/attempts/student/${studentId}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.status === 404) {
+          setAttempts(0);
+        } else {
+          res.json().then((data) => {
+            let attemptsNum = data.length;
+            setAttempts(attemptsNum);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
-  // const [interviewQuestions, setInterviewQuestions] = useState();
-  const [selectedQuestion, setSelectedQuestion] = useState(1);
-  const [selectedContent, setSelectedContent] = useState(
-    interviewData.questions[0].content
-  );
-  const [selectedTitle, setSelectedTitle] = useState(
-    interviewData.questions[0].title
-  );
-  const [note, setNote] = useState(interviewData.questions[0].note);
+  useEffect(() => {
+    setAttemptNumber();
+    setRating1(0);
+    setRating2(0);
+    setRating3(0);
+  }, []);
 
   const handleClick = (question) => {
-    setSelectedQuestion(question.questNum);
-    setSelectedContent(question.content);
-    setSelectedTitle(question.title);
-    setNote(question.note);
+    setStep(question);
   };
 
   const copyLink = () => {
@@ -64,28 +69,57 @@ const InterviewCard = () => {
     setNote(event.target.value);
   };
 
-  const handleBlur = () => {
-    // TODO Save the note when the input field loses focus
-    saveNote();
-  };
+  const endInterview = () => {
+    let date = new Date();
+    let months = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ];
+    const data = {
+      date: `${date.getFullYear()}-${
+        months[date.getMonth()]
+      }-${date.getDate()}`,
+      student_id: studentId,
+      staff_id: userId,
+      question1_id: 1,
+      rating1: rating1 || 0,
+      question2_id: 2,
+      rating2: rating2 || 0,
+      question3_id: 3,
+      rating3: rating3 || 0,
+      notes: note,
+      rating_score: rating1 + rating2 + rating3,
+    };
 
-  const saveNote = () => {
-    // TODO Implement your save logic here, e.g., make an API call, update state, etc.
-    console.log("Saving note:", note);
-    interviewData.questions[sel];
-  };
-
-  useEffect(() => {
-    getAllQuestionsData();
-  }, []);
-  const getAllQuestionsData = async () => {
-    await fetch(`${routeHTTP}/questions`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data:", data);
-        // setInterviewQuestions(data);
-        // console.log(interviewQuestions)
-      });
+    fetch(`${baseurl}/attempt`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() =>
+      toast("Interview Attempt saved. Redirecting...", { autoClose: 3000 })
+    );
+    fetch(`${baseurl}/student/${studentId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ score: data.rating_score }),
+    });
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 3000);
   };
 
   return (
@@ -93,34 +127,53 @@ const InterviewCard = () => {
       <div className={InterviewCardCSS.cardWrapper}>
         <div>
           <p className={InterviewCardCSS.interviewInfo}>
-            Interviewee: <b>{interviewData.interviewee}</b>
+            Interviewee: <b>{studentName}</b>
           </p>
 
+          {attempts != null ? (
+            <p className={InterviewCardCSS.interviewInfo}>
+              Attempt #: <b>{attempts + 1}</b>
+            </p>
+          ) : (
+            <p className={InterviewCardCSS.interviewInfo}>
+              Attempt #: <b>loading...</b>
+            </p>
+          )}
+
           <p className={InterviewCardCSS.interviewInfo}>
-            Attempt #: <b>{interviewData.attempt}</b>
-          </p>
-          <p className={InterviewCardCSS.interviewInfo}>
-            Current Score: <b>{interviewData.currentScore}</b>
+            Current Score: <b>{rating1 + rating2 + rating3} /15</b>
           </p>
           <div className={InterviewCardCSS.flexRow}>
-            {interviewData.questions.map((question) => (
-              <b
-                key={question.questNum}
-                onClick={() => handleClick(question)}
-                className={
-                  question.questNum === selectedQuestion
-                    ? InterviewCardCSS.activeQuestion
-                    : ""
-                }
-              >
-                {/* {console.log("Question " + selectedQuestion + " Selected!")} */}
-                Question {question.questNum}
-              </b>
-            ))}
+            <p
+              className={step === 1 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(1)}
+            >
+              Question 1
+            </p>
+            <p
+              className={step === 2 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(2)}
+            >
+              Question 2
+            </p>
+            <p
+              className={step === 3 ? InterviewCardCSS.activeQuestion : null}
+              onClick={() => handleClick(3)}
+            >
+              Question 3
+            </p>
           </div>
         </div>
 
-        <QuestionBlock title={selectedTitle} content={selectedContent} />
+        <QuestionBlock
+          step={step}
+          rating1={rating1}
+          rating2={rating2}
+          rating3={rating3}
+          setRating1={setRating1}
+          setRating2={setRating2}
+          setRating3={setRating3}
+        />
 
         <div className={InterviewCardCSS.cardHeader}>
           <h4>Notes:</h4>
@@ -129,7 +182,6 @@ const InterviewCard = () => {
               className={InterviewCardCSS.notesInput}
               value={note}
               onChange={handleNoteChange}
-              onBlur={handleBlur}
               placeholder={
                 "Notes, thoughts, strengths, weaknesses of student..."
               }
@@ -139,7 +191,10 @@ const InterviewCard = () => {
             <button className={InterviewCardCSS.linkButton} onClick={copyLink}>
               Invite link
             </button>
-            <button className={InterviewCardCSS.endButton}>
+            <button
+              className={InterviewCardCSS.endButton}
+              onClick={endInterview}
+            >
               End interview
             </button>
           </div>
