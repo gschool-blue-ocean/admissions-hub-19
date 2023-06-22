@@ -64,6 +64,15 @@ const StudentCard = () => {
           Start new interview
         </button>
       </div>
+            {/* <div className={StudentCardCSS.studentInfoCard}>
+                    <h3 className={StudentCardCSS.notesHeading}>Notes:</h3>
+                    {studentData.notes.map((note,index) => (
+                        <div key={index}>
+                            <p className={StudentCardCSS.notesInfo}>Attempt {note.attemptNum}: {note.date}</p>
+                            <p className={StudentCardCSS.notesNarrative}>{note.content}</p>
+                        </div>
+                    ))}
+                </div> */}
     </div>
   );
 };
