@@ -28,10 +28,10 @@ const InterviewCard = () => {
 
   const setAttemptNumber = () => {
     if (!studentId) {
-      console.log("StudentId not generated yet");
+      console.error("StudentId not generated yet");
       return;
     }
-    fetch(`http://localhost:3000/attempts/student/${studentId}`, {
+    fetch(`${baseurl}/attempts/student/${studentId}`, {
       method: "GET",
     })
       .then((res) => {
@@ -45,7 +45,7 @@ const InterviewCard = () => {
         }
       })
       .catch((error) => {
-        console.log("Error:", error);
+        console.error("Error:", error);
       });
   };
 
@@ -102,11 +102,9 @@ const InterviewCard = () => {
       notes: note,
       rating_score: rating1 + rating2 + rating3,
     };
-    console.log(data);
 
     fetch(`${baseurl}/attempt`, {
       method: "POST",
-      // mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -114,6 +112,13 @@ const InterviewCard = () => {
     }).then(() =>
       toast("Interview Attempt saved. Redirecting...", { autoClose: 3000 })
     );
+    fetch(`${baseurl}/student/${studentId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ score: data.rating_score }),
+    });
     setTimeout(() => {
       navigate("/dashboard");
     }, 3000);
@@ -138,7 +143,7 @@ const InterviewCard = () => {
           )}
 
           <p className={InterviewCardCSS.interviewInfo}>
-            Current Score: <b>{rating1 + rating2 + rating3}</b>
+            Current Score: <b>{rating1 + rating2 + rating3} /15</b>
           </p>
           <div className={InterviewCardCSS.flexRow}>
             <p
@@ -164,7 +169,6 @@ const InterviewCard = () => {
 
         <QuestionBlock
           step={step}
-          // selectedQuestion={selectedQuestion}
           rating1={rating1}
           rating2={rating2}
           rating3={rating3}
@@ -180,7 +184,6 @@ const InterviewCard = () => {
               className={InterviewCardCSS.notesInput}
               value={note}
               onChange={handleNoteChange}
-              // onBlur={handleBlur}
               placeholder={
                 "Notes, thoughts, strengths, weaknesses of student..."
               }

@@ -8,6 +8,9 @@ DELETE http://localhost:3000/user/13
 POST http://localhost:3000/user/
 
 ###
+GET http://localhost:3000/students
+
+###
 GET http://localhost:3000/attempts/student/9
 
 
@@ -61,3 +64,15 @@ Content-Type: application/json
     "notes": "some more notes on this crappy performance",
     "rating_score": 4
 }
+
+
+###
+PATCH http://localhost:3000/student/1
+Content-Type: application/json
+
+{
+    "score": 10
+}
+
+###
+GET http://localhost:3000/student/1

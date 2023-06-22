@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/userStore";
 import StatusTag from "../StatusTag/StatusTag";
 import StudentCardCSS from "./StudentCard.module.css";
-
+import baseurl from "../../url";
 
 const StudentCard = () => {
   const studentId = useUserStore((state) => state.studentId);
@@ -11,32 +11,9 @@ const StudentCard = () => {
   const setStudentName = useUserStore((state) => state.setStudentName);
   const navigate = useNavigate();
 
-
-  // let studentData = {
-  //     name: "Jon Snow",
-  //     email: "jonsnow@example.com",
-  //     phone: "555-123-4567",
-  //     cohort: "MCSP-35",
-  //     status: "Technical Interview",
-  //     createdBy: "Rane Gray",
-  //     technicalInterviewDate: "June 6th, 2023 @ 10:00AM MST",
-  //     notes: [
-  //         {
-  //             attemptNum: 1,
-  //             date: "May 23rd, 2023",
-  //             content: "Jon performed decently on most topics. Struggled with accessing properties on an object"
-  //         },
-  //         {
-  //             attemptNum: 2,
-  //             date: "June 9th, 2023",
-  //             content: "What kind of a name is Jon Snow anyway?"
-  //         }
-  //     ]
-  // }
-
   useEffect(() => {
     if (studentId) {
-      fetch(`http://localhost:3000/student/${studentId}`)
+      fetch(`${baseurl}/student/${studentId}`)
         .then((res) => res.json())
         .then((data) => {
           setStudentData(data);
@@ -69,7 +46,6 @@ const StudentCard = () => {
           <li className={StudentCardCSS.studentInfo}>
             Email: <p>{studentData.email}</p>
           </li>
-          {/* <li className={StudentCardCSS.studentInfo}>Phone #: <b>{studentData.phone}</b></li> */}
           <li className={StudentCardCSS.studentInfo}>
             Cohort start: <p>{studentData.start_date}</p>
           </li>
@@ -77,8 +53,6 @@ const StudentCard = () => {
             Status:
             <StatusTag studentStatus={studentData.status} />
           </li>
-          {/* <li className={StudentCardCSS.studentInfo}>Created By: <b>{studentData.createdBy}</b></li> */}
-          {/* <li className={StudentCardCSS.studentInfo}>Technical Interview Data: <b>{studentData.technicalInterviewDate}</b></li> */}
         </ul>
         <button
           className={StudentCardCSS.interviewButton}
@@ -90,15 +64,6 @@ const StudentCard = () => {
           Start new interview
         </button>
       </div>
-      {/* <div className={StudentCardCSS.studentInfoCard}>
-                    <h3 className={StudentCardCSS.notesHeading}>Notes:</h3>
-                    {studentData.notes.map((note,index) => (
-                        <div key={index}>
-                            <p className={StudentCardCSS.notesInfo}>Attempt {note.attemptNum}: {note.date}</p>
-                            <p className={StudentCardCSS.notesNarrative}>{note.content}</p>
-                        </div>
-                    ))}
-                </div> */}
     </div>
   );
 };
