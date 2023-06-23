@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Row, Form, Button } from "react-bootstrap";
 import useUserStore from "../../store/userStore";
 import baseurl from "../../url";
-import Logo from "../../assets/GSymbol.webp";
+import Logo from "./GSymbol.webp";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./styles.module.css";
 import "react-toastify/dist/ReactToastify.css";
