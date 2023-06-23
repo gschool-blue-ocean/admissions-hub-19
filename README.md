@@ -73,6 +73,7 @@ ___
   [![Slack](https://img.shields.io/badge/-Slack-4A154B?style=flat&logo=slack&logoColor=white)](https://slack.com/)
   [![Discord](https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.com/)
 
+
 ___
 ___
 
@@ -123,8 +124,9 @@ ___
 #### Interview
 ___
 ___
-## Setup
-
+## Developer Setup
+*NOTE* We are using Dockerized environment only in a developer build. When we were ready to deploy it, we didn't use Docker. Refer to the [Deployment Setup](#deployment-setup) section when ready to deploy.
+The API is deployed to Railway, and then railway pointes to vercel.
 - Fork and clone this repository
 - From the root directory of the cloned repository
   - npm install
@@ -133,6 +135,15 @@ ___
   - docker compose up --build
 - Point your browser to
   - [http://localhost:5173](http://localhost:5173/login)
+___
+___
+## Deployment Setup
+When we were ready to Deploy, we stopped using the docker compose file because the services we chose didn't support it. Instead, we seperated the API, Database, and Front-end.
+
+Vercel: Front-end
+Railway: API, Database, SocketIO
+
+
 
 [Project Demonstration](deployment_link_will_go_here_when_complete)
 ___
@@ -161,6 +172,8 @@ ___
 
 - Ideas:
   - A "student-facing" side of the application for students to manage their status
+  - Adding photos to users and students' profiles.
+  - Having a data visualization of the number of students who pass/fail the interview, maybe some other metrics for Galvanize to capture.
 - Todo:
   - deployment
 
