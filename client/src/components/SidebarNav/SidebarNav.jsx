@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../../public/GSymbol.webp";
 
 const SidebarNav = () => {
 
@@ -12,7 +13,7 @@ const SidebarNav = () => {
   return (
     <nav className="p-4">
         <div className="d-flex justify-content-center align-items-center">
-            <img src="../../../public/GSymbol.webp" alt="Galvanize Inc logo" width={"48px"} />
+            <img src={Logo} alt="Galvanize Inc logo" width={"48px"} />
             <div className="ms-1">
                 <p className="m-0 fs-5">Galvanize</p>
                 <p className="m-0 fs-5 text-secondary">Admissions</p>
