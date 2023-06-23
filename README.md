@@ -1,5 +1,114 @@
 # Admissions Hub
 
+> Agile group project to rework an admissions hub to track incoming students into the Galvanize program.
+
+## Table of Contents
+
+- [General Information](#general-information)
+  - [Technologies Used](#technologies-used)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+  - [Setup](#setup)
+  - [Usage](#usage)
+  - [Current Status](#current-status)
+- [Room For Improvement](#room-for-improvement)
+- [Acknowledgements](#acknowledgements)
+
+## General Information
+
+This project is the culmination of months of hard work growing our skills within the Galvanize course. We came together as a team to rework an existing project from a previous cohort in order to meet the demands of a client.
+
+- Project Manager: Chris Stewart (pri), Rane Gray (alt)
+- UI Manager: Rane Gray (pri), Daniel Purdy (alt)
+- Architecture Manager: Joe Goralczyk (pri), Jordan Carlson (alt)
+
+Working together as an Agile group, we worked hard to redesign this application visually and functionally per our client's needs. We've reworked the authentication system that correctly stores hashed passwords in the database and keeps the user logged in, a dashboard with an interactive table element that allows for tracking prospective stuents, and an interview page that implements a usable coding space to collaborate between admissions personnel and students.
+
+- Components each member worked on.
+  - Chris - testing, authentication
+  - Rane - UI redesign, authentication
+  - Jordan - refactor code editor, refactoring alert messages
+  - Joe - Authentication-login routing, testing, minor fixes
+  - Daniel - Interview space design
+
+## Technologies Used
+
+- HTML5, CSS3, JavaScript, express.js, node.js,
+- React, react-router, react-auth,
+- Bootstrap, jest,
+- Docker, PostgreSQL, Git, NPM,
+- Visual Studio Code, Github Projects,
+- Discord, Slack, Zoom
+
+## Features
+
+- Login Authentication with hashed passwords stored in the database
+- Tracking for currently logged in user, ability to modify account
+- Central hub to view and manage all incoming students and cohorts/classes
+- Code Editor to knowledge test incoming students to verify they have basic JS understanding.
+
+## Screenshot(s)
+
+### Login
+
+![Login](/documentation/images/mcsp-20/login.png)
+![Create_Account](/documentation/images/mcsp-20/create_account.png)
+
+### Dashboard
+
+![Dashboard](/documentation/images/mcsp-20/dashboard.png)
+
+### Interview
+
+![Interview](/documentation/images/mcsp-20/interview.png)
+
+## Setup
+
+- Fork and clone this repository
+- From the root directory of the cloned repository
+  - npm install
+  - npm install --prefix api
+  - npm install --prefix client
+  - docker compose up --build
+- Point your browser to
+  - [http://localhost:5173](http://localhost:5173/login)
+
+[Project Demonstration](deployment_link_will_go_here_when_complete)
+
+## Usage
+
+- Click on Create Account! button
+- Type in all your info and provide a valid password
+- Click Submit
+- Type in your email and password and Click Login to explore the dashboard
+
+## Current Status
+
+> Sprint 1 of 2 Complete
+
+## Room For Improvement
+
+- Ideas:
+  - A "student-facing" side of the application for students to manage their status
+- Todo:
+  - deployment
+
+## Acknowledgements
+
+- Inspired By:
+  - Our instructors, all of our hard work, and the hard work of previous cohorts
+- Based On:
+  - Galvanize Inc. Admissions Hub assignment
+- Contributors:
+  - Chris Stewart, Rane Gray, Jordan Carlson, Daniel Purdy, Joe Goralczyk
+
+
+
+
+
+<!-- Previous Cohort's ReadMe file: -->
+<!-- # Admissions Hub
+
 > Agile group project to create an admissions hub to track incoming students into the Galvanize program.
 
 ## Table of Contents
@@ -175,4 +284,4 @@ The app can be started with two steps:
 ## Useful Docker Commands
 
 - `docker exec <container_name_or_id> <command>` - Runs command in the context of a container.
-- `docker inspect <container_name_or_id>` - Displays info (including IP address) of a container running in docker.
+- `docker inspect <container_name_or_id>` - Displays info (including IP address) of a container running in docker. -->

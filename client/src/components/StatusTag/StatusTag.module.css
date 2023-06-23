@@ -1,0 +1,38 @@
+.interview {
+  background-color: #FFE8A3;
+  color: black;
+  font-weight: normal;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 5px;
+  margin-left: 6px;
+}
+.challenge {
+  background-color: #fcd19c;
+  color: black;
+  font-weight: normal;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 5px;
+  margin-left: 6px;
+}
+
+.prep {
+  background-color: #FFC7C2;
+  color: black;
+  font-weight: normal;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 5px;
+  margin-left: 6px;
+}
+
+.done {
+  background-color: #AFF4C6;
+  color: black;
+  font-weight: normal;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 5px;
+  margin-left: 6px;
+}

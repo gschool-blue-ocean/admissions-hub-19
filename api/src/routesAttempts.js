@@ -1,7 +1,10 @@
 import pg from "pg";
-const db = new pg.Pool({ 
+const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'development' ? false : {rejectUnauthorized: false}
+  ssl:
+    process.env.NODE_ENV === "development"
+      ? false
+      : { rejectUnauthorized: false },
 });
 
 async function findAll(_req, res, next) {
@@ -62,37 +65,29 @@ async function create(req, res, next) {
     student_id,
     staff_id,
     question1_id,
-    answer1,
     rating1,
     question2_id,
-    answer2,
     rating2,
     question3_id,
-    answer3,
     rating3,
     notes,
     rating_score,
-    pass,
   } = req.body;
   const keys =
-    "date, student_id, staff_id, question1_id, answer1, rating1, question2_id, answer2, rating2, question3_id, answer3, rating3, notes, rating_score, pass";
+    "date, student_id, staff_id, question1_id, rating1, question2_id, rating2, question3_id, rating3, notes, rating_score";
 
   if (
     date === undefined ||
     student_id === undefined ||
     staff_id === undefined ||
     question1_id === undefined ||
-    answer1 === undefined ||
     rating1 === undefined ||
     question2_id === undefined ||
-    answer2 === undefined ||
     rating2 === undefined ||
     question3_id === undefined ||
-    answer3 === undefined ||
     rating3 === undefined ||
     notes === undefined ||
     rating_score === undefined ||
-    pass === undefined ||
     isNaN(student_id) ||
     isNaN(staff_id) ||
     isNaN(question1_id) ||
@@ -107,29 +102,30 @@ async function create(req, res, next) {
   } else {
     const result = await db
       .query(
-        `INSERT INTO attempts(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`,
+        `INSERT INTO attempts(${keys}) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
         [
           date,
           student_id,
           staff_id,
           question1_id,
-          answer1,
           rating1,
           question2_id,
-          answer2,
           rating2,
           question3_id,
-          answer3,
           rating3,
           notes,
           rating_score,
-          pass,
         ]
       )
-      .catch(next);
+      .catch(err => {
+        if(err) {
+          res.send(err)
+        }
+      });
     res.send(result.rows[0]);
   }
 }
+
 async function remove(req, res, next) {
   if (Number.isNaN(parseInt(req.params.id))) {
     res.sendStatus(400);
@@ -155,17 +151,13 @@ async function update(req, res, next) {
     "student_id",
     "staff_id",
     "question1_id",
-    "answer1",
     "rating1",
     "question2_id",
-    "answer2",
     "rating2",
     "question3_id",
-    "answer3",
     "rating3",
     "notes",
     "rating_score",
-    "pass",
   ];
   for (let key in req.body) {
     if (!expectedKeys.includes(key)) {

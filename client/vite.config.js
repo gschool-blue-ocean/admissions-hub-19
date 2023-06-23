@@ -1,13 +1,13 @@
-export default {
-  root: "src",
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  root: path.join(__dirname, 'src'),
   server: {
-    proxy: {
-      "/api": process.env.API_URL,
-    },
-    port: process.env.PORT,
+    host: '0.0.0.0',
+    port: process.env.PORT || 3000,
   },
-  test: {
-    environment: "jsdom",
-    watch: false,
-  },
-};
+  plugins: [react()]
+})

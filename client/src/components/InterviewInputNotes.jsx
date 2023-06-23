@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import baseurl from "../url";
 import { Container, Row, Col, Button, Nav } from "react-bootstrap";
-import CodingWindow from "./InterviewCodingWindow";
 import StarRating from "./InterviewStarRating";
 import StudentSelector from "./InterviewStudentSelector";
-import "../css/Interview.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const InputNotes = ({ userid }) => {
+const InputNotes = () => {
   const [activeTab, setActiveTab] = useState("problem1");
   const [question1, setQuestion1] = useState({});
   const [question2, setQuestion2] = useState({});
@@ -116,7 +116,7 @@ const InputNotes = ({ userid }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        alert(
+        toast(
           `Thank you for your submittal for...\n   Student: ${currentStudent.first_name} ${currentStudent.last_name}\n   Notes: ${attemptNotes}\n   Score: ${totalRating}`
         );
         console.log("Submitted Attempt Info:", data);
@@ -163,44 +163,37 @@ const InputNotes = ({ userid }) => {
   const problems = ["Problem 1", "Problem 2", "Problem 3"];
 
   return (
-    <div
-      style={{
-        width: "97vw",
-        minHeight: "90vh",
-        marginLeft: "auto",
-        marginRight: "auto",
-        position: "relative",
-        display: "flex",
-        flexWrap: "wrap",
-        backgroundColor: "rgb(2,3,129)",
-        backgroundSize: "cover",
-      }}
-    >
-      <div
-        style={{
-          minWidth: "580px",
-          width: "60%",
-          height: "80vh",
-          marginRight: "20px",
-        }}
-      >
-        <CodingWindow />
-      </div>
-      <div style={{ width: "400px", height: "80vh" }}>
+    <div className={{ display: "flex" }}>
+      {/* // Note: Right here is where we need to add the code editor component */}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
+      <div style={{ width: "400px" }}>
         <Container
           className="interview-container"
           style={{
-            backgroundColor: "#ef6e47",
-            borderStyle: "solid",
-            borderColor: "rgb(57,204,140)",
-            marginLeft: "10%",
+            border: "1px solid #ccc",
           }}
         >
           {currentStudent.student_id ? (
+            <div>
             <h2>
               {currentStudent.first_name} {currentStudent.last_name},{" "}
               {currentStudent.name}
             </h2>
+            <StudentSelector updateStudent={handleStudentUpdate} />
+            </div>
           ) : (
             <StudentSelector updateStudent={handleStudentUpdate} />
           )}
