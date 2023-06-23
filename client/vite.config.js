@@ -1,20 +1,13 @@
-export default {
-  root: "src",
-  server: {
-    // This may be deleted later depending on where we want to connect
-    // our web socket
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
-    // proxy: {
-    //   "/api": process.env.API_URL,
-    //   "/socket": {
-    //     target: "http://127.0.0.1:3175/",
-    //     ws: true,
-    //   },
-    // },
-    port: process.env.PORT,
+// https://vitejs.dev/config/
+export default defineConfig({
+  root: path.join(__dirname, 'src'),
+  server: {
+    host: '0.0.0.0',
+    port: process.env.PORT || 3000,
   },
-  test: {
-    environment: "jsdom",
-    watch: false,
-  },
-};
+  plugins: [react()]
+})
