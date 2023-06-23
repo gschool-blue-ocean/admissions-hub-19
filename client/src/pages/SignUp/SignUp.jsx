@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import Logo from "/GSymbol.webp";
+import Logo from "../../../public/GSymbol.webp";
 import baseurl from "../../url";
 import styles from "./styles.module.css";
 import "react-toastify/dist/ReactToastify.css";
