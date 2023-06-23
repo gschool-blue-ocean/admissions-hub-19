@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, Link, useNavigate, useLoaderData } from "react-router-dom";
+import { Outlet, useNavigate, useLoaderData } from "react-router-dom";
 import SidebarNav from "./components/SidebarNav/SidebarNav";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import useUserStore from "./store/userStore";
 import "./App.css";
 import baseurl from "../src/url";
 
-const socket = io("127.0.0.1:3175/");
-socket.on("connect", () => {
-  console.log(`Websocket connected id:${socket.id}`);
-});
+// const socket = io("https://round-wrench-production.up.railway.app/");
+// socket.on("connect", () => {
+//   console.log(`Websocket connected id:${socket.id}`);
+// });
 
 const App = () => {
   // here's where we can retrieve the files with questions in the future

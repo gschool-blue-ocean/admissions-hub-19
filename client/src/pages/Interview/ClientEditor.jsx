@@ -9,7 +9,7 @@ import {
 import { connect, io } from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const socket = io(`https://round-wrench-production.up.railway.app/`);
+const socket = io("https://round-wrench-production.up.railway.app/");
 
 // set the height for the editor here
 const editorHeight = "800px";
