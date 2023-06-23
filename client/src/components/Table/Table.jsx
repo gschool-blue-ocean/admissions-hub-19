@@ -1,5 +1,6 @@
 import * as React from "react";
 import useUserStore from "../../store/userStore";
+import url from "../../url";
 import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
@@ -49,7 +50,7 @@ export default function Table() {
   const setStudentId = useUserStore((state) => state.setStudentId);
 
   React.useEffect(() => {
-    fetch("http://localhost:3000/students")
+    fetch(`${url}/students`)
       .then((res) => res.json())
       .then((data) => {
         setRows(data);
