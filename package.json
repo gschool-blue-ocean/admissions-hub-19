@@ -8,10 +8,8 @@
     "ci": "npm run lint && npm run test",
     "test:client": "npm run test --prefix=client",
     "test:api": "npm run test --prefix=api",
-    "build": "npm run build --prefix=client",
-    "start": "concurrently \"npm:start:*\"",
-    "start:client": "npm start --prefix=client",
-    "start:api": "npm start --prefix=api"
+    "build": "npx run build --prefix=client",
+    "start": "npm start --prefix=api"
   },
   "devDependencies": {
     "concurrently": "^7.1.0",
