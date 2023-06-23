@@ -45,6 +45,6 @@ io.on("connection", (socket) => {
 });
 
 // will need to set this via docker compose and env file
-server.listen(port, () => {
-  console.log(`socket server listening on 127.0.0.1:${port}`);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`socket server listening on 0.0.0.0:${port}`);
 });
